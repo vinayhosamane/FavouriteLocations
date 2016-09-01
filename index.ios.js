@@ -147,7 +147,7 @@ if(name == 'Login_Screen_Clicked')
     //   var errorMessage = error.message;
     //   // ...
     // });
-    firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error,Authenticate) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -176,6 +176,18 @@ if(name == 'Login_Screen_Clicked')
  //   })
  // }
   });
+
+  // if()
+  // {
+  //   console.log("Login successful");
+  //     this.props.navigator.push({
+  //       component: Second,
+  //       passProps: {
+  //         name: name
+  //       },
+  //       type: type
+  //     })
+  // }
 }
 
 
@@ -607,13 +619,35 @@ class CreateAccountScreen extends React.Component{
   constructor(props) {
     super(props)
   console.log(this.props);
-  this.state = { name: 'MaxTech Login-->' }
+  this.state = {
+    name: 'MaxTech Login-->',
+    newUsername:'',
+    newPassword:''
+   }
 }
 
   _handleLogoutPress(event) {
   console.log('Logout Pressed!');
 
  this.props.navigator.pop();
+  }
+
+  _handleCreateAccountButtonAction(event) {
+  console.log('Create account button pressed!');
+
+  username = this.state.newUsername;
+  password = this.state.newPassword;
+
+  console.log(username);
+  console.log(password);
+
+  firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
+   // Handle Errors here.
+   var errorCode = error.code;
+   var errorMessage = error.message;
+   // ...
+ });
+
   }
 
 _navigate(name, type='Normal') {
@@ -638,10 +672,88 @@ _navigate(name, type='Normal') {
              </Button>
              </View>
              <View style={styles.quarterHeight1_Second_2}>
+
+          <Text style={styles.bullsWelcome}>
+          Please Fill the Form
+          </Text>
+          <TextInput
+          ref="usr"
+          style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
+          placeholder= "Username@domain.com"
+          placeholderTextColor = '#a52a2a'
+          returnKeyType = {"next"}
+          autoFocus = {false}
+          autoCapitalize = "none"
+          autoCorrect = {false}
+          clearButtonMode = 'while-editing'
+          // onChange={(event) => this.updateText(
+          //      'onChange text: ' + event.nativeEvent.text
+          //    )}
+          onChangeText={(text) => {
+              this.setState({newUsername:text});
+            }}
+          onSubmitEditing={(event) => {
+          this.refs.psw1.focus();
+
+          }}
+          />
+
+          <TextInput
+          ref="psw1"
+          style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
+          placeholder= "Password"
+          placeholderTextColor = '#a52a2a'
+          autoCapitalize = "none"
+          autoCorrect = {false}
+          returnKeyType = {'done'}
+          secureTextEntry = {true}
+          clearButtonMode = 'while-editing'
+          // onChange={(event) => this.updateText(
+          //      'onChange text: ' + event.nativeEvent.text
+          //    )}
+          onChangeText={(text) => {
+              this.setState({newPassword:text});
+            }}
+            onSubmitEditing={(event) => {
+            this.refs.psw2.focus();
+
+            }}
+          />
+
+          <TextInput
+          ref="psw2"
+          style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
+          placeholder= "Confirm Password"
+          placeholderTextColor = '#a52a2a'
+          autoCapitalize = "none"
+          autoCorrect = {false}
+          returnKeyType = {'done'}
+          secureTextEntry = {true}
+          clearButtonMode = 'while-editing'
+          // onChange={(event) => this.updateText(
+          //      'onChange text: ' + event.nativeEvent.text
+          //    )}
+          onChangeText={(text) => {
+              this.setState({newPassword:text});
+            }}
+          />
+
+
+             <Button
+              style={{borderWidth: 0, borderColor: 'white'}}
+               //onPress={this._handleLoginPress.bind(this)}>
+               onPress={this._handleCreateAccountButtonAction.bind(this)}>
+               {"\n"}
+               {"\n"}
+               Login
+            </Button>
+
              </View>
              <View style={styles.quarterHeight2_Second_2}>
+
               </View>
           </View>
+
    );
  }
 };
