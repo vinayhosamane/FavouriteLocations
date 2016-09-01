@@ -41,13 +41,13 @@ class First extends React.Component{
   constructor(props) {
     super(props);
 
-    // var config = {
-    // apiKey: "AIzaSyAFT0VK-KEMRiaqzlP2m1qpFodP1DNqm-8",
-    // authDomain: "my-favourite-locations.firebaseapp.com",
-    // databaseURL: "https://my-favourite-locations.firebaseio.com",
-    // storageBucket: "my-favourite-locations.appspot.com",
-    // };
-    // const firebaseApp = firebase.initializeApp(config);
+    var config = {
+    apiKey: "AIzaSyAFT0VK-KEMRiaqzlP2m1qpFodP1DNqm-8",
+    authDomain: "my-favourite-locations.firebaseapp.com",
+    databaseURL: "https://my-favourite-locations.firebaseio.com",
+    storageBucket: "my-favourite-locations.appspot.com",
+    };
+    const firebaseApp = firebase.initializeApp(config);
 
   console.log(this.props);
   this.state = {
@@ -140,25 +140,102 @@ if(name == 'Login_Screen_Clicked')
 {
   if(username!='' && password!='')
   {
-    this.props.navigator.push({
-      component: Second,
-      passProps: {
-        name: name
-      },
-      type: type
-    })
-  }
-  else {
-    Alert.alert(
-           'Login Error',
-           'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.',
-           [
-             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-             {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
-           ]
-         )
-  }
+
+    // firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // ...
+    // });
+    firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+
+  console.log("Error signing in",error);
+
+ if(error)
+ {
+   Alert.alert(
+          'Login Error',
+          'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.',
+          [
+            //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+            {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
+          ]
+        )
+ }
+ // else {
+ //   console.log("Login successful");
+ //   this.props.navigator.push({
+ //     component: Second,
+ //     passProps: {
+ //       name: name
+ //     },
+ //     type: type
+ //   })
+ // }
+  });
 }
+
+
+else {
+  Alert.alert(
+         'Login Error',
+         'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.',
+         [
+           //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+           {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
+         ]
+       )
+}
+
+}
+
+  // ...
+
+    // var provider = new firebase.auth.FacebookAuthProvider();
+    // firebase.auth().signInWithPopup(provider).then(function(result) {
+    //   // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    //   var token = result.credential.accessToken;
+    //   // The signed-in user info.
+    //   var user = result.user;
+    //
+    //   console.log(token,user);
+    //   // ...
+    // }).catch(function(error) {
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   var email = error.email;
+    //   // The firebase.auth.AuthCredential type that was used.
+    //   var credential = error.credential;
+    //
+    //   console.log(error);
+    //   // ...
+    // });
+
+
+  //   this.props.navigator.push({
+  //     component: Second,
+  //     passProps: {
+  //       name: name
+  //     },
+  //     type: type
+  //   })
+  // }
+  // else {
+  //   Alert.alert(
+  //          'Login Error',
+  //          'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.',
+  //          [
+  //            //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+  //            {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
+  //          ]
+  //        )
+  // }
+// }
 
 if(name == 'Create_Account_Clicked')
 {
