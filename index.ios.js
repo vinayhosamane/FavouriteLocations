@@ -119,6 +119,14 @@ if(name == 'Login_Screen_Clicked')
               });
         console.log("Login successful" + userData);
         console.log("Login successful");
+
+        this.refs.usr.setNativeProps({text: ''});
+        this.refs.psw.setNativeProps({text: ''});
+
+        this.setState({
+                username: '',
+                password: ''
+              });
           this.props.navigator.push({
             component: Second,
             passProps: {
