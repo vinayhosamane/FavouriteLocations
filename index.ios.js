@@ -34,6 +34,14 @@ import {
   Dimensions
 } from 'react-native';
 
+var config = {
+apiKey: "AIzaSyAFT0VK-KEMRiaqzlP2m1qpFodP1DNqm-8",
+authDomain: "my-favourite-locations.firebaseapp.com",
+databaseURL: "https://my-favourite-locations.firebaseio.com",
+storageBucket: "my-favourite-locations.appspot.com",
+};
+const firebaseApp = firebase.initializeApp(config);
+ var database = firebase.database();
 // var MyFirebase = new Firebase("https://my-favourite-locations.firebaseio.com");
 
 //Class First.js
@@ -41,20 +49,13 @@ class First extends React.Component{
   constructor(props) {
     super(props);
 
-    var config = {
-    apiKey: "AIzaSyAFT0VK-KEMRiaqzlP2m1qpFodP1DNqm-8",
-    authDomain: "my-favourite-locations.firebaseapp.com",
-    databaseURL: "https://my-favourite-locations.firebaseio.com",
-    storageBucket: "my-favourite-locations.appspot.com",
-    };
-    const firebaseApp = firebase.initializeApp(config);
-
   console.log(this.props);
   this.state = {
    name: 'MaxTech Login-->',
    username:'',
    password:'',
-   loading : false
+   loading : false,
+   loggedIn : false
  };
 }
 
@@ -66,37 +67,6 @@ var password = this.state.password;
 
 console.log(username);
 console.log(password);
-
-// MyFirebase.authWithPassword
-// ({
-//   email: this.state.username,
-//   password: this.state.password
-// },
-// function(error, authData)
-// {
-//   if(error){
-//     console.log("Login Failed",error);
-//   }
-//   else {
-//     console.log("Authenticate suceed", authData);
-//   }
-// });
-
-// this.props.firebaseApp.auth().signInWithEmailAndPassword(this.state.username, this.state.password).then((userData) =>
-//       {
-//         this.setState({
-//                 loading: false
-//               });
-//         alert("Login successful" + userData);
-//       }
-//     ).catch((error) =>
-//         {
-//               this.setState({
-//                 loading: false
-//               });
-//         alert('Login Failed. Please try again');
-//     });
-
 
 this._navigate('Login_Screen_Clicked');
 // <CaptureLocationsScreen />
@@ -136,18 +106,13 @@ _navigate(name, type='Normal') {
   console.log(username);
   console.log(password);
 
+  var status = false;
+
 if(name == 'Login_Screen_Clicked')
 {
   if(username!='' && password!='')
   {
-
-    // firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
-    //   // Handle Errors here.
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    //   // ...
-    // });
-    firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error,Authenticate) {
+  var user = firebase.auth().signInWithEmailAndPassword(username, password).then(function(user){console.log("Logged in"); status = true;}).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -165,29 +130,34 @@ if(name == 'Login_Screen_Clicked')
           ]
         )
  }
- // else {
- //   console.log("Login successful");
- //   this.props.navigator.push({
- //     component: Second,
- //     passProps: {
- //       name: name
- //     },
- //     type: type
- //   })
- // }
   });
 
-  // if()
-  // {
-  //   console.log("Login successful");
-  //     this.props.navigator.push({
-  //       component: Second,
-  //       passProps: {
-  //         name: name
-  //       },
-  //       type: type
-  //     })
-  // }
+  console.log(user);
+
+  if(status == true)
+  {
+    console.log("Login successful");
+      this.props.navigator.push({
+        component: Second,
+        passProps: {
+          name: name
+        },
+        type: type
+      })
+  }
+
+//   firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     console.log(user);
+//
+//      }
+//     // User is signed in.
+//    else {
+//     // No user is signed in.
+//   }
+// });
+
+
 }
 
 
@@ -203,51 +173,6 @@ else {
 }
 
 }
-
-  // ...
-
-    // var provider = new firebase.auth.FacebookAuthProvider();
-    // firebase.auth().signInWithPopup(provider).then(function(result) {
-    //   // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    //   var token = result.credential.accessToken;
-    //   // The signed-in user info.
-    //   var user = result.user;
-    //
-    //   console.log(token,user);
-    //   // ...
-    // }).catch(function(error) {
-    //   // Handle Errors here.
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    //   // The email of the user's account used.
-    //   var email = error.email;
-    //   // The firebase.auth.AuthCredential type that was used.
-    //   var credential = error.credential;
-    //
-    //   console.log(error);
-    //   // ...
-    // });
-
-
-  //   this.props.navigator.push({
-  //     component: Second,
-  //     passProps: {
-  //       name: name
-  //     },
-  //     type: type
-  //   })
-  // }
-  // else {
-  //   Alert.alert(
-  //          'Login Error',
-  //          'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.',
-  //          [
-  //            //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-  //            {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
-  //          ]
-  //        )
-  // }
-// }
 
 if(name == 'Create_Account_Clicked')
 {
@@ -389,6 +314,13 @@ class Second extends React.Component{
 
   _handleLogoutPress(event) {
   console.log('Logout Pressed!');
+
+  firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+    console.log("successfully logged out");
+  }, function(error) {
+    // An error happened.
+  });
 
  this.props.navigator.pop();
   }
@@ -745,7 +677,7 @@ _navigate(name, type='Normal') {
                onPress={this._handleCreateAccountButtonAction.bind(this)}>
                {"\n"}
                {"\n"}
-               Login
+               Create Account
             </Button>
 
              </View>
