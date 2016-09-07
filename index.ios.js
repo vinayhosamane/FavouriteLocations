@@ -41,7 +41,8 @@ databaseURL: "https://my-favourite-locations.firebaseio.com",
 storageBucket: "my-favourite-locations.appspot.com",
 };
 const firebaseApp = firebase.initializeApp(config);
- var database = firebase.database();
+ //var database = firebase.database();
+ const itemsRef = firebase.database();
 // var MyFirebase = new Firebase("https://my-favourite-locations.firebaseio.com");
 
 //Class First.js
@@ -364,6 +365,21 @@ class Second extends React.Component{
 
   console.log(username);
   console.log(password);
+const userData = firebase.auth().currentUser;
+var userid = userData.uid;
+
+var dbRef = firebase.database().ref('testing/')
+var savedbRef = dbRef.child(userid).set({
+  testing : 'hi'
+})
+
+console.log("dbRef "+dbRef)
+console.log('savedbRef '+ savedbRef)
+  // itemsRef.push({
+  //    userid,
+  //    title: this.state.newItem,
+  //    time: new Date().getTime()
+  //  })
 
   Alert.alert(
          'Add My Location',
