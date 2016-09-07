@@ -112,7 +112,21 @@ if(name == 'Login_Screen_Clicked')
 {
   if(username!='' && password!='')
   {
-  var user = firebase.auth().signInWithEmailAndPassword(username, password).then(function(user){console.log("Logged in"); status = true;}).catch(function(error) {
+  var user = firebase.auth().signInWithEmailAndPassword(username, password).then((userData) =>
+      {
+        this.setState({
+                loggedIn: true
+              });
+        console.log("Login successful" + userData);
+        console.log("Login successful");
+          this.props.navigator.push({
+            component: Second,
+            passProps: {
+              name: name
+            },
+            type: type
+          })
+      }).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -133,18 +147,6 @@ if(name == 'Login_Screen_Clicked')
   });
 
   console.log(user);
-
-  if(status == true)
-  {
-    console.log("Login successful");
-      this.props.navigator.push({
-        component: Second,
-        passProps: {
-          name: name
-        },
-        type: type
-      })
-  }
 
 //   firebase.auth().onAuthStateChanged(function(user) {
 //   if (user) {
@@ -197,6 +199,14 @@ if(name == 'Forgot_Password_Clicked')
 }
 
 }
+
+componentWillMount() {
+    // get the current user from firebase
+    //const userData = this.props.firebaseApp.auth().currentUser;
+    this.setState({
+      loggedIn : false
+    });
+  }
 
   render() {
     return (
