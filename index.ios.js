@@ -10,6 +10,7 @@ var CalendarPicker = require('react-native-calendar-picker');
 import Icon from 'react-native-vector-icons';
 //var Firebase = require('firebase');
 import * as firebase from 'firebase';
+ import MapView from 'react-native-maps'
 
 // var First = require('First');
 // var Second = require('Second');
@@ -28,7 +29,6 @@ import {
   ListView,
   Image,
   Alert,
-  MapView,
   DatePickerIOS,
   TouchableOpacity,
   Dimensions
@@ -221,7 +221,7 @@ componentWillMount() {
     return (
       <View style={styles.container1}>
          <View style={styles.halfHeight}>
-         <Image source={{uri:"/Users/vhosb/Desktop/Personal/bulls.jpg"}}  style={styles.backgroundImageToolBar}></Image>
+         <Image source={require('./map.jpg')}  style={styles.backgroundImageToolBar}></Image>
          </View>
          <View style={styles.quarterHeight1}>
          <Text style={styles.bullsWelcome}>
@@ -483,11 +483,8 @@ _navigate(name, type='Normal') {
                      zoomEnabled={true}
                      scrollEnabled={true}
                      showsScale={true}
-                     annotations={[{latitude: 37.783366,
-                         longitude: -122.406831,
-                         title: 'Cafe Venue',
-                         subtitle: 'quick noshes'}]}
-                   />
+                   >
+                   </MapView>
              </View>
              <View style={styles.quarterHeight2_Second_2}>
              <Button
@@ -761,7 +758,7 @@ class ForgotPasswordScreen extends React.Component{
     super(props)
   console.log(this.props);
   this.state = { name: 'MaxTech Login-->',
-date: new Date()
+  emailAddress: ''
  }
 }
 
@@ -774,6 +771,21 @@ date: new Date()
   _handleProfileValidate(event) {
   console.log('Validation done!');
 
+  var email = this.state.emailAddress
+
+  firebase.auth().sendPasswordResetEmail(email).then(function() {
+    // Email sent.
+    Alert.alert(
+           'Password Reset Alert',
+           'Password Reset mail sent to '+email,
+           [
+             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+             {text: 'OK', onPress: () => this.props.navigator.pop()},
+           ]
+         )
+  }, function(error) {
+    // An error happened.
+  });
  // this.props.navigator.pop();
   }
 
@@ -803,11 +815,12 @@ onDateChange(date) {
              </Button>
              </View>
              <View style={styles.quarterHeight1_Second_2}>
-             <Text style={styles.instructions}> Enter Your Username </Text>
+             <Text style={styles.instructions}> Enter Your EmailId </Text>
+             <Text style={styles.welcome}> Please give your valid email id </Text>
              <TextInput
              ref="forgot_screen"
              style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
-             placeholder= "Enter username"
+             placeholder= "name@domain.com"
              placeholderTextColor = '#a52a2a'
              autoCapitalize = "none"
              autoCorrect = {false}
@@ -818,24 +831,15 @@ onDateChange(date) {
              //      'onChange text: ' + event.nativeEvent.text
              //    )}
              onChangeText={(text) => {
-                 //this.setState({password:text});
+                 this.setState({emailAddress:text});
                }}
              />
-           <Text style={styles.forgotScreenLabels}> Enter Your DOB </Text>
-
-           <CalendarPicker
-         selectedDate={this.state.date}
-         onDateChange={this.onDateChange.bind(this)}
-         screenWidth={Dimensions.get('window').width}
-         selectedBackgroundColor={'#5ce600'} />
-
-       <Text style={styles.selectedDate}> Date: { this.state.date.toString() } </Text>
 
              <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'center',marginTop:17 ,color:'#008b8b',fontSize: 20}}
+               style={{borderWidth: 0, borderColor: 'white',textAlign:'center',marginTop:17 ,color:'grey',fontSize: 20}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleProfileValidate.bind(this)}>
-               Validate Profile
+              Reset Password
              </Button>
 
              </View>
@@ -976,7 +980,7 @@ const styles = StyleSheet.create({
    },
    backgroundImageToolBar: {
      flex: 1,
-     marginTop:18,
+     marginTop:1,
      width: 400,
      height: 100,
      resizeMode: 'cover',

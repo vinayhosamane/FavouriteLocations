@@ -5,7 +5,7 @@
  1.Login Authentication done using OAuth provided by Google's Firebase with Email and Password.
  2.The Location captured is send to the Database in Firebase .
  3.This application is completely hosted in Cloud Platform and uses Firebase as a simple backend.
- 
+
  FrontEnd:
  1.ReactNative is used for the development.
  2.Package file contains:
@@ -28,4 +28,3 @@
     "reactfire": "^1.0.0"
   }
   }
- 
