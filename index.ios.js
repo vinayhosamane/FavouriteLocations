@@ -365,16 +365,18 @@ class Second extends React.Component{
 
   console.log(username);
   console.log(password);
-const userData = firebase.auth().currentUser;
-var userid = userData.uid;
+// const userData = firebase.auth().currentUser;
+// var userid = userData.uid;
+//
+// var dbRef = firebase.database().ref('testing/')
+// var savedbRef = dbRef.child(userid).set({
+//   testing : 'Location',
+//   latitude: this.state.position.coords.latitude,
+//   longitude: this.state.position.coords.longitude
+// })
 
-var dbRef = firebase.database().ref('testing/')
-var savedbRef = dbRef.child(userid).set({
-  testing : 'hi'
-})
-
-console.log("dbRef "+dbRef)
-console.log('savedbRef '+ savedbRef)
+// console.log("dbRef "+dbRef)
+// console.log('savedbRef '+ savedbRef)
   // itemsRef.push({
   //    userid,
   //    title: this.state.newItem,
@@ -386,7 +388,19 @@ console.log('savedbRef '+ savedbRef)
          'Are you sure you want to add this to your Favourite locations list?.',
          [
            {text: 'No', onPress: () => console.log('Cancel Pressed!')},
-           {text: 'Yes', onPress: () => console.log('OK Pressed!')},
+           {text: 'Yes', onPress: () =>{console.log('OK Pressed!');
+           const userData = firebase.auth().currentUser;
+           var userid = userData.uid;
+
+           var dbRef = firebase.database().ref('testing/')
+           var savedbRef = dbRef.child(userid).push({
+             Description : 'Apple Roadway around the city',
+             latitude: this.state.position.coords.latitude,
+             longitude: this.state.position.coords.longitude
+           })
+           console.log("dbRef "+dbRef)
+           console.log('savedbRef '+ savedbRef)}
+         },
          ]
        )
   //this._navigate('Capture_Locations_Clicked');
@@ -607,7 +621,19 @@ class CreateAccountScreen extends React.Component{
   console.log(username);
   console.log(password);
 
-  firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
+  firebase.auth().createUserWithEmailAndPassword(username, password).then((userData) =>
+      {
+      console.log("Account successfully created");
+      Alert.alert(
+             'Signup Alert',
+             'Your account created successfully.',
+             [
+               //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+               {text: 'OK', onPress: () => this.props.navigator.pop()},
+             ]
+           )
+
+      }).catch(function(error) {
    // Handle Errors here.
    var errorCode = error.code;
    var errorMessage = error.message;
