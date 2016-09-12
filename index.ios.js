@@ -295,6 +295,7 @@ componentWillMount() {
                   {"\n"}
                   <Text style ={{color:'white',fontWeight:'normal',backgroundColor: '#FF3366'}}> Powered by Bulls.Inc </Text>
                   </Text>
+
          </View>
       </View>
     );
@@ -394,7 +395,7 @@ class Second extends React.Component{
 
            var dbRef = firebase.database().ref('testing/')
            var savedbRef = dbRef.child(userid).push({
-             Description : 'Apple Roadway around the city',
+             Description : 'My Home',
              latitude: this.state.position.coords.latitude,
              longitude: this.state.position.coords.longitude
            })
@@ -882,12 +883,21 @@ const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
   this.state = {
     name: 'MaxTech Login-->',
-   dataSource: ds.cloneWithRows(['Location 1', 'Location2'])
+    dataArray:[],
+   dataSource: ds.cloneWithRows([{'Description':'My Home','latitude':'-12','longitude':'-122'},{'Description':'My Home','latitude':'-12','longitude':'-122'}])
  };
 }
 
   _handleLogoutPress(event) {
   console.log('Logout Pressed!');
+
+//   itemsRef.on("value", function(snapshot) {
+//   console.log(snapshot.val());
+//
+//
+// }, function (errorObject) {
+//   console.log("The read failed: " + errorObject.code);
+// });
 
  this.props.navigator.pop();
   }
@@ -902,6 +912,46 @@ _navigate(name, type='Normal') {
   })
 }
 
+ componentWillMount()
+ {
+   const userData = firebase.auth().currentUser;
+    var userid = userData.uid;
+
+    var newArray = []
+
+
+   var itemsRef = firebaseApp.database().ref('testing/'+userid);
+
+   itemsRef.orderByChild(userid).on("child_added", function(snapshot) {
+   console.log(snapshot.val());
+
+   var data = snapshot.val()
+
+   newArray.push(data)
+
+
+     console.log(data.Description);
+     console.log(data.latitude);
+     console.log(data.longitude);
+
+    //  LocationDescription1.push(data.Description)
+    //  LatitudeValue1.push(data.latitude)
+    //  LongitudeValue1.push(data.longitude)
+    //
+    //  console.log(this.LocationDescription);
+    //  console.log(this.LatitudeValue);
+    //  console.log(this.LongitudeValue);
+
+ });
+
+ this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(newArray),
+        });
+
+
+
+ }
+
  render() {
    return (
           <View style={styles.container_Second_2}>
@@ -913,14 +963,15 @@ _navigate(name, type='Normal') {
                Back
              </Button>
              </View>
-             <View style={styles.quarterHeight1_Second_2}>
+             <View style={styles.quarterHeight1_Second_3}>
              <ListView
                dataSource={this.state.dataSource}
-               renderRow={(data) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20}}>{data}</Text></View>}
+               renderRow={(data) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{data.Description}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'red'}}>Latitude : {data.latitude}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Longitude : {data.longitude}</Text></View>}
+               renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
              />
              </View>
-             <View style={styles.quarterHeight2_Second_2}>
-              </View>
           </View>
    );
  }
@@ -1040,6 +1091,10 @@ container_Second_2: {
      flex: .21,
      backgroundColor: '#CCC'
  },
+ quarterHeight1_Second_3: {
+     flex: .93,
+     backgroundColor: '#fffaf0'
+ },
  forgotScreenLabels: {
    textAlign: 'center',
    marginTop:15,
@@ -1050,7 +1105,13 @@ container_Second_2: {
  selectedDate: {
     backgroundColor: 'rgba(0,0,0,0)',
     color: '#000',
-  }
+  },
+  separator: {
+   flex: 1,
+   height: 4,
+   backgroundColor: '#8E8E8E',
+   marginTop:10,
+ },
 });
 
 AppRegistry.registerComponent('FavouriteLocations', () => FavouriteLocations);
