@@ -146,7 +146,7 @@ if(name == 'Login_Screen_Clicked')
  {
    Alert.alert(
           'Login Error',
-          'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.',
+          errorMessage,
           [
             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
             {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
@@ -270,7 +270,7 @@ componentWillMount() {
          </View>
 
 
-         <View style={[styles.quarterHeight2, {backgroundColor: '#CCC'}]} >
+         <View style={[styles.quarterHeight2, {backgroundColor: '#fffaf0'}]} >
 
                   <Button
                     style={{borderWidth: 0, borderColor: 'white'}}
@@ -634,6 +634,14 @@ class CreateAccountScreen extends React.Component{
    // Handle Errors here.
    var errorCode = error.code;
    var errorMessage = error.message;
+   Alert.alert(
+          'Signup Error',
+          errorMessage,
+          [
+            //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+            {text: 'OK', onPress: () => console.log('Enter valid password')},
+          ]
+        )
    // ...
  });
 
@@ -785,6 +793,16 @@ class ForgotPasswordScreen extends React.Component{
          )
   }, function(error) {
     // An error happened.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    Alert.alert(
+           'Password Reset Error',
+           errorMessage,
+           [
+             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+             {text: 'OK', onPress: () => console.log('Password reset error')},
+           ]
+         )
   });
  // this.props.navigator.pop();
   }
@@ -859,7 +877,13 @@ class FavouriteLocationsFromHomeScreen extends React.Component{
   constructor(props) {
     super(props)
   console.log(this.props);
-  this.state = { name: 'MaxTech Login-->' }
+
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+  this.state = {
+    name: 'MaxTech Login-->',
+   dataSource: ds.cloneWithRows(['Location 1', 'Location2'])
+ };
 }
 
   _handleLogoutPress(event) {
@@ -890,6 +914,10 @@ _navigate(name, type='Normal') {
              </Button>
              </View>
              <View style={styles.quarterHeight1_Second_2}>
+             <ListView
+               dataSource={this.state.dataSource}
+               renderRow={(data) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20}}>{data}</Text></View>}
+             />
              </View>
              <View style={styles.quarterHeight2_Second_2}>
               </View>
@@ -981,7 +1009,7 @@ const styles = StyleSheet.create({
    backgroundImageToolBar: {
      flex: 1,
      marginTop:1,
-     width: 400,
+     width: 420,
      height: 100,
      resizeMode: 'cover',
    alignItems: 'center'
