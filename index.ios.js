@@ -11,6 +11,10 @@ import Icon from 'react-native-vector-icons';
 //var Firebase = require('firebase');
 import * as firebase from 'firebase';
  import MapView from 'react-native-maps'
+//import Geocoder from 'react-native-geocoding';
+//import geocoding from 'reverse-geocoding';
+//import geocoding from 'reverse-geocoding';
+import Geocoder from 'react-native-geocoder';
 
 // var First = require('First');
 // var Second = require('Second');
@@ -313,6 +317,7 @@ class Second extends React.Component{
   console.log(this.props);
   this.state = {
     name: 'MaxTech Login-->' ,
+    MyAddress: 'Bangalore',
     // region:{
     //         latitude: 4.21048,
     //         longitude: 101.97577,
@@ -366,23 +371,6 @@ class Second extends React.Component{
 
   console.log(username);
   console.log(password);
-// const userData = firebase.auth().currentUser;
-// var userid = userData.uid;
-//
-// var dbRef = firebase.database().ref('testing/')
-// var savedbRef = dbRef.child(userid).set({
-//   testing : 'Location',
-//   latitude: this.state.position.coords.latitude,
-//   longitude: this.state.position.coords.longitude
-// })
-
-// console.log("dbRef "+dbRef)
-// console.log('savedbRef '+ savedbRef)
-  // itemsRef.push({
-  //    userid,
-  //    title: this.state.newItem,
-  //    time: new Date().getTime()
-  //  })
 
   Alert.alert(
          'Add My Location',
@@ -393,9 +381,42 @@ class Second extends React.Component{
            const userData = firebase.auth().currentUser;
            var userid = userData.uid;
 
-           var dbRef = firebase.database().ref('testing/')
+           var myAddress = ''
+
+           var NY = {
+                  lat: this.state.position.coords.latitude,
+                  lng: this.state.position.coords.longitude
+                    };
+
+                    Geocoder.fallbackToGoogle('AIzaSyCG887OvNRiQxuUoh3UYkKzxjcosHH1lRY');
+//{lat:12.985065,lng: 77.560499}
+// use the lib as usual
+let ret = Geocoder.geocodePosition(NY).then((res)=>
+{
+  console.log(res)
+  myAddress = res["0"].formattedAddress
+  console.log(myAddress);
+  this.setState({
+          MyAddress: myAddress
+        });
+})
+ console.log(this.state.MyAddress);
+    //Geocoder.setApiKey('AIzaSyCG887OvNRiQxuUoh3UYkKzxjcosHH1lRY'); // use a valid API key
+
+// Geocoder.getFromLocation("Bangalore").then(
+//       json => {
+//         var location = json.results[0].geometry.location;
+//         alert(location.lat + ", " + location.lng);
+//       },
+//       error => {
+//         alert(error);
+//       }
+//     );
+
+   var dbRef = firebase.database().ref('testing/')
            var savedbRef = dbRef.child(userid).push({
              Description : 'My Home',
+             Address: this.state.MyAddress,
              latitude: this.state.position.coords.latitude,
              longitude: this.state.position.coords.longitude
            })
@@ -477,9 +498,9 @@ _navigate(name, type='Normal') {
                      //region={this.state.region}
                      region={{
                             latitude: this.state.position.coords.latitude,
-                            latitudeDelta: 0.001,
+                            latitudeDelta: 0.009,
                             longitude: this.state.position.coords.longitude,
-                            longitudeDelta: 0.001,
+                            longitudeDelta: 0.009,
                              }}
                      zoomEnabled={true}
                      scrollEnabled={true}
@@ -818,7 +839,7 @@ class ForgotPasswordScreen extends React.Component{
            'Password Reset mail sent to '+email,
            [
              //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-             {text: 'OK', onPress: () => this.props.navigator.pop()},
+             {text: 'OK', onPress: () => console.log('OK Pressed!')/*this.props.navigator.pop()*/},
            ]
          )
   }, function(error) {
@@ -964,14 +985,14 @@ _navigate(name, type='Normal') {
  },
   function (errorObject) {
     console.log("The read failed: " + errorObject.code);
-    Alert.alert(
-           'Data Fetch Error',
-           errorObject.message,
-           [
-             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-             {text: 'OK', onPress: () => itemsRef.off()},
-           ]
-         )
+    // Alert.alert(
+    //        'Data Fetch Error',
+    //        errorObject.message,
+    //        [
+    //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+    //          {text: 'OK', onPress: () => itemsRef.off()},
+    //        ]
+    //      )
   });
 
  this.setState({
@@ -996,7 +1017,8 @@ _navigate(name, type='Normal') {
                dataSource={this.state.dataSource}
                renderRow={(data) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{data.Description}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'red'}}>Latitude : {data.latitude}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Longitude : {data.longitude}</Text></View>}
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Longitude : {data.longitude}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Address : {data.Address}</Text></View>}
                renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
              />
              </View>
