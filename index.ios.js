@@ -15,6 +15,7 @@ import * as firebase from 'firebase';
 //import geocoding from 'reverse-geocoding';
 //import geocoding from 'reverse-geocoding';
 import Geocoder from 'react-native-geocoder';
+import Share from 'react-native-share';
 
 // var First = require('First');
 // var Second = require('Second');
@@ -987,6 +988,7 @@ const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
     name: 'MaxTech Login-->',
     dataArray:[],
+     visible: false,
    dataSource: ds.cloneWithRows([{'Description':'My Home','latitude':'-12','longitude':'-122'},{'Description':'My Home','latitude':'-12','longitude':'-122'}])
  };
 }
@@ -1054,6 +1056,15 @@ _navigate(name, type='Normal') {
 
  }
 
+   onCancel() {
+   console.log("CANCEL")
+   this.setState({visible:false});
+ }
+ onOpen() {
+   console.log("OPEN")
+   this.setState({visible:true});
+ }
+
 //  componentWillReceiveProps(nextProps) {
 //    this.setState({
 //               dataSource: this.state.dataSource.cloneWithRows(newArray),
@@ -1061,6 +1072,14 @@ _navigate(name, type='Normal') {
 // }
 
  render() {
+
+   let shareOptions = {
+       title: "React Native",
+       message: "Hola mundo",
+       url: "http://facebook.github.io/react-native/",
+       subject: "Share Link" //  for email
+     };
+
    return (
           <View style={styles.container_Second_2}>
              <View style={styles.halfHeight_Second_2}>
@@ -1078,7 +1097,16 @@ _navigate(name, type='Normal') {
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Placemark : {data.Placemark}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {data.latitude}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {data.longitude}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {data.Address}</Text></View>}
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {data.Address}</Text>
+               <TouchableOpacity onPress={()=>{
+                      Share.open(shareOptions);
+                 }}>
+                      <View style={styles.instructionsShare}>
+                      <Image source={require('./share-button.jpg')}  style={styles.backgroundImageShare}></Image>
+                      </View>
+                </TouchableOpacity>
+
+               </View>}
                renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
              />
              </View>
@@ -1228,6 +1256,17 @@ container_Second_2: {
    backgroundColor: '#8E8E8E',
    marginTop:10,
  },
+ instructionsShare: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  backgroundImageShare: {
+    marginTop:1,
+    width: 100,
+    height: 40,
+  marginRight: 10,
+  alignItems: 'flex-end'
+},
 });
 
 AppRegistry.registerComponent('FavouriteLocations', () => FavouriteLocations);

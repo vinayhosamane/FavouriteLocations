@@ -34,6 +34,9 @@
 		B374B74BF4A24A7A9BA9DEC5 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F417FD1071114AFDB4ADD22B /* MaterialIcons.ttf */; };
 		C99C5B3E13004DA3842C5FE3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24E1A4EB42F8415082FC781E /* Octicons.ttf */; };
 		D4BE89EB1D89949300EDD643 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE89EA1D89904100EDD643 /* libRNGeocoder.a */; };
+		D4BE8A191D8C210F00EDD643 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A171D8C20F800EDD643 /* libRNShare.a */; };
+		D4BE8A1B1D8C214300EDD643 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A1A1D8C214300EDD643 /* Social.framework */; };
+		D4BE8A1D1D8C214A00EDD643 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A1C1D8C214A00EDD643 /* MessageUI.framework */; };
 		D4FEDD361D759635004629E9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D4FEDD351D759635004629E9 /* main.jsbundle */; };
 		E96DA4D5A469476CB91367E6 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBE00F3EC6D142718D8E30EA /* Foundation.ttf */; };
 /* End PBXBuildFile section */
@@ -123,6 +126,13 @@
 			remoteGlobalIDString = BF8FCF941BFFB184000FCD37;
 			remoteInfo = RNGeocoder;
 		};
+		D4BE8A161D8C20F800EDD643 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNShare;
+		};
 		D4EADB531D73479600397E1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */;
@@ -184,6 +194,9 @@
 		C4260D68BB464579941EA2D5 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CalendarPicker2.xcodeproj; path = "../node_modules/react-native-calendar-picker/ios/CalendarPicker2.xcodeproj"; sourceTree = "<group>"; };
 		D4BE89E51D89904100EDD643 /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
+		D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
+		D4BE8A1A1D8C214300EDD643 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		D4BE8A1C1D8C214A00EDD643 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D4FEDD351D759635004629E9 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../main.jsbundle; sourceTree = "<group>"; };
 		D63F69B4F7124E0DB7ED7344 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		EAC21446B23947A0A083CFD5 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -205,6 +218,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4BE8A1D1D8C214A00EDD643 /* MessageUI.framework in Frameworks */,
+				D4BE8A1B1D8C214300EDD643 /* Social.framework in Frameworks */,
+				D4BE8A191D8C210F00EDD643 /* libRNShare.a in Frameworks */,
 				D4BE89EB1D89949300EDD643 /* libRNGeocoder.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -359,6 +375,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D4BE8A1C1D8C214A00EDD643 /* MessageUI.framework */,
+				D4BE8A1A1D8C214300EDD643 /* Social.framework */,
+				D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */,
 				D4FEDD351D759635004629E9 /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* FavouriteLocations */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -398,6 +417,14 @@
 			isa = PBXGroup;
 			children = (
 				D4BE89EA1D89904100EDD643 /* libRNGeocoder.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4BE8A051D8C20F800EDD643 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4BE8A171D8C20F800EDD643 /* libRNShare.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -546,6 +573,10 @@
 					ProjectRef = D4BE89E51D89904100EDD643 /* RNGeocoder.xcodeproj */;
 				},
 				{
+					ProductGroup = D4BE8A051D8C20F800EDD643 /* Products */;
+					ProjectRef = D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */;
+				},
+				{
 					ProductGroup = D4EADB661D73479600397E1D /* Products */;
 					ProjectRef = 75D61BC6971B445BBB6CD269 /* RNVectorIcons.xcodeproj */;
 				},
@@ -634,6 +665,13 @@
 			fileType = archive.ar;
 			path = libRNGeocoder.a;
 			remoteRef = D4BE89E91D89904100EDD643 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D4BE8A171D8C20F800EDD643 /* libRNShare.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNShare.a;
+			remoteRef = D4BE8A161D8C20F800EDD643 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D4EADB541D73479600397E1D /* CalendarPicker2.app */ = {
