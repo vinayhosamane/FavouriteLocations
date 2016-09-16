@@ -318,6 +318,8 @@ class Second extends React.Component{
   this.state = {
     name: 'MaxTech Login-->' ,
     MyAddress: 'Bangalore',
+    usr_descrption: '',
+    usr_placemark: '',
     // region:{
     //         latitude: 4.21048,
     //         longitude: 101.97577,
@@ -377,7 +379,9 @@ class Second extends React.Component{
          'Are you sure you want to add this to your Favourite locations list?.',
          [
            {text: 'No', onPress: () => console.log('Cancel Pressed!')},
-           {text: 'Yes', onPress: () =>{console.log('OK Pressed!');
+           {text: 'Yes', onPress: () =>
+           {
+             console.log('OK Pressed!');
            const userData = firebase.auth().currentUser;
            var userid = userData.uid;
 
@@ -388,46 +392,53 @@ class Second extends React.Component{
                   lng: this.state.position.coords.longitude
                     };
 
-                    Geocoder.fallbackToGoogle('AIzaSyCG887OvNRiQxuUoh3UYkKzxjcosHH1lRY');
+          Geocoder.fallbackToGoogle('AIzaSyCG887OvNRiQxuUoh3UYkKzxjcosHH1lRY');
 //{lat:12.985065,lng: 77.560499}
 // use the lib as usual
-let ret = Geocoder.geocodePosition(NY).then((res)=>
-{
-  console.log(res)
-  myAddress = res["0"].formattedAddress
-  console.log(myAddress);
-  this.setState({
-          MyAddress: myAddress
-        });
-})
- console.log(this.state.MyAddress);
-    //Geocoder.setApiKey('AIzaSyCG887OvNRiQxuUoh3UYkKzxjcosHH1lRY'); // use a valid API key
+          let ret = Geocoder.geocodePosition(NY).then((res)=>
+          {
+             console.log(res)
+             myAddress = res["0"].formattedAddress
+             console.log(myAddress);
+             this.setState({
+            MyAddress: myAddress
+           },function()
+            {
+             console.log(this.state.MyAddress);
+             console.log('I am inside callback');
+             });
+             var dbRef = firebase.database().ref('testing/')
+             var savedbRef = dbRef.child(userid).push({
+               Description : this.state.usr_descrption,
+               Placemark : this.state.usr_placemark,
+               Address: this.state.MyAddress,
+               latitude: this.state.position.coords.latitude,
+               longitude: this.state.position.coords.longitude
+              })
+              console.log("dbRef "+dbRef)
+              console.log('savedbRef '+ savedbRef)
+          })
+        }
 
-// Geocoder.getFromLocation("Bangalore").then(
-//       json => {
-//         var location = json.results[0].geometry.location;
-//         alert(location.lat + ", " + location.lng);
-//       },
-//       error => {
-//         alert(error);
-//       }
-//     );
-
-   var dbRef = firebase.database().ref('testing/')
-           var savedbRef = dbRef.child(userid).push({
-             Description : 'My Home',
-             Address: this.state.MyAddress,
-             latitude: this.state.position.coords.latitude,
-             longitude: this.state.position.coords.longitude
-           })
-           console.log("dbRef "+dbRef)
-           console.log('savedbRef '+ savedbRef)}
          },
          ]
        )
   //this._navigate('Capture_Locations_Clicked');
   // <CaptureLocationsScreen />
   }
+
+  // _saveDataToFirebase()
+  // {
+  //   var dbRef = firebase.database().ref('testing/')
+  //           var savedbRef = dbRef.child(userid).push({
+  //             Description : 'My Home',
+  //             Address: this.state.MyAddress,
+  //             latitude: this.state.position.coords.latitude,
+  //             longitude: this.state.position.coords.longitude
+  //           })
+  //           console.log("dbRef "+dbRef)
+  //           console.log('savedbRef '+ savedbRef)
+  // }
 
   _handleHowToUseAction(event) {
   console.log('Pressed!');
@@ -509,26 +520,68 @@ _navigate(name, type='Normal') {
                    </MapView>
              </View>
              <View style={styles.quarterHeight2_Second_2}>
+             <TextInput
+             ref="description"
+             style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
+             placeholder= "Please describe location EX.My Home,Best Gobi Manchuri"
+             placeholderTextColor = '#a52a2a'
+             returnKeyType = {"next"}
+             autoFocus = {false}
+             autoCapitalize = "none"
+             autoCorrect = {false}
+             clearButtonMode = 'while-editing'
+             // onChange={(event) => this.updateText(
+             //      'onChange text: ' + event.nativeEvent.text
+             //    )}
+             onChangeText={(text) => {
+                 this.setState({usr_descrption:text});
+               }}
+             onSubmitEditing={(event) => {
+            //this.refs.psw.focus();
+
+             }}
+             />
+             <TextInput
+             ref="placemark"
+             style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
+             placeholder= "Please give Placemark Ex.Near Vijaya Bank,Behind Bus Stand"
+             placeholderTextColor = '#a52a2a'
+             returnKeyType = {"next"}
+             autoFocus = {false}
+             autoCapitalize = "none"
+             autoCorrect = {false}
+             clearButtonMode = 'while-editing'
+             // onChange={(event) => this.updateText(
+             //      'onChange text: ' + event.nativeEvent.text
+             //    )}
+             onChangeText={(text) => {
+                 this.setState({usr_placemark:text});
+               }}
+             onSubmitEditing={(event) => {
+            //this.refs.psw.focus();
+
+             }}
+             />
              <Button
                //style={{borderWidth: 0, borderColor: 'white',marginTop:20,color:'#1e90ff',fontSize: 25}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleCaptureLocationAction.bind(this)}>
                  {"\n"}
-               Capture Location 📌
+               Capture Location
              </Button>
              <Button
                //style={{borderWidth: 0, borderColor: 'white',color:'#1e90ff',fontSize: 25,marginTop:25}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleFavouriteLocationsAction.bind(this)}>
                  {"\n"}
-               Favourite Locations 🔍
+               Favourite Locations
              </Button>
              <Button
               //  style={{borderWidth: 0, borderColor: 'white',color:'#1e90ff',fontSize: 25,marginTop:25}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleHowToUseAction.bind(this)}>
                  {"\n"}
-               About App ♻️
+               About App
              </Button>
 
               </View>
@@ -1001,6 +1054,12 @@ _navigate(name, type='Normal') {
 
  }
 
+//  componentWillReceiveProps(nextProps) {
+//    this.setState({
+//               dataSource: this.state.dataSource.cloneWithRows(newArray),
+//           });
+// }
+
  render() {
    return (
           <View style={styles.container_Second_2}>
@@ -1016,6 +1075,7 @@ _navigate(name, type='Normal') {
              <ListView
                dataSource={this.state.dataSource}
                renderRow={(data) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{data.Description}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'red'}}>Placemark : {data.Placemark}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'red'}}>Latitude : {data.latitude}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Longitude : {data.longitude}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Address : {data.Address}</Text></View>}
@@ -1140,11 +1200,11 @@ container_Second_2: {
      backgroundColor: '#FF3366'
  },
  quarterHeight1_Second_2: {
-     flex: .72,
+     flex: .52,
      backgroundColor: '#fffaf0'
  },
  quarterHeight2_Second_2: {
-     flex: .21,
+     flex: .41,
      backgroundColor: '#CCC'
  },
  quarterHeight1_Second_3: {
