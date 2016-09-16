@@ -524,7 +524,7 @@ _navigate(name, type='Normal') {
              ref="description"
              style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
              placeholder= "Please describe location EX.My Home,Best Gobi Manchuri"
-             placeholderTextColor = '#a52a2a'
+             placeholderTextColor = 'black'
              returnKeyType = {"next"}
              autoFocus = {false}
              autoCapitalize = "none"
@@ -545,7 +545,7 @@ _navigate(name, type='Normal') {
              ref="placemark"
              style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
              placeholder= "Please give Placemark Ex.Near Vijaya Bank,Behind Bus Stand"
-             placeholderTextColor = '#a52a2a'
+             placeholderTextColor = 'black'
              returnKeyType = {"next"}
              autoFocus = {false}
              autoCapitalize = "none"
@@ -1075,10 +1075,10 @@ _navigate(name, type='Normal') {
              <ListView
                dataSource={this.state.dataSource}
                renderRow={(data) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{data.Description}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'red'}}>Placemark : {data.Placemark}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'red'}}>Latitude : {data.latitude}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Longitude : {data.longitude}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'green'}}>Address : {data.Address}</Text></View>}
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Placemark : {data.Placemark}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {data.latitude}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {data.longitude}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {data.Address}</Text></View>}
                renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
              />
              </View>
