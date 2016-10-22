@@ -34,7 +34,6 @@
 		8CF0933290494A3FA4A44B45 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C29D58202814BECA898BEE3 /* libRNSpinkit.a */; };
 		B374B74BF4A24A7A9BA9DEC5 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F417FD1071114AFDB4ADD22B /* MaterialIcons.ttf */; };
 		C99C5B3E13004DA3842C5FE3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24E1A4EB42F8415082FC781E /* Octicons.ttf */; };
-		D444251E1DBBF2130073442B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D444251D1DBBF2130073442B /* GoogleMobileAds.framework */; };
 		D4BE89EB1D89949300EDD643 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE89EA1D89904100EDD643 /* libRNGeocoder.a */; };
 		D4BE8A191D8C210F00EDD643 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A171D8C20F800EDD643 /* libRNShare.a */; };
 		D4BE8A1B1D8C214300EDD643 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A1A1D8C214300EDD643 /* Social.framework */; };
@@ -204,7 +203,6 @@
 		B76DC4F1627A40E0A44A3D55 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		C4260D68BB464579941EA2D5 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CalendarPicker2.xcodeproj; path = "../node_modules/react-native-calendar-picker/ios/CalendarPicker2.xcodeproj"; sourceTree = "<group>"; };
-		D444251D1DBBF2130073442B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		D4BE89E51D89904100EDD643 /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
 		D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		D4BE8A1A1D8C214300EDD643 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -230,7 +228,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D444251E1DBBF2130073442B /* GoogleMobileAds.framework in Frameworks */,
 				D4BE8A1D1D8C214A00EDD643 /* MessageUI.framework in Frameworks */,
 				D4BE8A1B1D8C214300EDD643 /* Social.framework in Frameworks */,
 				D4BE8A191D8C210F00EDD643 /* libRNShare.a in Frameworks */,
@@ -390,7 +387,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				D444251D1DBBF2130073442B /* GoogleMobileAds.framework */,
 				D4BE8A1C1D8C214A00EDD643 /* MessageUI.framework */,
 				D4BE8A1A1D8C214300EDD643 /* Social.framework */,
 				D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */,
