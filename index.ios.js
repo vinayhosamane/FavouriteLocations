@@ -16,6 +16,7 @@ import * as firebase from 'firebase';
 //import geocoding from 'reverse-geocoding';
 import Geocoder from 'react-native-geocoder';
 import Share from 'react-native-share';
+import Spinner from 'react-native-spinkit';
 
 // var First = require('First');
 // var Second = require('Second');
@@ -30,7 +31,7 @@ import {
   TouchableHighlight,
   Navigator,
   NavigatorIOS,
-  ActivityIndicatorIOS,
+  ActivityIndicator,
   ListView,
   Image,
   Alert,
@@ -61,7 +62,12 @@ class First extends React.Component{
    username:'',
    password:'',
    loading : false,
-   loggedIn : false
+   loggedIn : false,
+   index: 0,
+   types: ['CircleFlip', 'Bounce', 'Wave', 'WanderingCubes', 'Pulse', 'ChasingDots', 'ThreeBounce', 'Circle', '9CubeGrid', 'WordPress', 'FadingCircle', 'FadingCircleAlt', 'Arc', 'ArcAlt'],
+   size: 100,
+   color: "#FFFFFF",
+   isVisible: false
  };
 }
 
@@ -91,6 +97,11 @@ this._navigate('Create_Account_Clicked');
 // <CaptureLocationsScreen />
 }
 
+_setLoading()
+{
+      this.setState({isVisible: false});
+}
+
 _handleForgotPassword(event) {
 console.log('Pressed!');
 
@@ -116,6 +127,8 @@ _navigate(name, type='Normal') {
 
 if(name == 'Login_Screen_Clicked')
 {
+    console.disableYellowbox = true;
+     this.setState({isVisible: true});
   if(username!='' && password!='')
   {
   var user = firebase.auth().signInWithEmailAndPassword(username, password).then((userData) =>
@@ -123,6 +136,7 @@ if(name == 'Login_Screen_Clicked')
         this.setState({
                 loggedIn: true
               });
+        this.setState({isVisible: false});
         console.log("Login successful" + userData);
         console.log("Login successful");
 
@@ -140,12 +154,14 @@ if(name == 'Login_Screen_Clicked')
             },
             type: type
           })
-      }).catch(function(error) {
+      }).catch((error)=> {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
 
   console.log("Error signing in",error);
+
+  this.setState({isVisible: false});
 
  if(error)
  {
@@ -154,13 +170,15 @@ if(name == 'Login_Screen_Clicked')
           errorMessage,
           [
             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-            {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
+            {text: 'Thank you!', onPress: () => console.log('OK Pressed!')}
           ]
         )
  }
   });
 
   console.log(user);
+
+  //this.setState({isVisible: false});
 
 //   firebase.auth().onAuthStateChanged(function(user) {
 //   if (user) {
@@ -222,6 +240,22 @@ componentWillMount() {
     });
   }
 
+  // renderLoadingView() {
+  //     return (
+  //         <View style={styles.loading}>
+  //         <ActivityIndicator
+  //           animating={this.state.isVisible}
+  //           style={[styles.centering, {height: 20},{marginTop:5}]}
+  //           size="small"
+  //           color="red"
+  //         />
+  //             <Text>
+  //                 Loading books...
+  //             </Text>
+  //         </View>
+  //     );
+  // }
+
   render() {
     return (
       <View style={styles.container1}>
@@ -276,9 +310,8 @@ componentWillMount() {
 
 
          <View style={[styles.quarterHeight2, {backgroundColor: '#fffaf0'}]} >
-
                   <Button
-                    style={{borderWidth: 0, borderColor: 'white'}}
+                    style={{borderWidth: 0, borderColor: 'white' }}
                     //onPress={this._handleLoginPress.bind(this)}>
                     onPress={this._handleLoginPress.bind(this)}>
                     {"\n"}
@@ -294,6 +327,12 @@ componentWillMount() {
                     onPress={this._handleCreateAccount.bind(this)}>
                     Create Account!
                   </Button>
+                  <ActivityIndicator
+                 animating={this.state.isVisible}
+                 style={[styles.centering, {height: 20},{marginTop:5}]}
+                 size="large"
+                 color="red"
+               />
 
                   <Text style={styles.instructions}>
                   For any help please contact Vinay Hosamane K N @ <Text style={{color:'white'}}> vinayhosamane07@gmail.com </Text>
@@ -321,6 +360,7 @@ class Second extends React.Component{
     MyAddress: 'Bangalore',
     usr_descrption: '',
     usr_placemark: '',
+    isVisible: false,
     // region:{
     //         latitude: 4.21048,
     //         longitude: 101.97577,
@@ -362,12 +402,16 @@ class Second extends React.Component{
   console.log(username);
   console.log(password);
 
+  this.setState({isVisible: true});
+
   this._navigate('Favourite_Locations_Clicked');
   // <CaptureLocationsScreen />
   }
 
   _handleCaptureLocationAction(event) {
   console.log('Pressed!');
+
+  this.setState({isVisible: true});
 
   var username = this.state.username;
   var password = this.state.password;
@@ -418,6 +462,7 @@ class Second extends React.Component{
               })
               console.log("dbRef "+dbRef)
               console.log('savedbRef '+ savedbRef)
+              this.setState({isVisible: false});
           })
         }
 
@@ -466,12 +511,60 @@ _navigate(name, type='Normal') {
     })
   }
 
+
   if(name == 'Favourite_Locations_Clicked')
   {
+  //  var name = [
+  //    {
+  //      name:"Vinay",
+  //      age:23
+  //    },
+  //    {
+  //      name:"Hosamane",
+  //      age:24
+  //    }
+  //  ];
+
+     const userData = firebase.auth().currentUser;
+      var userid = userData.uid;
+
+      var newArray = []
+
+     var itemsRef = firebaseApp.database().ref('testing/'+userid);
+
+     itemsRef.orderByChild(userid).on("child_added", (snapshot) =>{
+     console.log(snapshot.val());
+     this.setState({isVisible: false});
+
+     var data = snapshot.val()
+
+     newArray.push(data)
+
+       console.log(data.Description);
+       console.log(data.latitude);
+       console.log(data.longitude);
+       // this.setState({
+       //            dataSource: this.state.dataSource.cloneWithRows(newArray),
+       //        });
+       //this.updateDatasource(newArray);
+   },
+     (errorObject) =>{
+      console.log("The read failed: " + errorObject.code);
+      this.setState({isVisible: false});
+      // Alert.alert(
+      //        'Data Fetch Error',
+      //        errorObject.message,
+      //        [
+      //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+      //          {text: 'OK', onPress: () => itemsRef.off()},
+      //        ]
+      //      )
+    });
+
     this.props.navigator.push({
       component:FavouriteLocationsFromHomeScreen ,
       passProps: {
-        name: name
+        name: newArray
       },
       type: type
     })
@@ -584,6 +677,13 @@ _navigate(name, type='Normal') {
                  {"\n"}
                About App
              </Button>
+
+             <ActivityIndicator
+            animating={this.state.isVisible}
+            style={[styles.centering, {height: 20},{marginTop:5}]}
+            size="large"
+            color="red"
+          />
 
               </View>
           </View>
@@ -704,7 +804,8 @@ class CreateAccountScreen extends React.Component{
   this.state = {
     name: 'MaxTech Login-->',
     newUsername:'',
-    newPassword:''
+    newPassword:'',
+    isVisible:false
    }
 }
 
@@ -716,6 +817,7 @@ class CreateAccountScreen extends React.Component{
 
   _handleCreateAccountButtonAction(event) {
   console.log('Create account button pressed!');
+    this.setState({isVisible: true});
 
   username = this.state.newUsername;
   password = this.state.newPassword;
@@ -726,6 +828,8 @@ class CreateAccountScreen extends React.Component{
   firebase.auth().createUserWithEmailAndPassword(username, password).then((userData) =>
       {
       console.log("Account successfully created");
+
+        this.setState({isVisible: false});
       Alert.alert(
              'Signup Alert',
              'Your account created successfully.',
@@ -735,10 +839,11 @@ class CreateAccountScreen extends React.Component{
              ]
            )
 
-      }).catch(function(error) {
+      }).catch((error) =>{
    // Handle Errors here.
    var errorCode = error.code;
    var errorMessage = error.message;
+     this.setState({isVisible: false});
    Alert.alert(
           'Signup Error',
           errorMessage,
@@ -852,7 +957,12 @@ _navigate(name, type='Normal') {
 
              </View>
              <View style={styles.quarterHeight2_Second_2}>
-
+             <ActivityIndicator
+            animating={this.state.isVisible}
+            style={[styles.centering, {height: 20},{marginTop:5}]}
+            size="large"
+            color="red"
+          />
               </View>
           </View>
 
@@ -871,7 +981,8 @@ class ForgotPasswordScreen extends React.Component{
     super(props)
   console.log(this.props);
   this.state = { name: 'MaxTech Login-->',
-  emailAddress: ''
+  emailAddress: '',
+  isVisible: false
  }
 }
 
@@ -886,8 +997,11 @@ class ForgotPasswordScreen extends React.Component{
 
   var email = this.state.emailAddress
 
-  firebase.auth().sendPasswordResetEmail(email).then(function() {
+    this.setState({isVisible: true});
+
+  firebase.auth().sendPasswordResetEmail(email).then(()=> {
     // Email sent.
+      this.setState({isVisible: false});
     Alert.alert(
            'Password Reset Alert',
            'Password Reset mail sent to '+email,
@@ -896,8 +1010,9 @@ class ForgotPasswordScreen extends React.Component{
              {text: 'OK', onPress: () => console.log('OK Pressed!')/*this.props.navigator.pop()*/},
            ]
          )
-  }, function(error) {
+  }, (error) =>{
     // An error happened.
+      this.setState({isVisible: false});
     var errorCode = error.code;
     var errorMessage = error.message;
     Alert.alert(
@@ -967,6 +1082,13 @@ onDateChange(date) {
 
              </View>
              <View style={styles.quarterHeight2_Second_2}>
+
+             <ActivityIndicator
+            animating={this.state.isVisible}
+            style={[styles.centering, {height: 20},{marginTop:5}]}
+            size="large"
+            color="red"
+          />
               </View>
           </View>
    );
@@ -981,7 +1103,7 @@ class FavouriteLocationsFromHomeScreen extends React.Component{
 
   constructor(props) {
     super(props)
-  console.log(this.props);
+  console.log(this.props.name);
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -989,7 +1111,7 @@ const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     name: 'MaxTech Login-->',
     dataArray:[],
      visible: false,
-   dataSource: ds.cloneWithRows([{'Description':'My Home','latitude':'-12','longitude':'-122'},{'Description':'My Home','latitude':'-12','longitude':'-122'}])
+   dataSource: ds.cloneWithRows(this.props.name)
  };
 }
 
@@ -1018,42 +1140,86 @@ _navigate(name, type='Normal') {
   })
 }
 
- componentWillMount()
+// listen()
+// {
+//   const userData = firebase.auth().currentUser;
+//    var userid = userData.uid;
+//
+//    var newArray = []
+//
+//   var itemsRef = firebaseApp.database().ref('testing/'+userid);
+//
+//   itemsRef.orderByChild(userid).on("child_added", function(snapshot) {
+//   console.log(snapshot.val());
+//
+//   var data = snapshot.val()
+//
+//   newArray.push(data)
+//
+//     console.log(data.Description);
+//     console.log(data.latitude);
+//     console.log(data.longitude);
+//     // this.setState({
+//     //            dataSource: this.state.dataSource.cloneWithRows(newArray),
+//     //        });
+//     //this.updateDatasource(newArray);
+// },
+//  function (errorObject) {
+//    console.log("The read failed: " + errorObject.code);
+//    // Alert.alert(
+//    //        'Data Fetch Error',
+//    //        errorObject.message,
+//    //        [
+//    //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+//    //          {text: 'OK', onPress: () => itemsRef.off()},
+//    //        ]
+//    //      )
+//  });
+//  this.setState({
+//             dataSource: this.state.dataSource.cloneWithRows(newArray),
+//         });
+//
+// }
+
+
+ componentDidMount()
  {
-   const userData = firebase.auth().currentUser;
-    var userid = userData.uid;
+ //   const userData = firebase.auth().currentUser;
+ //    var userid = userData.uid;
+ //
+ //    var newArray = []
+ //
+ //   var itemsRef = firebaseApp.database().ref('testing/'+userid);
+ //
+ //   itemsRef.orderByChild(userid).on("child_added", function(snapshot) {
+ //   console.log(snapshot.val());
+ //
+ //   var data = snapshot.val()
+ //
+ //   newArray.push(data)
+ //
+ //     console.log(data.Description);
+ //     console.log(data.latitude);
+ //     console.log(data.longitude);
+ //
+ //     //this.updateDatasource(newArray);
+ // },
+ //  function (errorObject) {
+ //    console.log("The read failed: " + errorObject.code);
+ //    // Alert.alert(
+ //    //        'Data Fetch Error',
+ //    //        errorObject.message,
+ //    //        [
+ //    //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+ //    //          {text: 'OK', onPress: () => itemsRef.off()},
+ //    //        ]
+ //    //      )
+ //  });
+  this.setState({
+             dataSource: this.state.dataSource.cloneWithRows(this.props.name),
+         });
 
-    var newArray = []
-
-   var itemsRef = firebaseApp.database().ref('testing/'+userid);
-
-   itemsRef.orderByChild(userid).on("child_added", function(snapshot) {
-   console.log(snapshot.val());
-
-   var data = snapshot.val()
-
-   newArray.push(data)
-
-     console.log(data.Description);
-     console.log(data.latitude);
-     console.log(data.longitude);
- },
-  function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
-    // Alert.alert(
-    //        'Data Fetch Error',
-    //        errorObject.message,
-    //        [
-    //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-    //          {text: 'OK', onPress: () => itemsRef.off()},
-    //        ]
-    //      )
-  });
-
- this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(newArray),
-        });
-
+ //this.listen();
  }
 
    onCancel() {
@@ -1098,13 +1264,33 @@ _navigate(name, type='Normal') {
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {data.latitude}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {data.longitude}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {data.Address}</Text>
+               <View style ={{flexDirection: 'row'}}>
+
                <TouchableOpacity onPress={()=>{
                       Share.open(shareOptions);
                  }}>
                       <View style={styles.instructionsShare}>
-                      <Image source={require('./share-button.jpg')}  style={styles.backgroundImageShare}></Image>
+                      <Image source={require('./share-icon.png')}  style={styles.backgroundImageShare}></Image>
                       </View>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={()=>{
+                       Share.open(shareOptions);
+                  }}>
+                       <View style={styles.instructionsShare}>
+                       <Image source={require('./mapMe.png')}  style={styles.backgroundImageMap}></Image>
+                       </View>
+                 </TouchableOpacity>
+
+                 <TouchableOpacity onPress={()=>{
+                        Share.open(shareOptions);
+                   }}>
+                        <View style={styles.instructionsShare}>
+                        <Image source={require('./deleteMe.png')}  style={styles.backgroundImageDelete}></Image>
+                        </View>
+                  </TouchableOpacity>
+
+                 </View>
 
                </View>}
                renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
@@ -1165,7 +1351,7 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    marginTop:34,
+    marginTop:10,
     fontWeight: "bold",
     color:'white',
     backgroundColor: '#FF3366'
@@ -1259,14 +1445,36 @@ container_Second_2: {
  instructionsShare: {
     marginTop: 10,
     marginBottom: 10,
+    flexDirection: 'row'
   },
   backgroundImageShare: {
     marginTop:1,
-    width: 100,
-    height: 40,
-  marginRight: 10,
+    width: 40,
+    height: 30,
+  marginRight: 50,
   alignItems: 'flex-end'
 },
+backgroundImageMap: {
+  marginTop:1,
+  width: 40,
+  height: 30,
+marginRight: 100,
+alignItems: 'flex-end'
+},
+backgroundImageDelete: {
+  marginTop:1,
+  width: 40,
+  height: 30,
+marginRight: 140,
+alignItems: 'flex-end'
+},
+spinner: {
+    marginBottom: 50
+  },
+  centering: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 AppRegistry.registerComponent('FavouriteLocations', () => FavouriteLocations);
