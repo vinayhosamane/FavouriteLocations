@@ -17,6 +17,7 @@ import * as firebase from 'firebase';
 import Geocoder from 'react-native-geocoder';
 import Share from 'react-native-share';
 import Spinner from 'react-native-spinkit';
+import { AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
 
 // var First = require('First');
 // var Second = require('Second');
@@ -37,7 +38,8 @@ import {
   Alert,
   DatePickerIOS,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Linking
 } from 'react-native';
 
 var config = {
@@ -72,6 +74,7 @@ class First extends React.Component{
 }
 
 _handleLoginPress(event) {
+
 console.log('Pressed!');
 
 var username = this.state.username;
@@ -1041,6 +1044,37 @@ onDateChange(date) {
   this.setState({ date: date });
 }
 
+// componentDidMount() {
+//    //AdMobInterstitial.setTestDeviceID('EMULATOR');
+//    AdMobInterstitial.setAdUnitId('ca-app-pub-3940256099942544/1033173712');
+//
+//    AdMobInterstitial.addEventListener('interstitialDidLoad',
+//      () => console.log('interstitialDidLoad event'));
+//    AdMobInterstitial.addEventListener('interstitialDidClose',
+//      this.interstitialDidClose);
+//    AdMobInterstitial.addEventListener('interstitialDidFailToLoad',
+//      () => console.log('interstitialDidFailToLoad event'));
+//    AdMobInterstitial.addEventListener('interstitialDidOpen',
+//      () => console.log('interstitialDidOpen event'));
+//    AdMobInterstitial.addEventListener('interstitialWillLeaveApplication',
+//      () => console.log('interstitalWillLeaveApplication event'));
+//
+//    AdMobInterstitial.requestAd((error) => error && console.log(error));
+//  }
+//
+//  componentWillUnmount() {
+//    AdMobInterstitial.removeAllListeners();
+//  }
+//
+//  interstitialDidClose() {
+//    console.log('interstitialDidClose event');
+//    AdMobInterstitial.requestAd((error) => error && console.log(error));
+//  }
+//
+//  showInterstital() {
+//    AdMobInterstitial.showAd((error) => error && console.log(error));
+//  }
+
  render() {
    return (
           <View style={styles.container_Second_2}>
@@ -1089,6 +1123,11 @@ onDateChange(date) {
             size="large"
             color="red"
           />
+          <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/2934735716"
+          testDeviceID="EMULATOR"
+           />
               </View>
           </View>
    );
@@ -1275,15 +1314,37 @@ _navigate(name, type='Normal') {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={()=>{
-                       Share.open(shareOptions);
-                  }}>
+                       //Share.open(shareOptions);
+                       //var mystring = "http://maps.apple.com/?l1="+{data.latitude}+","+{data.longitude}"";
+                       //var url = "http://maps.apple.com/?ll=37.484847,-122.148386";
+                      var url = "http://maps.apple.com/?daddr=San+Francisc&dirflg=d&t=h";
+                       Linking.canOpenURL(url).then(supported => {
+                      if (supported) {
+                      Linking.openURL(url);
+                       } else {
+                      console.log('Don\'t know how to go');
+                      }
+                      }).catch(err => console.error('An error occurred', err));
+                   }}>
                        <View style={styles.instructionsShare}>
                        <Image source={require('./mapMe.png')}  style={styles.backgroundImageMap}></Image>
                        </View>
                  </TouchableOpacity>
 
                  <TouchableOpacity onPress={()=>{
-                        Share.open(shareOptions);
+                        //Share.open(shareOptions);
+                        Alert.alert(
+                               'Delete This Location',
+                               'Are you sure you want to delete this location from list?.',
+                               [
+                                 {text: 'No', onPress: () => console.log('Cancel Pressed!')},
+                                 {text: 'Yes', onPress: () =>
+                                 {
+                                   console.log('OK Pressed!')
+                                 }
+                               }
+                             ]
+                           );
                    }}>
                         <View style={styles.instructionsShare}>
                         <Image source={require('./deleteMe.png')}  style={styles.backgroundImageDelete}></Image>
