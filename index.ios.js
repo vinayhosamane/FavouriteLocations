@@ -5,7 +5,8 @@
  */
 
 import React, { Component } from 'react';
-var Button = require('react-native-button');
+
+import Button from 'react-native-button';
 var CalendarPicker = require('react-native-calendar-picker');
 import Icon from 'react-native-vector-icons';
 //var Firebase = require('firebase');
@@ -564,13 +565,29 @@ _navigate(name, type='Normal') {
       //      )
     });
 
-    this.props.navigator.push({
-      component:FavouriteLocationsFromHomeScreen ,
-      passProps: {
-        name: newArray
-      },
-      type: type
-    })
+if(newArray.length !=0)
+{
+  this.props.navigator.push({
+    component:FavouriteLocationsFromHomeScreen ,
+    passProps: {
+      name: newArray
+    },
+    type: type
+  })
+}
+
+else {
+  this.setState({isVisible: false});
+  Alert.alert(
+         'Alert!',
+         'Please wait untill the connection with your cloud databsase is made. Try Again!',
+         [
+           //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+           {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
+         ]
+       )
+}
+
   }
 
 //   if(name == 'Capture_Locations_Clicked')
@@ -1270,6 +1287,33 @@ _navigate(name, type='Normal') {
    this.setState({visible:true});
  }
 
+ onMapClick()
+ {
+
+ }
+
+ onDeleteClick()
+ {
+   Alert.alert(
+          'Delete This Location',
+          'Are you sure you want to delete this location from list?.',
+          [
+            {text: 'No', onPress: () => console.log('Cancel Pressed!')},
+            {text: 'Yes', onPress: () =>
+            {
+              console.log('OK Pressed!')
+            }
+          }
+        ]
+      );
+ }
+
+ onShareClick()
+{
+
+}
+
+
 //  componentWillReceiveProps(nextProps) {
 //    this.setState({
 //               dataSource: this.state.dataSource.cloneWithRows(newArray),
@@ -1277,13 +1321,6 @@ _navigate(name, type='Normal') {
 // }
 
  render() {
-
-   let shareOptions = {
-       title: "React Native",
-       message: "Hola mundo",
-       url: "http://facebook.github.io/react-native/",
-       subject: "Share Link" //  for email
-     };
 
    return (
           <View style={styles.container_Second_2}>
@@ -1298,14 +1335,24 @@ _navigate(name, type='Normal') {
              <View style={styles.quarterHeight1_Second_3}>
              <ListView
                dataSource={this.state.dataSource}
-               renderRow={(data) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{data.Description}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Placemark : {data.Placemark}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {data.latitude}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {data.longitude}</Text>
-               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {data.Address}</Text>
+               renderRow={(rowData,rowId,sectionId) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{rowData.Description}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Placemark : {rowData.Placemark}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {rowData.latitude}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {rowData.longitude}</Text>
+               <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {rowData.Address}</Text>
                <View style ={{flexDirection: 'row'}}>
 
                <TouchableOpacity onPress={()=>{
+
+                  var msg = "Description:\n"+rowData.Description+"\nPlacemark:\n"+rowData.Placemark+"\nLatitude:\n"+rowData.latitude+"\nLongitude:\n"+rowData.longitude+"\nAddress:\n"+rowData.Address;
+
+                 let shareOptions = {
+                     title: "React Native Favourite Locations",
+                     message: msg,
+                     url: "http://facebook.github.io/react-native/",
+                     subject: "Share Favourite Location" //  for email
+                   };
+
                       Share.open(shareOptions);
                  }}>
                       <View style={styles.instructionsShare}>
@@ -1315,9 +1362,14 @@ _navigate(name, type='Normal') {
 
                 <TouchableOpacity onPress={()=>{
                        //Share.open(shareOptions);
-                       //var mystring = "http://maps.apple.com/?l1="+{data.latitude}+","+{data.longitude}"";
-                       //var url = "http://maps.apple.com/?ll=37.484847,-122.148386";
-                      var url = "http://maps.apple.com/?daddr=San+Francisc&dirflg=d&t=h";
+                       var mystring= 'http://maps.apple.com/?l1=';
+                       console.log(rowData);
+
+                      var a = rowData.latitude;
+                      var c = ',';
+                      var b = rowData.longitude;
+                       var url = mystring + a + c + b;
+
                        Linking.canOpenURL(url).then(supported => {
                       if (supported) {
                       Linking.openURL(url);
@@ -1333,18 +1385,8 @@ _navigate(name, type='Normal') {
 
                  <TouchableOpacity onPress={()=>{
                         //Share.open(shareOptions);
-                        Alert.alert(
-                               'Delete This Location',
-                               'Are you sure you want to delete this location from list?.',
-                               [
-                                 {text: 'No', onPress: () => console.log('Cancel Pressed!')},
-                                 {text: 'Yes', onPress: () =>
-                                 {
-                                   console.log('OK Pressed!')
-                                 }
-                               }
-                             ]
-                           );
+                        this.onDeleteClick();
+
                    }}>
                         <View style={styles.instructionsShare}>
                         <Image source={require('./deleteMe.png')}  style={styles.backgroundImageDelete}></Image>
