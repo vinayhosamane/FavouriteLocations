@@ -1328,11 +1328,16 @@ _navigate(name, type='Normal') {
                <TouchableOpacity onPress={()=>{
 
                   var msg = "Description:\n"+rowData.Description+"\nPlacemark:\n"+rowData.Placemark+"\nLatitude:\n"+rowData.latitude+"\nLongitude:\n"+rowData.longitude+"\nAddress:\n"+rowData.Address;
+                   var mapString = 'http://maps.google.com/maps?z=12&t=m&q=loc:';
+                   var a = rowData.latitude;
+                   var c = '+';
+                   var b = rowData.longitude;
+                    var mapurl = mapString + a + c + b;
 
                  let shareOptions = {
-                     title: "React Native Favourite Locations",
+                     title: "Favourite Locations",
                      message: msg,
-                     url: "http://facebook.github.io/react-native/",
+                     url: mapurl,
                      subject: "Share Favourite Location" //  for email
                    };
 
@@ -1506,6 +1511,7 @@ container_Second_2: {
  },
  quarterHeight2_Second_2: {
      flex: .41,
+     alignItems: 'center',
      backgroundColor: '#CCC'
  },
  quarterHeight1_Second_3: {
