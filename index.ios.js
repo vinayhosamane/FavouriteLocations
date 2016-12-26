@@ -1337,11 +1337,12 @@ _navigate(name, type='Normal') {
 
                 <TouchableOpacity onPress={()=>{
                        //Share.open(shareOptions);
-                       var mystring= 'http://maps.apple.com/?l1=';
+                       var mystring = 'http://maps.google.com/maps?z=12&t=m&q=loc:';
+                      //  var mystring= 'http://maps.apple.com/?l1=';
                        console.log(rowData);
 
                       var a = rowData.latitude;
-                      var c = ',';
+                      var c = '+';
                       var b = rowData.longitude;
                        var url = mystring + a + c + b;
 
