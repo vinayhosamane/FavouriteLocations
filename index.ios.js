@@ -264,91 +264,66 @@ componentWillMount() {
     return (
       <View style={styles.container1}>
          <View style={styles.halfHeight}>
-         <Image source={require('./map.jpg')}  style={styles.backgroundImageToolBar}></Image>
+           <Image source={require('./map.jpg')}  style={styles.backgroundImageToolBar}></Image>
          </View>
+
          <View style={styles.quarterHeight1}>
-         <Text style={styles.bullsWelcome}>
-         Welcome to React-Native Favourite Locations
-         </Text>
-         <TextInput
-         ref="usr"
-         style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
-         placeholder= "Enter username"
-         placeholderTextColor = '#a52a2a'
-         returnKeyType = {"next"}
-         autoFocus = {false}
-         autoCapitalize = "none"
-         autoCorrect = {false}
-         clearButtonMode = 'while-editing'
-         // onChange={(event) => this.updateText(
-         //      'onChange text: ' + event.nativeEvent.text
-         //    )}
-         onChangeText={(text) => {
-             this.setState({username:text});
-           }}
-         onSubmitEditing={(event) => {
-        this.refs.psw.focus();
-
-         }}
-         />
-
-         <TextInput
-         ref="psw"
-         style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
-         placeholder= "Enter password"
-         placeholderTextColor = '#a52a2a'
-         autoCapitalize = "none"
-         autoCorrect = {false}
-         returnKeyType = {'done'}
-         secureTextEntry = {true}
-         clearButtonMode = 'while-editing'
-         // onChange={(event) => this.updateText(
-         //      'onChange text: ' + event.nativeEvent.text
-         //    )}
-         onChangeText={(text) => {
-             this.setState({password:text});
-           }}
-         />
-
+           <Text style={styles.bullsWelcome}>
+             Welcome to React-Native Favourite Locations
+           </Text>
+           <TextInput ref="usr"
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
+                    placeholder= "Enter username"
+                    placeholderTextColor = '#a52a2a'
+                    returnKeyType = {"next"}
+                    autoFocus = {false}
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
+                    clearButtonMode = 'while-editing'
+                    onChangeText={(text) => {
+                      this.setState({username:text});
+                    }}
+                    onSubmitEditing={(event) => {
+                      this.refs.psw.focus();
+                    }}
+            />
+            <TextInput
+                    ref="psw"
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
+                    placeholder= "Enter password"
+                    placeholderTextColor = '#a52a2a'
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
+                    returnKeyType = {'done'}
+                    secureTextEntry = {true}
+                    clearButtonMode = 'while-editing'
+                    onChangeText={(text) => {
+                      this.setState({password:text});
+                    }}
+            />
          </View>
 
-
-         <View style={[styles.quarterHeight2, {backgroundColor: '#fffaf0'}]} >
-                  <Button
-                    style={{borderWidth: 0, borderColor: 'white' }}
-                    //onPress={this._handleLoginPress.bind(this)}>
-                    onPress={this._handleLoginPress.bind(this)}>
-                    {"\n"}
-                    Login
-                  </Button>
-                  <Button
-                    style={{borderWidth: 0, borderColor: 'white' , marginTop:20}}
-                    onPress={this._handleForgotPassword.bind(this)}>
+         <View style={[styles.quarterHeight2, {backgroundColor: '#fffaf0', alignItems: 'center'}]}>
+           <Button style={{borderWidth: 0, borderColor: 'blue' }} onPress={this._handleLoginPress.bind(this)}>
+                   Login
+            </Button>
+            <Button style={{borderWidth: 0, borderColor: 'white', marginTop:20}} onPress={this._handleForgotPassword.bind(this)}>
                     Forgot Password?
-                  </Button>
-                  <Button
-                    style={{borderWidth: 0, borderColor: 'white' , marginTop:20}}
-                    onPress={this._handleCreateAccount.bind(this)}>
+            </Button>
+            <Button style={{borderWidth: 0, borderColor: 'white', marginTop:20}} onPress={this._handleCreateAccount.bind(this)}>
                     Create Account!
-                  </Button>
-                  <ActivityIndicator
-                 animating={this.state.isVisible}
-                 style={[styles.centering, {height: 20},{marginTop:5}]}
-                 size="large"
-                 color="red"
-               />
+            </Button>
+            <ActivityIndicator animating={this.state.isVisible} style={[styles.centering, {height: 20},{marginTop:5}]} size="large" color="red"/>
 
-                  <Text style={styles.instructions}>
-                  For any help please contact Vinay Hosamane K N @ <Text style={{color:'white'}}> vinayhosamane07@gmail.com </Text>
-                  {"\n"}
-                  <Text style ={{color:'white',fontWeight:'normal',backgroundColor: '#FF3366'}}> Powered by HappyCoding.Inc </Text>
-                  </Text>
-
+            <Text style={styles.instructions}>
+                For any help please contact Vinay Hosamane K N @ <Text style={{color:'white'}}> vinayhosamane07@gmail.com </Text>
+                <Text style ={{color:'white',fontWeight:'normal',backgroundColor: '#FF3366'}}> Powered by HappyCoding.Inc </Text>
+            </Text>
          </View>
       </View>
     );
   }
-  }
+}
 
 
 //End - First.js
