@@ -132,9 +132,9 @@ _navigate(name, type='Normal') {
 if(name == 'Login_Screen_Clicked')
 {
     console.disableYellowbox = true;
-     this.setState({isVisible: true});
   if(username!='' && password!='')
   {
+    this.setState({isVisible: true});
   var user = firebase.auth().signInWithEmailAndPassword(username, password).then((userData) =>
       {
         this.setState({
@@ -390,8 +390,6 @@ class Second extends React.Component{
   _handleCaptureLocationAction(event) {
   console.log('Pressed!');
 
-  this.setState({isVisible: true});
-
   var username = this.state.username;
   var password = this.state.password;
 
@@ -406,6 +404,7 @@ class Second extends React.Component{
            {text: 'Yes', onPress: () =>
            {
              console.log('OK Pressed!');
+             this.setState({isVisible: true});
            const userData = firebase.auth().currentUser;
            var userid = userData.uid;
 
@@ -442,6 +441,14 @@ class Second extends React.Component{
               console.log("dbRef "+dbRef)
               console.log('savedbRef '+ savedbRef)
               this.setState({isVisible: false});
+              Alert.alert(
+                     'Alert',
+                     'Your Location saved successfully.',
+                     [
+                       //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                       {text: 'Thank you', onPress: () => console.log('OK Pressed!')},
+                     ]
+                   )
           })
         }
 
@@ -1080,7 +1087,7 @@ onDateChange(date) {
              </View>
              <View style={styles.quarterHeight1_Second_2}>
              <Text style={styles.instructions}> Enter Your EmailId </Text>
-             <Text style={styles.welcome}> Please give your valid email id </Text>
+             <Text style={styles.welcome}> Please enter your valid email id </Text>
              <TextInput
              ref="forgot_screen"
              style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
@@ -1100,9 +1107,10 @@ onDateChange(date) {
              />
 
              <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'center',marginTop:17 ,color:'grey',fontSize: 20}}
+               //style={{borderWidth: 0, borderColor: 'white',textAlign:'center',marginTop:17 ,color:'grey',fontSize: 20}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleProfileValidate.bind(this)}>
+              {"\n"}
               Reset Password
              </Button>
 
