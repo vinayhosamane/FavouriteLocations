@@ -633,7 +633,7 @@ else {
                  this.setState({usr_descrption:text});
                }}
              onSubmitEditing={(event) => {
-            //this.refs.psw.focus();
+            this.refs.placemark.focus();
 
              }}
              />
@@ -642,7 +642,7 @@ else {
              style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
              placeholder= "Please give Placemark Ex.Near Vijaya Bank,Behind Bus Stand"
              placeholderTextColor = 'black'
-             returnKeyType = {"next"}
+             returnKeyType = {"done"}
              autoFocus = {false}
              autoCapitalize = "none"
              autoCorrect = {false}
@@ -1275,8 +1275,9 @@ _navigate(name, type='Normal') {
 
  }
 
- onDeleteClick()
+ onDeleteClick(rowData)
  {
+  console.log(rowData);
    Alert.alert(
           'Delete This Location',
           'Are you sure you want to delete this location from list?.',
@@ -1284,7 +1285,59 @@ _navigate(name, type='Normal') {
             {text: 'No', onPress: () => console.log('Cancel Pressed!')},
             {text: 'Yes', onPress: () =>
             {
-              console.log('OK Pressed!')
+               console.log('OK Pressed!')
+              const userData = firebase.auth().currentUser;
+              var userid = userData.uid;
+
+               var itemsRef = firebaseApp.database().ref('testing/'+userid);
+              //         var savedbRef = dbRef.child(rowData).remove();
+              // this.itemsRef.child(rowData.id).remove();
+              itemsRef.orderByChild(userid).on("child_added", (snapshot) =>{
+     console.log(snapshot.val());
+
+
+   var newArray = [];
+     var data = snapshot.val()
+
+     newArray.push(data)
+
+     var index = 0;
+
+     if(snapshot.val().Description == rowData.Description ){
+            snapshot.ref.remove();
+            Alert.alert(
+                   'Alert',
+                   'Your Location deleted successfully.Now you can add new locations to your list.',
+                   [
+                     //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                     {text: 'OK', onPress: () =>
+                     {
+                       console.log('OK Pressed!')
+                       this.props.navigator.pop();
+                     }},
+                   ]
+                 )
+
+
+        }
+
+        else {
+
+        index++;
+        }
+
+      //newArray.splice(index,1);
+
+// update the DataSource in the component state
+// this.setState({
+//   dataSource : ds.cloneWithRows(newArray),
+// });
+
+   },
+     (errorObject) =>{
+      console.log("The read failed: " + errorObject.code);
+    });
+
             }
           }
         ]
@@ -1374,7 +1427,7 @@ _navigate(name, type='Normal') {
 
                  <TouchableOpacity onPress={()=>{
                         //Share.open(shareOptions);
-                        this.onDeleteClick();
+                        this.onDeleteClick(rowData);
 
                    }}>
                         <View style={styles.instructionsShare}>
