@@ -75,6 +75,39 @@ class First extends React.Component{
  };
 }
 
+componentDidMount() {
+  AdMobInterstitial.setTestDeviceID('EMULATOR');
+  AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
+
+  AdMobInterstitial.addEventListener('interstitialDidLoad',
+    () => console.log('interstitialDidLoad event'));
+  AdMobInterstitial.addEventListener('interstitialDidClose',
+    this.interstitialDidClose);
+  AdMobInterstitial.addEventListener('interstitialDidFailToLoad',
+    () => console.log('interstitialDidFailToLoad event'));
+  AdMobInterstitial.addEventListener('interstitialDidOpen',
+    () => console.log('interstitialDidOpen event'));
+  AdMobInterstitial.addEventListener('interstitialWillLeaveApplication',
+    () => console.log('interstitalWillLeaveApplication event'));
+
+  AdMobInterstitial.requestAd((error) => error && console.log(error));
+}
+
+componentWillUnmount() {
+  AdMobInterstitial.removeAllListeners();
+}
+
+interstitialDidClose() {
+  console.log('interstitialDidClose event');
+  AdMobInterstitial.requestAd((error) => error && console.log(error));
+}
+
+setBannerSize() {
+  this.setState({
+    bannerSize: 'smartBannerPortrait',
+  });
+}
+
 _handleLoginPress(event) {
 
 console.log('Pressed!');
@@ -316,10 +349,11 @@ componentWillMount() {
             </Button>
             <ActivityIndicator animating={this.state.isVisible} style={[styles.centering, {height: 20},{marginTop:5}]} size="large" color="red"/>
 
-            <Text style={styles.instructions}>
-                For any help please contact Vinay Hosamane K N @ <Text style={{color:'white'}}> vinayhosamane07@gmail.com </Text>
-                <Text style ={{color:'white',fontWeight:'normal',backgroundColor: '#FF3366'}}> Powered by HappyCoding.Inc </Text>
-            </Text>
+            <AdMobBanner
+            bannerSize={this.state.bannerSize}
+            testDeviceID="EMULATOR"
+            adUnitID="ca-app-pub-3940256099942544/2934735716"
+            />
          </View>
       </View>
     );

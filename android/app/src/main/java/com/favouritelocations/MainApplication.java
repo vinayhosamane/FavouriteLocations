@@ -4,6 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
+import com.devfd.RNGeocoder.RNGeocoderPackage;
+import com.sbugert.rnadmob.RNAdMobPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -28,6 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new RNSpinkitPackage(),
            new MainReactPackage(),
+            new RNSharePackage(),
+            new RNGeocoderPackage(),
+            new RNAdMobPackage(),
             new VectorIconsPackage(),
             new MapsPackage()
       );
