@@ -1087,7 +1087,7 @@ onDateChange(date) {
              </Button>
              </View>
              <View style={styles.quarterHeight1_Second_2}>
-            //  <Text style={styles.instructions}> Enter Your EmailId </Text>
+
              <Text style={styles.welcome}> Please enter your valid email id (username) </Text>
              <TextInput
              ref="forgot_screen"
@@ -1370,7 +1370,11 @@ _navigate(name, type='Normal') {
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {rowData.latitude}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {rowData.longitude}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {rowData.Address}</Text>
-               <View style ={{flexDirection: 'row'}}>
+               <View style={{
+                       flex: 1,
+                       flexDirection: 'row',
+                       justifyContent: 'space-between'
+                     }}>
 
                <TouchableOpacity onPress={()=>{
 
@@ -1390,7 +1394,7 @@ _navigate(name, type='Normal') {
 
                       Share.open(shareOptions);
                  }}>
-                      <View style={styles.instructionsShare}>
+                      <View style={{width: 50, height: 30}}>
                       <Image source={require('./share-icon.png')}  style={styles.backgroundImageShare}></Image>
                       </View>
                 </TouchableOpacity>
@@ -1414,7 +1418,7 @@ _navigate(name, type='Normal') {
                       }
                       }).catch(err => console.error('An error occurred', err));
                    }}>
-                       <View style={styles.instructionsShare}>
+                       <View style={{width: 50, height: 30}}>
                        <Image source={require('./mapMe.png')}  style={styles.backgroundImageMap}></Image>
                        </View>
                  </TouchableOpacity>
@@ -1424,7 +1428,7 @@ _navigate(name, type='Normal') {
                         this.onDeleteClick(rowData);
 
                    }}>
-                        <View style={styles.instructionsShare}>
+                        <View style={{width: 50, height: 30}}>
                         <Image source={require('./deleteMe.png')}  style={styles.backgroundImageDelete}></Image>
                         </View>
                   </TouchableOpacity>
