@@ -37,6 +37,7 @@
 		D40AD3181DE7432700E96E79 /* react-native.png in Resources */ = {isa = PBXBuildFile; fileRef = D40AD3171DE7432700E96E79 /* react-native.png */; };
 		D40AD32B1DE75BA000E96E79 /* react.native.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D40AD32A1DE75BA000E96E79 /* react.native.jpg */; };
 		D40AD32D1DE75FB400E96E79 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = D40AD32C1DE75FB400E96E79 /* AppIcon.appiconset */; };
+		D472CD121E15131900016C80 /* places_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D472CD111E15131900016C80 /* places_icon.jpg */; };
 		D4BE89EB1D89949300EDD643 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE89EA1D89904100EDD643 /* libRNGeocoder.a */; };
 		D4BE8A191D8C210F00EDD643 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A171D8C20F800EDD643 /* libRNShare.a */; };
 		D4BE8A1B1D8C214300EDD643 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A1A1D8C214300EDD643 /* Social.framework */; };
@@ -209,6 +210,7 @@
 		D40AD3171DE7432700E96E79 /* react-native.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "react-native.png"; sourceTree = "<group>"; };
 		D40AD32A1DE75BA000E96E79 /* react.native.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = react.native.jpg; sourceTree = "<group>"; };
 		D40AD32C1DE75FB400E96E79 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
+		D472CD111E15131900016C80 /* places_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = places_icon.jpg; sourceTree = "<group>"; };
 		D4BE89E51D89904100EDD643 /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
 		D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		D4BE8A1A1D8C214300EDD643 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -342,6 +344,7 @@
 				D40AD3171DE7432700E96E79 /* react-native.png */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				D472CD111E15131900016C80 /* places_icon.jpg */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = FavouriteLocations;
@@ -759,6 +762,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				6A93802856D54839ABA9FB34 /* Entypo.ttf in Resources */,
+				D472CD121E15131900016C80 /* places_icon.jpg in Resources */,
 				7472D87D059843E6A7B5ABAA /* EvilIcons.ttf in Resources */,
 				D40AD32D1DE75FB400E96E79 /* AppIcon.appiconset in Resources */,
 				161613B5B7E541FBAFBC5F71 /* FontAwesome.ttf in Resources */,

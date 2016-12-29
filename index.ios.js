@@ -1087,8 +1087,8 @@ onDateChange(date) {
              </Button>
              </View>
              <View style={styles.quarterHeight1_Second_2}>
-             <Text style={styles.instructions}> Enter Your EmailId </Text>
-             <Text style={styles.welcome}> Please enter your valid email id </Text>
+            //  <Text style={styles.instructions}> Enter Your EmailId </Text>
+             <Text style={styles.welcome}> Please enter your valid email id (username) </Text>
              <TextInput
              ref="forgot_screen"
              style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
