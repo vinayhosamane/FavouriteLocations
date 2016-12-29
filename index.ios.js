@@ -20,6 +20,7 @@ import Share from 'react-native-share';
 import Spinner from 'react-native-spinkit';
 import { AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
 
+//AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
 // var First = require('First');
 // var Second = require('Second');
 // var CaptureLocationsScreen = require('CaptureLocationsScreen');
@@ -1045,7 +1046,7 @@ onDateChange(date) {
 
 // componentDidMount() {
 //    //AdMobInterstitial.setTestDeviceID('EMULATOR');
-//    AdMobInterstitial.setAdUnitId('ca-app-pub-3940256099942544/1033173712');
+//    AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
 //
 //    AdMobInterstitial.addEventListener('interstitialDidLoad',
 //      () => console.log('interstitialDidLoad event'));
@@ -1116,18 +1117,17 @@ onDateChange(date) {
 
              </View>
              <View style={styles.quarterHeight2_Second_2}>
-
+             <AdMobBanner
+             bannerSize="largeBanner"
+             adUnitID="ca-app-pub-6988619974528181/2050848152"
+             testDeviceID="EMULATOR"
+              />
              <ActivityIndicator
             animating={this.state.isVisible}
             style={[styles.centering, {height: 20},{marginTop:5}]}
             size="large"
             color="red"
           />
-          <AdMobBanner
-          bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/2934735716"
-          testDeviceID="EMULATOR"
-           />
               </View>
           </View>
    );
@@ -1303,7 +1303,7 @@ _navigate(name, type='Normal') {
 
      var index = 0;
 
-     if(snapshot.val().Description == rowData.Description ){
+     if(snapshot.val().Description == rowData.Description && snapshot.val().Placemark == rowData.Placemark && snapshot.val().latitude == rowData.latitude && snapshot.val().longitude == rowData.longitude && snapshot.val().Address == rowData.Address){
             snapshot.ref.remove();
             Alert.alert(
                    'Alert',
@@ -1314,6 +1314,7 @@ _navigate(name, type='Normal') {
                      {
                        console.log('OK Pressed!')
                        this.props.navigator.pop();
+                       return;
                      }},
                    ]
                  )
@@ -1348,13 +1349,6 @@ _navigate(name, type='Normal') {
 {
 
 }
-
-
-//  componentWillReceiveProps(nextProps) {
-//    this.setState({
-//               dataSource: this.state.dataSource.cloneWithRows(newArray),
-//           });
-// }
 
  render() {
 
