@@ -663,7 +663,6 @@ class Second extends React.Component{
                adUnitID = {adUnitID}
              />
                <Spinner visible={this.state.isLoading} size="large" color="white"/>
-
               </View>
           </View>
    );
@@ -940,6 +939,11 @@ _navigate(name, type='Normal') {
              <View style={styles.quarterHeight2_Second_2}>
                <Spinner visible={this.state.isLoading} size="large" color="white"/>
               </View>
+              <AdMobManager
+                bannerSize = {bannerSize}
+                testDeviceID = {testDeviceID}
+                adUnitID = {adUnitID}
+              />
           </View>
 
    );
