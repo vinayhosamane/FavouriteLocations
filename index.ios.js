@@ -321,13 +321,12 @@ componentWillMount() {
                     Create Account!
             </Button>
             <ActivityIndicator animating={this.state.isVisible} style={[styles.centering, {height: 20},{marginTop:5}]} size="large" color="red"/>
-
-            <AdMobManager
-              bannerSize = {bannerSize}
-              testDeviceID = {testDeviceID}
-              adUnitID = {adUnitID}
-            />
          </View>
+         <AdMobManager
+           bannerSize = {bannerSize}
+           testDeviceID = {testDeviceID}
+           adUnitID = {adUnitID}
+         />
       </View>
     );
   }
@@ -688,16 +687,17 @@ class Second extends React.Component{
                  {"\n"}
                About App
              </Button>
-             <AdMobManager
-               bannerSize = {bannerSize}
-               testDeviceID = {testDeviceID}
-               adUnitID = {adUnitID}
-             />
              <ActivityIndicator
                animating={this.state.isVisible}
                style={[styles.centering, {height: 20},{marginTop:5}]}
                size="large"
                color="red"
+             />
+
+             <AdMobManager
+               bannerSize = {bannerSize}
+               testDeviceID = {testDeviceID}
+               adUnitID = {adUnitID}
              />
 
               </View>
@@ -983,6 +983,11 @@ _navigate(name, type='Normal') {
             color="red"
           />
               </View>
+              <AdMobManager
+                bannerSize = {bannerSize}
+                testDeviceID = {testDeviceID}
+                adUnitID = {adUnitID}
+              />
           </View>
 
    );
