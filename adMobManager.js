@@ -25,8 +25,8 @@ class adMobManager extends Component {
   }
 
   componentDidMount() {
-    AdMobInterstitial.setTestDeviceID('EMULATOR');
-    AdMobInterstitial.setAdUnitId('ca-app-pub-3940256099942544/1033173712');
+    AdMobInterstitial.setTestDeviceID(this.state.testDeviceID);
+    AdMobInterstitial.setAdUnitId(this.state.adUnitID);
 
     AdMobInterstitial.addEventListener('interstitialDidLoad',
       () => console.log('interstitialDidLoad event'));
