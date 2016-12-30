@@ -620,6 +620,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = MNXM2Q46S4;
+					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FavouriteLocations" */;
@@ -1087,7 +1090,8 @@
 			baseConfigurationReference = E95F515F52701BE20DDD571C /* Pods-FavouriteLocations.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chaitra Dharanendrappa (S6YV3F6P5Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: vinay hosamane (D878TQD6F2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: vinay hosamane (D878TQD6F2)";
 				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1112,9 +1116,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allstate.Roadsmart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.happycoders.FavouriteLocations;
 				PRODUCT_NAME = FavouriteLocations;
-				PROVISIONING_PROFILE = "0fa46e51-2de1-40be-8550-6956e8d8e5f7";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = Roadsmart_dev_exp_11_2017;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1125,7 +1129,8 @@
 			baseConfigurationReference = AD6F6912C71930D638810939 /* Pods-FavouriteLocations.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chaitra Dharanendrappa (S6YV3F6P5Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: vinay hosamane (D878TQD6F2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: vinay hosamane (D878TQD6F2)";
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1150,9 +1155,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allstate.Roadsmart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.happycoders.FavouriteLocations;
 				PRODUCT_NAME = FavouriteLocations;
-				PROVISIONING_PROFILE = "0fa46e51-2de1-40be-8550-6956e8d8e5f7";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = Roadsmart_dev_exp_11_2017;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

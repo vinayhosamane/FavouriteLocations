@@ -567,7 +567,7 @@ class Second extends React.Component{
           <View style={styles.container_Second_2}>
              <View style={styles.halfHeight_Second_2}>
              <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'right',marginTop:17 ,color:'white',fontSize: 20 , marginRight:10}}
+               style={{borderWidth: 0, borderColor: 'white',textAlign:'right',marginTop:17,color:'white',fontSize: 20,position: 'absolute',right:2}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleLogoutPress.bind(this)}>
                Logout 🔐
@@ -726,7 +726,7 @@ _navigate(name, type='Normal') {
           <View style={styles.container_Second_2}>
              <View style={styles.halfHeight_Second_2}>
              <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10}}
+               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleLogoutPress.bind(this)}>
               ◀️ Back
@@ -852,7 +852,7 @@ _navigate(name, type='Normal') {
           <View style={styles.container_Second_2}>
              <View style={styles.halfHeight_Second_2}>
              <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10}}
+               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleLogoutPress.bind(this)}>
                ◀️ Back
@@ -939,6 +939,7 @@ _navigate(name, type='Normal') {
              <View style={styles.quarterHeight2_Second_2}>
                <Spinner visible={this.state.isLoading} size="large" color="white"/>
               </View>
+
               <AdMobManager
                 bannerSize = {bannerSize}
                 testDeviceID = {testDeviceID}
@@ -1056,7 +1057,7 @@ onDateChange(date) {
           <View style={styles.container_Second_2}>
              <View style={styles.halfHeight_Second_2}>
              <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10}}
+               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleLogoutPress.bind(this)}>
               ◀️ Back
@@ -1327,7 +1328,7 @@ _navigate(name, type='Normal') {
           <View style={styles.container_Second_2}>
              <View style={styles.halfHeight_Second_2}>
                <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10}}
+               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleLogoutPress.bind(this)}>
               ◀️ Back
@@ -1539,7 +1540,7 @@ container_Second_2: {
  quarterHeight2_Second_2: {
      flex: .41,
      alignItems: 'center',
-     backgroundColor: '#CCC'
+     backgroundColor: '#CCC',
  },
  quarterHeight1_Second_3: {
      flex: .93,
