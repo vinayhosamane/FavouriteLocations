@@ -693,14 +693,12 @@ class Second extends React.Component{
                size="large"
                color="red"
              />
-
-             <AdMobManager
-               bannerSize = {bannerSize}
-               testDeviceID = {testDeviceID}
-               adUnitID = {adUnitID}
-             />
-
               </View>
+               <AdMobManager
+                   bannerSize = {bannerSize}
+                   testDeviceID = {testDeviceID}
+                   adUnitID = {adUnitID}
+               />
           </View>
    );
  }
