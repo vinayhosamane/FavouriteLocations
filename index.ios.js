@@ -17,7 +17,8 @@ import * as firebase from 'firebase';
 //import geocoding from 'reverse-geocoding';
 import Geocoder from 'react-native-geocoder';
 import Share from 'react-native-share';
-import Spinner from 'react-native-spinkit';
+// import Spinner from 'react-native-spinkit';
+import Spinner from './Spinner.js';
 // import { AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
 
 //AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
@@ -77,77 +78,45 @@ class First extends React.Component{
    types: ['CircleFlip', 'Bounce', 'Wave', 'WanderingCubes', 'Pulse', 'ChasingDots', 'ThreeBounce', 'Circle', '9CubeGrid', 'WordPress', 'FadingCircle', 'FadingCircleAlt', 'Arc', 'ArcAlt'],
    size: 100,
    color: "#FFFFFF",
-   isVisible: false
+   isLoading: false,
  };
+ console.disableYellowbox = true;
 }
 
 _handleLoginPress(event) {
-
-console.log('Pressed!');
-
-var username = this.state.username;
-var password = this.state.password;
-
-console.log(username);
-console.log(password);
-
-this._navigate('Login_Screen_Clicked');
-// <CaptureLocationsScreen />
-}
-
-_handleCreateAccount(event) {
-console.log('Pressed!');
-
-var username = this.state.username;
-var password = this.state.password;
-
-console.log(username);
-console.log(password);
-
-this._navigate('Create_Account_Clicked');
-// <CaptureLocationsScreen />
-}
-
-_setLoading()
-{
-      this.setState({isVisible: false});
-}
-
-_handleForgotPassword(event) {
-console.log('Pressed!');
-
-var username = this.state.username;
-var password = this.state.password;
-
-console.log(username);
-console.log(password);
-
-this._navigate('Forgot_Password_Clicked');
-// <CaptureLocationsScreen />
-}
-
-_navigate(name, type='Normal') {
-
   var username = this.state.username;
   var password = this.state.password;
+  this._navigate('Login_Screen_Clicked');
+    // <CaptureLocationsScreen />
+  }
 
-  console.log(username);
-  console.log(password);
+_handleCreateAccount(event) {
+  var username = this.state.username;
+  var password = this.state.password;
+  this._navigate('Create_Account_Clicked');
+    // <CaptureLocationsScreen />
+  }
 
+_handleForgotPassword(event) {
+  var username = this.state.username;
+  var password = this.state.password;
+  this._navigate('Forgot_Password_Clicked');
+  // <CaptureLocationsScreen />
+  }
+
+_navigate(name, type='Normal') {
+  var username = this.state.username;
+  var password = this.state.password;
   var status = false;
+  if(name == 'Login_Screen_Clicked') {
 
-if(name == 'Login_Screen_Clicked')
-{
-    console.disableYellowbox = true;
   if(username!='' && password!='')
   {
-    this.setState({isVisible: true});
-  var user = firebase.auth().signInWithEmailAndPassword(username, password).then((userData) =>
-      {
-        this.setState({
-                loggedIn: true
-              });
-        this.setState({isVisible: false});
+    this.setState({isLoading: true});
+    var user = firebase.auth().signInWithEmailAndPassword(username, password).then((userData) =>
+    {
+        this.setState({loggedIn: true});
+        this.setState({isLoading:false})
         console.log("Login successful" + userData);
         console.log("Login successful");
 
@@ -172,7 +141,7 @@ if(name == 'Login_Screen_Clicked')
 
   console.log("Error signing in",error);
 
-  this.setState({isVisible: false});
+  this.setState({isLoading: false});
 
  if(error)
  {
@@ -270,6 +239,7 @@ componentWillMount() {
   render() {
     return (
       <View style={styles.container1}>
+          <Spinner visible={this.state.isLoading} size="large" color="red"/>
          <View style={styles.halfHeight}>
            <Image source={require('./map.jpg')}  style={styles.backgroundImageToolBar}></Image>
          </View>
@@ -320,7 +290,7 @@ componentWillMount() {
             <Button style={{borderWidth: 0, borderColor: 'white', marginTop:20}} onPress={this._handleCreateAccount.bind(this)}>
                     Create Account!
             </Button>
-            <ActivityIndicator animating={this.state.isVisible} style={[styles.centering, {height: 20},{marginTop:5}]} size="large" color="red"/>
+            <Spinner visible={this.state.isLoading} size="large" color="white"/>
 
             <AdMobManager
               bannerSize = {bannerSize}
@@ -347,7 +317,6 @@ class Second extends React.Component{
     MyAddress: 'Bangalore',
     usr_descrption: '',
     usr_placemark: '',
-    isVisible: false,
     // region:{
     //         latitude: 4.21048,
     //         longitude: 101.97577,
@@ -389,7 +358,7 @@ class Second extends React.Component{
   console.log(username);
   console.log(password);
 
-  this.setState({isVisible: true});
+  this.setState({isLoading: true});
 
   this._navigate('Favourite_Locations_Clicked');
   // <CaptureLocationsScreen />
@@ -412,7 +381,7 @@ class Second extends React.Component{
            {text: 'Yes', onPress: () =>
            {
              console.log('OK Pressed!');
-             this.setState({isVisible: true});
+             this.setState({isLoading: true});
            const userData = firebase.auth().currentUser;
            var userid = userData.uid;
 
@@ -448,7 +417,7 @@ class Second extends React.Component{
               })
               console.log("dbRef "+dbRef)
               console.log('savedbRef '+ savedbRef)
-              this.setState({isVisible: false});
+              this.setState({isLoading: false});
               Alert.alert(
                      'Alert',
                      'Your Location saved successfully.',
@@ -528,7 +497,7 @@ class Second extends React.Component{
 
        itemsRef.orderByChild(userid).on("child_added", (snapshot) =>{
        console.log(snapshot.val());
-       this.setState({isVisible: false});
+       this.setState({isLoading: false});
 
        var data = snapshot.val()
 
@@ -544,7 +513,7 @@ class Second extends React.Component{
      },
        (errorObject) =>{
         console.log("The read failed: " + errorObject.code);
-        this.setState({isVisible: false});
+        this.setState({isLoading: false});
         // Alert.alert(
         //        'Data Fetch Error',
         //        errorObject.message,
@@ -567,7 +536,7 @@ class Second extends React.Component{
   }
 
   else {
-    this.setState({isVisible: false});
+    this.setState({isLoading: false});
     Alert.alert(
            'Alert!',
            'Please wait untill the connection with your cloud databsase is made. Try Again!',
@@ -693,12 +662,7 @@ class Second extends React.Component{
                testDeviceID = {testDeviceID}
                adUnitID = {adUnitID}
              />
-             <ActivityIndicator
-               animating={this.state.isVisible}
-               style={[styles.centering, {height: 20},{marginTop:5}]}
-               size="large"
-               color="red"
-             />
+               <Spinner visible={this.state.isLoading} size="large" color="white"/>
 
               </View>
           </View>
@@ -824,7 +788,6 @@ class CreateAccountScreen extends React.Component{
     name: 'MaxTech Login-->',
     newUsername:'',
     newPassword:'',
-    isVisible:false
    }
 }
 
@@ -836,7 +799,7 @@ class CreateAccountScreen extends React.Component{
 
   _handleCreateAccountButtonAction(event) {
   console.log('Create account button pressed!');
-    this.setState({isVisible: true});
+    this.setState({isLoading: false});
 
   username = this.state.newUsername;
   password = this.state.newPassword;
@@ -847,8 +810,7 @@ class CreateAccountScreen extends React.Component{
   firebase.auth().createUserWithEmailAndPassword(username, password).then((userData) =>
       {
       console.log("Account successfully created");
-
-        this.setState({isVisible: false});
+        this.setState({isLoading: false});
       Alert.alert(
              'Signup Alert',
              'Your account created successfully.',
@@ -862,7 +824,7 @@ class CreateAccountScreen extends React.Component{
    // Handle Errors here.
    var errorCode = error.code;
    var errorMessage = error.message;
-     this.setState({isVisible: false});
+   this.setState({isLoading: false});
    Alert.alert(
           'Signup Error',
           errorMessage,
@@ -976,12 +938,7 @@ _navigate(name, type='Normal') {
 
              </View>
              <View style={styles.quarterHeight2_Second_2}>
-             <ActivityIndicator
-            animating={this.state.isVisible}
-            style={[styles.centering, {height: 20},{marginTop:5}]}
-            size="large"
-            color="red"
-          />
+               <Spinner visible={this.state.isLoading} size="large" color="white"/>
               </View>
           </View>
 
@@ -1001,7 +958,6 @@ class ForgotPasswordScreen extends React.Component{
   console.log(this.props);
   this.state = { name: 'MaxTech Login-->',
   emailAddress: '',
-  isVisible: false
  }
 }
 
@@ -1016,11 +972,11 @@ class ForgotPasswordScreen extends React.Component{
 
   var email = this.state.emailAddress
 
-    this.setState({isVisible: true});
+    this.setState({isLoading: false});
 
   firebase.auth().sendPasswordResetEmail(email).then(()=> {
     // Email sent.
-      this.setState({isVisible: false});
+      this.setState({isLoading: false});
     Alert.alert(
            'Password Reset Alert',
            'Password Reset mail sent to '+email,
@@ -1031,7 +987,7 @@ class ForgotPasswordScreen extends React.Component{
          )
   }, (error) =>{
     // An error happened.
-      this.setState({isVisible: false});
+      this.setState({isLoading: false});
     var errorCode = error.code;
     var errorMessage = error.message;
     Alert.alert(
@@ -1138,12 +1094,7 @@ onDateChange(date) {
                  testDeviceID = {testDeviceID}
                  adUnitID = {adUnitID}
                />
-             <ActivityIndicator
-            animating={this.state.isVisible}
-            style={[styles.centering, {height: 20},{marginTop:5}]}
-            size="large"
-            color="red"
-          />
+               <Spinner visible={this.state.isLoading} size="large" color="red"/>
               </View>
           </View>
    );
