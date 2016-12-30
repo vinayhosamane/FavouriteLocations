@@ -18,12 +18,13 @@ import * as firebase from 'firebase';
 import Geocoder from 'react-native-geocoder';
 import Share from 'react-native-share';
 import Spinner from 'react-native-spinkit';
-import { AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
+// import { AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
 
 //AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
 // var First = require('First');
 // var Second = require('Second');
 // var CaptureLocationsScreen = require('CaptureLocationsScreen');
+//
 
 import {
   AppRegistry,
@@ -43,6 +44,11 @@ import {
   Dimensions,
   Linking
 } from 'react-native';
+
+import AdMobManager from './adMobManager';
+var bannerSize="smartBannerPortrait"
+var testDeviceID="EMULATOR"
+var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
 var config = {
 apiKey: "AIzaSyAFT0VK-KEMRiaqzlP2m1qpFodP1DNqm-8",
@@ -73,39 +79,6 @@ class First extends React.Component{
    color: "#FFFFFF",
    isVisible: false
  };
-}
-
-componentDidMount() {
-  AdMobInterstitial.setTestDeviceID('EMULATOR');
-  AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
-
-  AdMobInterstitial.addEventListener('interstitialDidLoad',
-    () => console.log('interstitialDidLoad event'));
-  AdMobInterstitial.addEventListener('interstitialDidClose',
-    this.interstitialDidClose);
-  AdMobInterstitial.addEventListener('interstitialDidFailToLoad',
-    () => console.log('interstitialDidFailToLoad event'));
-  AdMobInterstitial.addEventListener('interstitialDidOpen',
-    () => console.log('interstitialDidOpen event'));
-  AdMobInterstitial.addEventListener('interstitialWillLeaveApplication',
-    () => console.log('interstitalWillLeaveApplication event'));
-
-  AdMobInterstitial.requestAd((error) => error && console.log(error));
-}
-
-componentWillUnmount() {
-  AdMobInterstitial.removeAllListeners();
-}
-
-interstitialDidClose() {
-  console.log('interstitialDidClose event');
-  AdMobInterstitial.requestAd((error) => error && console.log(error));
-}
-
-setBannerSize() {
-  this.setState({
-    bannerSize: 'smartBannerPortrait',
-  });
 }
 
 _handleLoginPress(event) {
@@ -349,10 +322,10 @@ componentWillMount() {
             </Button>
             <ActivityIndicator animating={this.state.isVisible} style={[styles.centering, {height: 20},{marginTop:5}]} size="large" color="red"/>
 
-            <AdMobBanner
-            bannerSize={this.state.bannerSize}
-            testDeviceID="EMULATOR"
-            adUnitID="ca-app-pub-3940256099942544/2934735716"
+            <AdMobManager
+              bannerSize = {bannerSize}
+              testDeviceID = {testDeviceID}
+              adUnitID = {adUnitID}
             />
          </View>
       </View>
@@ -520,104 +493,105 @@ class Second extends React.Component{
   // <CaptureLocationsScreen />
   }
 
-_navigate(name, type='Normal') {
-  if(name == 'How_To_Use_clicked')
+  _navigate(name, type='Normal') {
+    if(name == 'How_To_Use_clicked')
+    {
+      this.props.navigator.push({
+        component:HowToUseScreen,
+        passProps: {
+          name: name
+        },
+        type: type
+      })
+    }
+
+
+    if(name == 'Favourite_Locations_Clicked')
+    {
+    //  var name = [
+    //    {
+    //      name:"Vinay",
+    //      age:23
+    //    },
+    //    {
+    //      name:"Hosamane",
+    //      age:24
+    //    }
+    //  ];
+
+       const userData = firebase.auth().currentUser;
+        var userid = userData.uid;
+
+        var newArray = []
+
+       var itemsRef = firebaseApp.database().ref('testing/'+userid);
+
+       itemsRef.orderByChild(userid).on("child_added", (snapshot) =>{
+       console.log(snapshot.val());
+       this.setState({isVisible: false});
+
+       var data = snapshot.val()
+
+       newArray.push(data)
+
+         console.log(data.Description);
+         console.log(data.latitude);
+         console.log(data.longitude);
+         // this.setState({
+         //            dataSource: this.state.dataSource.cloneWithRows(newArray),
+         //        });
+         //this.updateDatasource(newArray);
+     },
+       (errorObject) =>{
+        console.log("The read failed: " + errorObject.code);
+        this.setState({isVisible: false});
+        // Alert.alert(
+        //        'Data Fetch Error',
+        //        errorObject.message,
+        //        [
+        //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+        //          {text: 'OK', onPress: () => itemsRef.off()},
+        //        ]
+        //      )
+      });
+
+  if(newArray.length !=0)
   {
     this.props.navigator.push({
-      component:HowToUseScreen,
+      component:FavouriteLocationsFromHomeScreen ,
       passProps: {
-        name: name
+        name: newArray
       },
       type: type
     })
   }
 
-
-  if(name == 'Favourite_Locations_Clicked')
-  {
-  //  var name = [
-  //    {
-  //      name:"Vinay",
-  //      age:23
-  //    },
-  //    {
-  //      name:"Hosamane",
-  //      age:24
-  //    }
-  //  ];
-
-     const userData = firebase.auth().currentUser;
-      var userid = userData.uid;
-
-      var newArray = []
-
-     var itemsRef = firebaseApp.database().ref('testing/'+userid);
-
-     itemsRef.orderByChild(userid).on("child_added", (snapshot) =>{
-     console.log(snapshot.val());
-     this.setState({isVisible: false});
-
-     var data = snapshot.val()
-
-     newArray.push(data)
-
-       console.log(data.Description);
-       console.log(data.latitude);
-       console.log(data.longitude);
-       // this.setState({
-       //            dataSource: this.state.dataSource.cloneWithRows(newArray),
-       //        });
-       //this.updateDatasource(newArray);
-   },
-     (errorObject) =>{
-      console.log("The read failed: " + errorObject.code);
-      this.setState({isVisible: false});
-      // Alert.alert(
-      //        'Data Fetch Error',
-      //        errorObject.message,
-      //        [
-      //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-      //          {text: 'OK', onPress: () => itemsRef.off()},
-      //        ]
-      //      )
-    });
-
-if(newArray.length !=0)
-{
-  this.props.navigator.push({
-    component:FavouriteLocationsFromHomeScreen ,
-    passProps: {
-      name: newArray
-    },
-    type: type
-  })
-}
-
-else {
-  this.setState({isVisible: false});
-  Alert.alert(
-         'Alert!',
-         'Please wait untill the connection with your cloud databsase is made. Try Again!',
-         [
-           //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-           {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
-         ]
-       )
-}
-
+  else {
+    this.setState({isVisible: false});
+    Alert.alert(
+           'Alert!',
+           'Please wait untill the connection with your cloud databsase is made. Try Again!',
+           [
+             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+             {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
+           ]
+         )
   }
 
-//   if(name == 'Capture_Locations_Clicked')
-//   {
-//     this.props.navigator.push({
-//       component:CaptureLocationsScreen ,
-//       passProps: {
-//         name: name
-//       },
-//       type: type
-//     })
-//   }
- }
+    }
+
+  //   if(name == 'Capture_Locations_Clicked')
+  //   {
+  //     this.props.navigator.push({
+  //       component:CaptureLocationsScreen ,
+  //       passProps: {
+  //         name: name
+  //       },
+  //       type: type
+  //     })
+  //   }
+   }
+
 
  render() {
    return (
@@ -714,13 +688,17 @@ else {
                  {"\n"}
                About App
              </Button>
-
+             <AdMobManager
+               bannerSize = {bannerSize}
+               testDeviceID = {testDeviceID}
+               adUnitID = {adUnitID}
+             />
              <ActivityIndicator
-            animating={this.state.isVisible}
-            style={[styles.centering, {height: 20},{marginTop:5}]}
-            size="large"
-            color="red"
-          />
+               animating={this.state.isVisible}
+               style={[styles.centering, {height: 20},{marginTop:5}]}
+               size="large"
+               color="red"
+             />
 
               </View>
           </View>
@@ -823,7 +801,11 @@ _navigate(name, type='Normal') {
              NOTE -- *You will find many bugs in this app please bear with them till the next release .If possible please drop a mail to me on that issue so that i can make a note of it and also i can mention your name for helping me in making this app better for the users.
              </Text>
              </View>
-
+             <AdMobManager
+                bannerSize = {bannerSize}
+                testDeviceID = {testDeviceID}
+                adUnitID = {adUnitID}
+              />
           </View>
    );
  }
@@ -1151,11 +1133,11 @@ onDateChange(date) {
 
              </View>
              <View style={styles.quarterHeight2_Second_2}>
-             <AdMobBanner
-             bannerSize="largeBanner"
-             adUnitID="ca-app-pub-6988619974528181/2050848152"
-             testDeviceID="EMULATOR"
-              />
+              <AdMobManager
+                 bannerSize = {bannerSize}
+                 testDeviceID = {testDeviceID}
+                 adUnitID = {adUnitID}
+               />
              <ActivityIndicator
             animating={this.state.isVisible}
             style={[styles.centering, {height: 20},{marginTop:5}]}
@@ -1389,15 +1371,15 @@ _navigate(name, type='Normal') {
    return (
           <View style={styles.container_Second_2}>
              <View style={styles.halfHeight_Second_2}>
-             <Button
+               <Button
                style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10}}
                //onPress={this._handleLoginPress.bind(this)}>
                onPress={this._handleLogoutPress.bind(this)}>
               ◀️ Back
-             </Button>
+              </Button>
              </View>
              <View style={styles.quarterHeight1_Second_3}>
-             <ListView
+               <ListView
                dataSource={this.state.dataSource}
                renderRow={(rowData,rowId,sectionId) => <View><Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{rowData.Description}</Text>
                <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Placemark : {rowData.Placemark}</Text>
@@ -1471,7 +1453,12 @@ _navigate(name, type='Normal') {
 
                </View>}
                renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-             />
+               />
+               <AdMobManager
+                 bannerSize = {bannerSize}
+                 testDeviceID = {testDeviceID}
+                 adUnitID = {adUnitID}
+               />
              </View>
           </View>
    );
