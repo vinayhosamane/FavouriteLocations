@@ -6,8 +6,6 @@ import {
   Navigator,
   ListView,
   Image,
-  ListView,
-  TouchableOpacity,
   Alert,
   TouchableOpacity,
 } from 'react-native';
