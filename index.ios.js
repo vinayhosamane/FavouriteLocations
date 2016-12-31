@@ -44,27 +44,25 @@ var adUnitID="ca-app-pub-3940256099942544/2934735716"
 //How to use? Screen.js
 
 class HowToUseScreen extends React.Component{
-
   constructor(props) {
-    super(props)
-  console.log(this.props);
-  this.state = { name: 'MaxTech Login-->' }
-}
-
-  _handleLogoutPress(event) {
-  console.log('Logout Pressed!');
-
- this.props.navigator.pop();
+      super(props)
+      this.state = {
+          name: 'MaxTech Login-->'
+      }
   }
 
-_navigate(name, type='Normal') {
-  this.props.navigator.push({
-    component: First,
-    passProps: {
-      name: name
-    },
-    type: type
-  })
+  _handleLogoutPress(event) {
+      this.props.navigator.pop();
+  }
+
+_navigate(name, type = 'Normal') {
+    this.props.navigator.push({
+        component: First,
+        passProps: {
+            name: name
+        },
+        type: type
+    })
 }
 
  render() {

@@ -23,6 +23,7 @@ import Geocoder from 'react-native-geocoder';
 
 import Spinner from './Spinner.js';
 import AdMobManager from './AdMobManager';
+import HowToUseScreen from './HowToUseScreen'
 
 var bannerSize="smartBannerPortrait"
 var testDeviceID="EMULATOR"
