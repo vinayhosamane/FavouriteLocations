@@ -22,6 +22,7 @@ var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
 import * as firebase from 'firebase';
 import Second from './Second.js';
+import CreateAccountScreen from './CreateAccountScreen.js';
 
 export default class First extends React.Component{
   constructor(props) {
@@ -90,7 +91,7 @@ _navigate(name, type='Normal') {
   }
   if(name == 'Create_Account_Clicked') {
       this.props.navigator.push({
-          component:CreateAccountScreen ,
+          component: CreateAccountScreen ,
           passProps: {name: name},
           type: type
       })
