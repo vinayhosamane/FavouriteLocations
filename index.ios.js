@@ -40,20 +40,6 @@ var bannerSize="smartBannerPortrait"
 var testDeviceID="EMULATOR"
 var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
-
-//How to use? Screen.js
-
-
-
-//End - How to use? screen
-
-//Create Account screen
-
-
-
-
-//End - Create account screen
-
 //Forgot Password screen
 
 //End - Forgot Password Screen

@@ -7,13 +7,13 @@ import {
   View,
   TextInput,
   Navigator,
-  NavigatorIOS,
-  Image,
-  Alert,
+  Alert
 } from 'react-native';
 
 import Button from 'react-native-button';
-import Icon from 'react-native-vector-icons';
+import * as firebase from 'firebase';
+
+import First from './First.js';
 import Spinner from './Spinner.js';
 
 import AdMobManager from './AdMobManager';
@@ -21,109 +21,54 @@ var bannerSize="smartBannerPortrait"
 var testDeviceID="EMULATOR"
 var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
-import * as firebase from 'firebase';
-import Second from './Second.js';
-import CreateAccountScreen from './CreateAccountScreen.js';
-
-export default class ForgotPasswordScreen extends React.Component{
+export default class ForgotPasswordScreen extends Component {
 
   constructor(props) {
-    super(props)
-  console.log(this.props);
-  this.state = { name: 'MaxTech Login-->',
-  emailAddress: '',
- }
-}
+      super(props)
+      console.log(this.props);
+      this.state = {
+          name: 'MaxTech Login-->',
+          emailAddress: '',
+      }
+  }
 
   _handleLogoutPress(event) {
-  console.log('Logout Pressed!');
-
- this.props.navigator.pop();
+    this.props.navigator.pop();
   }
 
   _handleProfileValidate(event) {
-  console.log('Validation done!');
-
-  var email = this.state.emailAddress
-
-    this.setState({isLoading: false});
-
-  firebase.auth().sendPasswordResetEmail(email).then(()=> {
-    // Email sent.
+      var email = this.state.emailAddress
       this.setState({isLoading: false});
-    Alert.alert(
-           'Password Reset Alert',
-           'Password Reset mail sent to '+email,
-           [
-             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-             {text: 'OK', onPress: () => console.log('OK Pressed!')/*this.props.navigator.pop()*/},
-           ]
-         )
-  }, (error) =>{
-    // An error happened.
-      this.setState({isLoading: false});
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    Alert.alert(
-           'Password Reset Error',
-           errorMessage,
-           [
-             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-             {text: 'OK', onPress: () => console.log('Password reset error')},
-           ]
-         )
-  });
- // this.props.navigator.pop();
+      firebase.auth().sendPasswordResetEmail(email).then(()=> {
+        // Email sent.
+        this.setState({isLoading: false});
+        Alert.alert('Password Reset Alert', 'Password Reset mail sent to '+email, [{text: 'OK', onPress: () => console.log('OK Pressed!')/*this.props.navigator.pop()*/}])
+      }, (error) => {
+        this.setState({isLoading: false});
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        Alert.alert('Password Reset Error', errorMessage, [{text: 'OK', onPress: () => console.log('Password reset error')}])
+      });
+    }
+
+  _navigate(name, type = 'Normal') {
+      this.props.navigator.push({
+          component: First,
+          passProps: {
+              name: name
+          },
+          type: type
+      })
   }
 
-_navigate(name, type='Normal') {
-  this.props.navigator.push({
-    component: First,
-    passProps: {
-      name: name
-    },
-    type: type
-  })
-}
-
-onDateChange(date) {
-  this.setState({ date: date });
-}
-
-// componentDidMount() {
-//    //AdMobInterstitial.setTestDeviceID('EMULATOR');
-//    AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
-//
-//    AdMobInterstitial.addEventListener('interstitialDidLoad',
-//      () => console.log('interstitialDidLoad event'));
-//    AdMobInterstitial.addEventListener('interstitialDidClose',
-//      this.interstitialDidClose);
-//    AdMobInterstitial.addEventListener('interstitialDidFailToLoad',
-//      () => console.log('interstitialDidFailToLoad event'));
-//    AdMobInterstitial.addEventListener('interstitialDidOpen',
-//      () => console.log('interstitialDidOpen event'));
-//    AdMobInterstitial.addEventListener('interstitialWillLeaveApplication',
-//      () => console.log('interstitalWillLeaveApplication event'));
-//
-//    AdMobInterstitial.requestAd((error) => error && console.log(error));
-//  }
-//
-//  componentWillUnmount() {
-//    AdMobInterstitial.removeAllListeners();
-//  }
-//
-//  interstitialDidClose() {
-//    console.log('interstitialDidClose event');
-//    AdMobInterstitial.requestAd((error) => error && console.log(error));
-//  }
-//
-//  showInterstital() {
-//    AdMobInterstitial.showAd((error) => error && console.log(error));
-//  }
+  onDateChange(date) {
+    this.setState({ date: date });
+  }
 
  render() {
    return (
           <View style={styles.container_Second_2}>
+
              <View style={styles.halfHeight_Second_2}>
              <Button
                style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
@@ -175,27 +120,28 @@ onDateChange(date) {
  }
 };
 
+
 const styles = StyleSheet.create({
-  container_Second_2: {
-      flex: 1,
-      flexDirection: 'column'
-  },
-  halfHeight_Second_2: {
-      flex: .07,
-      backgroundColor: '#FF3366'
-  },
-  quarterHeight1_Second_2: {
-      flex: .52,
-      backgroundColor: '#fffaf0'
-  },
-  quarterHeight2_Second_2: {
-      flex: .41,
-      alignItems: 'center',
-      backgroundColor: '#CCC',
-  },
-  welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-  }
+    container_Second_2: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+    halfHeight_Second_2: {
+        flex: .07,
+        backgroundColor: '#FF3366'
+    },
+    quarterHeight1_Second_2: {
+        flex: .52,
+        backgroundColor: '#fffaf0'
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    quarterHeight2_Second_2: {
+        flex: .41,
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+    }
 });
