@@ -22,6 +22,7 @@ var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
 import * as firebase from 'firebase';
 import Second from './Second.js';
+import ForgotPasswordScreen from './ForgotPasswordScreen'
 import CreateAccountScreen from './CreateAccountScreen.js';
 
 export default class First extends React.Component{
