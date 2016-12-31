@@ -7,6 +7,7 @@ import {
   ListView,
   Image,
   Alert,
+  Linking,
   TouchableOpacity,
 } from 'react-native';
 
@@ -77,7 +78,7 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
                   console.log('OK Pressed!')
                   const userData = firebase.auth().currentUser;
                   var userid = userData.uid;
-                  var itemsRef = firebaseApp.database().ref('testing/'+userid);
+                  var itemsRef = firebase.database().ref('testing/'+userid);
                                   itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
                                   console.log(snapshot.val());
 

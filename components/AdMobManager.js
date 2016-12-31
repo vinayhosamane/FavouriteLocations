@@ -26,7 +26,7 @@ export default class AdMobManager extends Component {
 
   componentDidMount() {
     AdMobInterstitial.setTestDeviceID(this.state.testDeviceID);
-    AdMobInterstitial.setAdUnitId(this.state.adUnitID);
+    AdMobInterstitial.setAdUnitID(this.state.adUnitID);
 
     AdMobInterstitial.addEventListener('interstitialDidLoad',
       () => console.log('interstitialDidLoad event'));
