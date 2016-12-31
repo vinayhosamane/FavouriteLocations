@@ -17,7 +17,6 @@ import * as firebase from 'firebase';
 import Share from 'react-native-share';
 import First from './First.js';
 import AdMobManager from './AdMobManager';
-
 var bannerSize="smartBannerPortrait"
 var testDeviceID="EMULATOR"
 var adUnitID="ca-app-pub-3940256099942544/2934735716"

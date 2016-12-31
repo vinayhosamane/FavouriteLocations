@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+
 import {
   StyleSheet,
   Text,
@@ -14,6 +15,7 @@ import * as firebase from 'firebase';
 
 import First from './First.js';
 import Spinner from './Spinner.js';
+
 import AdMobManager from './AdMobManager';
 var bannerSize="smartBannerPortrait"
 var testDeviceID="EMULATOR"
@@ -68,42 +70,56 @@ export default class ForgotPasswordScreen extends Component {
           <View style={styles.container_Second_2}>
 
              <View style={styles.halfHeight_Second_2}>
-               <Button style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
-                       onPress={this._handleLogoutPress.bind(this)}>
-                       ◀️ Back
-               </Button>
+             <Button
+               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
+               //onPress={this._handleLoginPress.bind(this)}>
+               onPress={this._handleLogoutPress.bind(this)}>
+              ◀️ Back
+             </Button>
              </View>
-
              <View style={styles.quarterHeight1_Second_2}>
-               <Text style={styles.welcome}> Please enter your valid email id (username) </Text>
-               <TextInput ref="forgot_screen"
-                          style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
-                          placeholder= "name@domain.com"
-                          placeholderTextColor = '#a52a2a'
-                          autoCapitalize = "none"
-                          autoCorrect = {false}
-                          returnKeyType = {'done'}
-                          secureTextEntry = {false}
-                          clearButtonMode = 'while-editing'
-                          onChangeText={(text) => {
-                            this.setState({emailAddress:text});
-                          }}
-               />
-               <Button onPress={this._handleProfileValidate.bind(this)}>
-                       {"\n"}
-                       Reset Password
-               </Button>
-             </View>
 
+             <Text style={styles.welcome}> Please enter your valid email id (username) </Text>
+             <TextInput
+             ref="forgot_screen"
+             style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
+             placeholder= "name@domain.com"
+             placeholderTextColor = '#a52a2a'
+             autoCapitalize = "none"
+             autoCorrect = {false}
+             returnKeyType = {'done'}
+             secureTextEntry = {false}
+             clearButtonMode = 'while-editing'
+             // onChange={(event) => this.updateText(
+             //      'onChange text: ' + event.nativeEvent.text
+             //    )}
+             onChangeText={(text) => {
+                 this.setState({emailAddress:text});
+               }}
+             />
+
+             <Button
+               //style={{borderWidth: 0, borderColor: 'white',textAlign:'center',marginTop:17 ,color:'grey',fontSize: 20}}
+               //onPress={this._handleLoginPress.bind(this)}>
+               onPress={this._handleProfileValidate.bind(this)}>
+              {"\n"}
+              Reset Password
+             </Button>
+
+             </View>
              <View style={styles.quarterHeight2_Second_2}>
-              <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
-                <Spinner visible={this.state.isLoading} size="large" color="red"/>
-             </View>
-
+              <AdMobManager
+                 bannerSize = {bannerSize}
+                 testDeviceID = {testDeviceID}
+                 adUnitID = {adUnitID}
+               />
+               <Spinner visible={this.state.isLoading} size="large" color="red"/>
+              </View>
           </View>
-      );
-    }
-}
+   );
+ }
+};
+
 
 const styles = StyleSheet.create({
     container_Second_2: {

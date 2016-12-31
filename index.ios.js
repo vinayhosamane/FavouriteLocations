@@ -42,12 +42,9 @@ var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
 //Forgot Password screen
 
-
-
 //End - Forgot Password Screen
 
 //FavouriteLocationsFromHomeScreen
-
 
 //End - FavouriteLocationsFromHomeScreen
 
