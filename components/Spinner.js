@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 import SpinnerComp from 'react-native-loading-spinner-overlay';
 
-export default class  Spinner extends React.Component {
+export default class  Spinner extends Component {
     constructor(props) {
         super(props);
 

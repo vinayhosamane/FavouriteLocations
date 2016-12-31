@@ -6,27 +6,6 @@
 
 import React, { Component } from 'react';
 
-import Button from 'react-native-button';
-var CalendarPicker = require('react-native-calendar-picker');
-import Icon from 'react-native-vector-icons';
-//var Firebase = require('firebase');
-import * as firebase from 'firebase';
- import MapView from 'react-native-maps'
-//import Geocoder from 'react-native-geocoding';
-//import geocoding from 'reverse-geocoding';
-//import geocoding from 'reverse-geocoding';
-import Geocoder from 'react-native-geocoder';
-import Share from 'react-native-share';
-// import Spinner from 'react-native-spinkit';
-import Spinner from './Spinner.js';
-// import { AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
-
-//AdMobInterstitial.setAdUnitId('ca-app-pub-6988619974528181/2050848152');
-// var First = require('First');
-// var Second = require('Second');
-// var CaptureLocationsScreen = require('CaptureLocationsScreen');
-//
-
 import {
   AppRegistry,
   StyleSheet,
@@ -46,654 +25,21 @@ import {
   Linking
 } from 'react-native';
 
-import AdMobManager from './adMobManager';
+import Button from 'react-native-button';
+import Icon from 'react-native-vector-icons';
+import * as firebase from 'firebase';
+import MapView from 'react-native-maps'
+import Geocoder from 'react-native-geocoder';
+import Share from 'react-native-share';
+
+import First from './components/First.js';
+import Spinner from './components/Spinner.js';
+import AdMobManager from './components/AdMobManager';
+
 var bannerSize="smartBannerPortrait"
 var testDeviceID="EMULATOR"
 var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
-var config = {
-apiKey: "AIzaSyAFT0VK-KEMRiaqzlP2m1qpFodP1DNqm-8",
-authDomain: "my-favourite-locations.firebaseapp.com",
-databaseURL: "https://my-favourite-locations.firebaseio.com",
-storageBucket: "my-favourite-locations.appspot.com",
-};
-const firebaseApp = firebase.initializeApp(config);
- //var database = firebase.database();
- const itemsRef = firebase.database();
-// var MyFirebase = new Firebase("https://my-favourite-locations.firebaseio.com");
-
-//Class First.js
-class First extends React.Component{
-  constructor(props) {
-    super(props);
-
-  console.log(this.props);
-  this.state = {
-   name: 'MaxTech Login-->',
-   username:'',
-   password:'',
-   loading : false,
-   loggedIn : false,
-   index: 0,
-   types: ['CircleFlip', 'Bounce', 'Wave', 'WanderingCubes', 'Pulse', 'ChasingDots', 'ThreeBounce', 'Circle', '9CubeGrid', 'WordPress', 'FadingCircle', 'FadingCircleAlt', 'Arc', 'ArcAlt'],
-   size: 100,
-   color: "#FFFFFF",
-   isLoading: false,
- };
- console.disableYellowbox = true;
-}
-
-_handleLoginPress(event) {
-  var username = this.state.username;
-  var password = this.state.password;
-  this._navigate('Login_Screen_Clicked');
-    // <CaptureLocationsScreen />
-  }
-
-_handleCreateAccount(event) {
-  var username = this.state.username;
-  var password = this.state.password;
-  this._navigate('Create_Account_Clicked');
-    // <CaptureLocationsScreen />
-  }
-
-_handleForgotPassword(event) {
-  var username = this.state.username;
-  var password = this.state.password;
-  this._navigate('Forgot_Password_Clicked');
-  // <CaptureLocationsScreen />
-  }
-
-_navigate(name, type='Normal') {
-  var username = this.state.username;
-  var password = this.state.password;
-  var status = false;
-  if(name == 'Login_Screen_Clicked') {
-
-  if(username!='' && password!='')
-  {
-    this.setState({isLoading: true});
-    var user = firebase.auth().signInWithEmailAndPassword(username, password).then((userData) =>
-    {
-        this.setState({loggedIn: true});
-        this.setState({isLoading:false})
-        console.log("Login successful" + userData);
-        console.log("Login successful");
-
-        this.refs.usr.setNativeProps({text: ''});
-        this.refs.psw.setNativeProps({text: ''});
-
-        this.setState({
-                username: '',
-                password: ''
-              });
-          this.props.navigator.push({
-            component: Second,
-            passProps: {
-              name: name
-            },
-            type: type
-          })
-      }).catch((error)=> {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-
-  console.log("Error signing in",error);
-
-  this.setState({isLoading: false});
-
- if(error)
- {
-   Alert.alert(
-          'Login Error',
-          errorMessage,
-          [
-            //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-            {text: 'Thank you!', onPress: () => console.log('OK Pressed!')}
-          ]
-        )
- }
-  });
-
-  console.log(user);
-
-  //this.setState({isVisible: false});
-
-//   firebase.auth().onAuthStateChanged(function(user) {
-//   if (user) {
-//     console.log(user);
-//
-//      }
-//     // User is signed in.
-//    else {
-//     // No user is signed in.
-//   }
-// });
-
-
-}
-
-
-else {
-  Alert.alert(
-         'Login Error',
-         'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.',
-         [
-           //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-           {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
-         ]
-       )
-}
-
-}
-
-if(name == 'Create_Account_Clicked')
-{
-  this.props.navigator.push({
-    component:CreateAccountScreen ,
-    passProps: {
-      name: name
-    },
-    type: type
-  })
-}
-
-if(name == 'Forgot_Password_Clicked')
-{
-  this.props.navigator.push({
-    component:ForgotPasswordScreen ,
-    passProps: {
-      name: name
-    },
-    type: type
-  })
-}
-
-}
-
-componentWillMount() {
-    // get the current user from firebase
-    //const userData = this.props.firebaseApp.auth().currentUser;
-    this.setState({
-      loggedIn : false
-    });
-  }
-
-  // renderLoadingView() {
-  //     return (
-  //         <View style={styles.loading}>
-  //         <ActivityIndicator
-  //           animating={this.state.isVisible}
-  //           style={[styles.centering, {height: 20},{marginTop:5}]}
-  //           size="small"
-  //           color="red"
-  //         />
-  //             <Text>
-  //                 Loading books...
-  //             </Text>
-  //         </View>
-  //     );
-  // }
-
-  render() {
-    return (
-      <View style={styles.container1}>
-          <Spinner visible={this.state.isLoading} size="large" color="red"/>
-         <View style={styles.halfHeight}>
-           <Image source={require('./map.jpg')}  style={styles.backgroundImageToolBar}></Image>
-         </View>
-
-         <View style={styles.quarterHeight1}>
-           <Text style={styles.bullsWelcome}>
-             Welcome to React-Native Favourite Locations
-           </Text>
-           <TextInput ref="usr"
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
-                    placeholder= "Enter username"
-                    placeholderTextColor = '#a52a2a'
-                    returnKeyType = {"next"}
-                    autoFocus = {false}
-                    autoCapitalize = "none"
-                    autoCorrect = {false}
-                    clearButtonMode = 'while-editing'
-                    onChangeText={(text) => {
-                      this.setState({username:text});
-                    }}
-                    onSubmitEditing={(event) => {
-                      this.refs.psw.focus();
-                    }}
-            />
-            <TextInput
-                    ref="psw"
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
-                    placeholder= "Enter password"
-                    placeholderTextColor = '#a52a2a'
-                    autoCapitalize = "none"
-                    autoCorrect = {false}
-                    returnKeyType = {'done'}
-                    secureTextEntry = {true}
-                    clearButtonMode = 'while-editing'
-                    onChangeText={(text) => {
-                      this.setState({password:text});
-                    }}
-            />
-         </View>
-
-         <View style={[styles.quarterHeight2, {backgroundColor: '#fffaf0', alignItems: 'center'}]}>
-           <Button style={{borderWidth: 0, borderColor: 'blue' }} onPress={this._handleLoginPress.bind(this)}>
-                   Login
-            </Button>
-            <Button style={{borderWidth: 0, borderColor: 'white', marginTop:20}} onPress={this._handleForgotPassword.bind(this)}>
-                    Forgot Password?
-            </Button>
-            <Button style={{borderWidth: 0, borderColor: 'white', marginTop:20}} onPress={this._handleCreateAccount.bind(this)}>
-                    Create Account!
-            </Button>
-            <Spinner visible={this.state.isLoading} size="large" color="white"/>
-
-            <AdMobManager
-              bannerSize = {bannerSize}
-              testDeviceID = {testDeviceID}
-              adUnitID = {adUnitID}
-            />
-         </View>
-      </View>
-    );
-  }
-}
-
-
-//End - First.js
-
-//Class Second.js
-class Second extends React.Component{
-
-  constructor(props) {
-    super(props)
-  console.log(this.props);
-  this.state = {
-    name: 'MaxTech Login-->' ,
-    MyAddress: 'Bangalore',
-    usr_descrption: '',
-    usr_placemark: '',
-    // region:{
-    //         latitude: 4.21048,
-    //         longitude: 101.97577,
-    //         latitudeDelta: 10,
-    //         longitudeDelta: 5,
-    //         title: "Your Address"
-    //       }
-    position: {
-        coords: {}
-      }
-    // annotations: [{
-    //     latitude: this.state.position.coords.latitude,
-    //     longitude: this.state.position.coords.longitude,
-    //     title: 'My Place',
-    //     subtitle: 'you are here'
-    //   }]
-   };
-}
-
-  _handleLogoutPress(event) {
-  console.log('Logout Pressed!');
-
-  firebase.auth().signOut().then(function() {
-    // Sign-out successful.
-    console.log("successfully logged out");
-  }, function(error) {
-    // An error happened.
-  });
-
- this.props.navigator.pop();
-  }
-
-  _handleFavouriteLocationsAction(event) {
-  console.log('Pressed!');
-
-  var username = this.state.username;
-  var password = this.state.password;
-
-  console.log(username);
-  console.log(password);
-
-  this.setState({isLoading: true});
-
-  this._navigate('Favourite_Locations_Clicked');
-  // <CaptureLocationsScreen />
-  }
-
-  _handleCaptureLocationAction(event) {
-  console.log('Pressed!');
-
-  var username = this.state.username;
-  var password = this.state.password;
-
-  console.log(username);
-  console.log(password);
-
-  Alert.alert(
-         'Add My Location',
-         'Are you sure you want to add this to your Favourite locations list?.',
-         [
-           {text: 'No', onPress: () => console.log('Cancel Pressed!')},
-           {text: 'Yes', onPress: () =>
-           {
-             console.log('OK Pressed!');
-             this.setState({isLoading: true});
-           const userData = firebase.auth().currentUser;
-           var userid = userData.uid;
-
-           var myAddress = ''
-
-           var NY = {
-                  lat: this.state.position.coords.latitude,
-                  lng: this.state.position.coords.longitude
-                    };
-
-          Geocoder.fallbackToGoogle('AIzaSyCG887OvNRiQxuUoh3UYkKzxjcosHH1lRY');
-//{lat:12.985065,lng: 77.560499}
-// use the lib as usual
-          let ret = Geocoder.geocodePosition(NY).then((res)=>
-          {
-             console.log(res)
-             myAddress = res["0"].formattedAddress
-             console.log(myAddress);
-             this.setState({
-            MyAddress: myAddress
-           },function()
-            {
-             console.log(this.state.MyAddress);
-             console.log('I am inside callback');
-             });
-             var dbRef = firebase.database().ref('testing/')
-             var savedbRef = dbRef.child(userid).push({
-               Description : this.state.usr_descrption,
-               Placemark : this.state.usr_placemark,
-               Address: this.state.MyAddress,
-               latitude: this.state.position.coords.latitude,
-               longitude: this.state.position.coords.longitude
-              })
-              console.log("dbRef "+dbRef)
-              console.log('savedbRef '+ savedbRef)
-              this.setState({isLoading: false});
-              Alert.alert(
-                     'Alert',
-                     'Your Location saved successfully.',
-                     [
-                       //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                       {text: 'Thank you', onPress: () => console.log('OK Pressed!')},
-                     ]
-                   )
-          })
-        }
-
-         },
-         ]
-       )
-  //this._navigate('Capture_Locations_Clicked');
-  // <CaptureLocationsScreen />
-  }
-
-  // _saveDataToFirebase()
-  // {
-  //   var dbRef = firebase.database().ref('testing/')
-  //           var savedbRef = dbRef.child(userid).push({
-  //             Description : 'My Home',
-  //             Address: this.state.MyAddress,
-  //             latitude: this.state.position.coords.latitude,
-  //             longitude: this.state.position.coords.longitude
-  //           })
-  //           console.log("dbRef "+dbRef)
-  //           console.log('savedbRef '+ savedbRef)
-  // }
-
-  _handleHowToUseAction(event) {
-  console.log('Pressed!');
-
-  var username = this.state.username;
-  var password = this.state.password;
-
-  console.log(username);
-  console.log(password);
-
-  this._navigate('How_To_Use_clicked');
-  // <CaptureLocationsScreen />
-  }
-
-  _navigate(name, type='Normal') {
-    if(name == 'How_To_Use_clicked')
-    {
-      this.props.navigator.push({
-        component:HowToUseScreen,
-        passProps: {
-          name: name
-        },
-        type: type
-      })
-    }
-
-
-    if(name == 'Favourite_Locations_Clicked')
-    {
-    //  var name = [
-    //    {
-    //      name:"Vinay",
-    //      age:23
-    //    },
-    //    {
-    //      name:"Hosamane",
-    //      age:24
-    //    }
-    //  ];
-
-       const userData = firebase.auth().currentUser;
-        var userid = userData.uid;
-
-        var newArray = []
-
-       var itemsRef = firebaseApp.database().ref('testing/'+userid);
-
-       itemsRef.orderByChild(userid).on("child_added", (snapshot) =>{
-       console.log(snapshot.val());
-       this.setState({isLoading: false});
-
-       var data = snapshot.val()
-
-       newArray.push(data)
-
-         console.log(data.Description);
-         console.log(data.latitude);
-         console.log(data.longitude);
-         // this.setState({
-         //            dataSource: this.state.dataSource.cloneWithRows(newArray),
-         //        });
-         //this.updateDatasource(newArray);
-     },
-       (errorObject) =>{
-        console.log("The read failed: " + errorObject.code);
-        this.setState({isLoading: false});
-        // Alert.alert(
-        //        'Data Fetch Error',
-        //        errorObject.message,
-        //        [
-        //          //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-        //          {text: 'OK', onPress: () => itemsRef.off()},
-        //        ]
-        //      )
-      });
-
-  if(newArray.length !=0)
-  {
-    this.props.navigator.push({
-      component:FavouriteLocationsFromHomeScreen ,
-      passProps: {
-        name: newArray
-      },
-      type: type
-    })
-  }
-
-  else {
-    this.setState({isLoading: false});
-    Alert.alert(
-           'Alert!',
-           'Please wait untill the connection with your cloud databsase is made. Try Again!',
-           [
-             //{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-             {text: 'Thank you!', onPress: () => console.log('OK Pressed!')},
-           ]
-         )
-  }
-
-    }
-
-  //   if(name == 'Capture_Locations_Clicked')
-  //   {
-  //     this.props.navigator.push({
-  //       component:CaptureLocationsScreen ,
-  //       passProps: {
-  //         name: name
-  //       },
-  //       type: type
-  //     })
-  //   }
-   }
-
-
- render() {
-   return (
-          <View style={styles.container_Second_2}>
-             <View style={styles.halfHeight_Second_2}>
-             <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'right',marginTop:17,color:'white',fontSize: 20,position: 'absolute',right:2}}
-               //onPress={this._handleLoginPress.bind(this)}>
-               onPress={this._handleLogoutPress.bind(this)}>
-               Logout 🔐
-             </Button>
-             </View>
-             <View style={styles.quarterHeight1_Second_2}>
-             <MapView
-                    //  style={{height: 40,width:200, margin: 40}}
-                    style={styles.quarterHeight1_Second_2}
-                     showsUserLocation={true}
-                     followUserLocation={true}
-                     mapType='standard'
-                     //region={this.state.region}
-                     region={{
-                            latitude: this.state.position.coords.latitude,
-                            latitudeDelta: 0.009,
-                            longitude: this.state.position.coords.longitude,
-                            longitudeDelta: 0.009,
-                             }}
-                     zoomEnabled={true}
-                     scrollEnabled={true}
-                     showsScale={true}
-                   >
-                   </MapView>
-             </View>
-             <View style={styles.quarterHeight2_Second_2}>
-             <TextInput
-             ref="description"
-             style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
-             placeholder= "Please describe location EX.My Home,Best Gobi Manchuri"
-             placeholderTextColor = 'black'
-             returnKeyType = {"next"}
-             autoFocus = {false}
-             autoCapitalize = "none"
-             autoCorrect = {false}
-             clearButtonMode = 'while-editing'
-             // onChange={(event) => this.updateText(
-             //      'onChange text: ' + event.nativeEvent.text
-             //    )}
-             onChangeText={(text) => {
-                 this.setState({usr_descrption:text});
-               }}
-             onSubmitEditing={(event) => {
-            this.refs.placemark.focus();
-
-             }}
-             />
-             <TextInput
-             ref="placemark"
-             style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
-             placeholder= "Please give Placemark Ex.Near Vijaya Bank,Behind Bus Stand"
-             placeholderTextColor = 'black'
-             returnKeyType = {"done"}
-             autoFocus = {false}
-             autoCapitalize = "none"
-             autoCorrect = {false}
-             clearButtonMode = 'while-editing'
-             // onChange={(event) => this.updateText(
-             //      'onChange text: ' + event.nativeEvent.text
-             //    )}
-             onChangeText={(text) => {
-                 this.setState({usr_placemark:text});
-               }}
-             onSubmitEditing={(event) => {
-            //this.refs.psw.focus();
-
-             }}
-             />
-             <Button
-               //style={{borderWidth: 0, borderColor: 'white',marginTop:20,color:'#1e90ff',fontSize: 25}}
-               //onPress={this._handleLoginPress.bind(this)}>
-               onPress={this._handleCaptureLocationAction.bind(this)}>
-                 {"\n"}
-               Capture Location
-             </Button>
-             <Button
-               //style={{borderWidth: 0, borderColor: 'white',color:'#1e90ff',fontSize: 25,marginTop:25}}
-               //onPress={this._handleLoginPress.bind(this)}>
-               onPress={this._handleFavouriteLocationsAction.bind(this)}>
-                 {"\n"}
-               Favourite Locations
-             </Button>
-             <Button
-              //  style={{borderWidth: 0, borderColor: 'white',color:'#1e90ff',fontSize: 25,marginTop:25}}
-               //onPress={this._handleLoginPress.bind(this)}>
-               onPress={this._handleHowToUseAction.bind(this)}>
-                 {"\n"}
-               About App
-             </Button>
-             <AdMobManager
-               bannerSize = {bannerSize}
-               testDeviceID = {testDeviceID}
-               adUnitID = {adUnitID}
-             />
-               <Spinner visible={this.state.isLoading} size="large" color="white"/>
-              </View>
-          </View>
-   );
- }
-
- // this function will execute after rendering on the client occurs
- componentDidMount() {
-
-   // navigator is available via the Geolocation polyfill in React Native
-   // http://facebook.github.io/react-native/docs/geolocation.html#content
-   //
-   // navigator is the object through which you interact with the Geolocation interface
-   //
-   // *** Polyfill definition needs to be verified
-   // React Native allows for polyfills--code that provides functionality available in the browser, but
-   // that is not currently available in the runtime environment on mobile devices ***
-   // Geolocation is enabled by default when you create a project with react-native init.
-   //
-   // getCurrentPosition() and watchPostion() take a success callback, error callback, and options object
-   navigator.geolocation.getCurrentPosition(
-     (position) => this.setState({position}),
-     (error) => alert(error.message),
-     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-   );
-   navigator.geolocation.watchPosition((position) => {
-     this.setState({position});
-   });
- }
-
-};
-//End - Second.js
 
 //How to use? Screen.js
 
@@ -956,7 +302,7 @@ _navigate(name, type='Normal') {
 
 //Forgot Password screen
 
-class ForgotPasswordScreen extends React.Component{
+export default class ForgotPasswordScreen extends React.Component{
 
   constructor(props) {
     super(props)
@@ -1458,144 +804,120 @@ class FavouriteLocations extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    marginTop:10,
-    fontWeight: "bold",
-    color:'white',
-    backgroundColor: '#FF3366'
-  },
-  button: {
-    flex:1,
-   textAlign: 'center',
-   color: '#008b8b',
-   marginTop: 20,
-   height: 60,
-   fontSize : 30,
-  backgroundColor: '#f08080',
- } ,
-  container1: {
-       flex: 1,
-       flexDirection: 'column'
-   },
-   halfHeight: {
-       flex: .5,
-       backgroundColor: '#FF3366'
-   },
-   quarterHeight1: {
-       flex: .19,
-       backgroundColor: '#fffaf0'
-   },
-   quarterHeight2: {
-       flex: .31,
-       backgroundColor: '#fffaf0'
-   },
-   backgroundImageToolBar: {
-     flex: 1,
-     marginTop:1,
-     width: 420,
-     height: 100,
-     resizeMode: 'cover',
-   alignItems: 'center'
-},
-bullsWelcome: {
-  textAlign: 'center',
-  color: '#333333',
-  fontWeight: "bold",
-  marginTop: 3,
-},
-HelpScreen: {
-  textAlign: 'left',
-  color: '#333333',
-  marginTop: 3,
-  marginLeft:3
-},
-_secondScreen_topbar:{
-  flex:1,
-  backgroundColor: '#FF3366'
-},
-container_Second_2: {
-     flex: 1,
-     flexDirection: 'column'
- },
- halfHeight_Second_2: {
-     flex: .07,
-     backgroundColor: '#FF3366'
- },
- quarterHeight1_Second_2: {
-     flex: .52,
-     backgroundColor: '#fffaf0'
- },
- quarterHeight2_Second_2: {
-     flex: .41,
-     alignItems: 'center',
-     backgroundColor: '#CCC',
- },
- quarterHeight1_Second_3: {
-     flex: .93,
-     backgroundColor: '#fffaf0'
- },
- forgotScreenLabels: {
-   textAlign: 'center',
-   marginTop:15,
-   fontWeight: "bold",
-   color:'white',
-   backgroundColor: '#FF3366'
- },
- selectedDate: {
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: '#000',
-  },
-  separator: {
-   flex: 1,
-   height: 4,
-   backgroundColor: '#8E8E8E',
-   marginTop:10,
- },
- instructionsShare: {
-    marginTop: 10,
-    marginBottom: 10,
-    flexDirection: 'row'
-  },
-  backgroundImageShare: {
-    marginTop:1,
-    width: 40,
-    height: 30,
-  marginRight: 50,
-  alignItems: 'flex-end'
-},
-backgroundImageMap: {
-  marginTop:1,
-  width: 40,
-  height: 30,
-marginRight: 100,
-alignItems: 'flex-end'
-},
-backgroundImageDelete: {
-  marginTop:1,
-  width: 40,
-  height: 30,
-marginRight: 140,
-alignItems: 'flex-end'
-},
-spinner: {
-    marginBottom: 50
-  },
-  centering: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        marginTop: 10,
+        fontWeight: "bold",
+        color: 'white',
+        backgroundColor: '#FF3366'
+    },
+    button: {
+        flex: 1,
+        textAlign: 'center',
+        color: '#008b8b',
+        marginTop: 20,
+        height: 60,
+        fontSize: 30,
+        backgroundColor: '#f08080',
+    },
+    bullsWelcome: {
+        textAlign: 'center',
+        color: '#333333',
+        fontWeight: "bold",
+        marginTop: 3,
+    },
+    HelpScreen: {
+        textAlign: 'left',
+        color: '#333333',
+        marginTop: 3,
+        marginLeft: 3
+    },
+    _secondScreen_topbar: {
+        flex: 1,
+        backgroundColor: '#FF3366'
+    },
+    container_Second_2: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+    halfHeight_Second_2: {
+        flex: .07,
+        backgroundColor: '#FF3366'
+    },
+    quarterHeight1_Second_2: {
+        flex: .52,
+        backgroundColor: '#fffaf0'
+    },
+    quarterHeight2_Second_2: {
+        flex: .41,
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+    },
+    quarterHeight1_Second_3: {
+        flex: .93,
+        backgroundColor: '#fffaf0'
+    },
+    forgotScreenLabels: {
+        textAlign: 'center',
+        marginTop: 15,
+        fontWeight: "bold",
+        color: 'white',
+        backgroundColor: '#FF3366'
+    },
+    selectedDate: {
+        backgroundColor: 'rgba(0,0,0,0)',
+        color: '#000',
+    },
+    separator: {
+        flex: 1,
+        height: 4,
+        backgroundColor: '#8E8E8E',
+        marginTop: 10,
+    },
+    instructionsShare: {
+        marginTop: 10,
+        marginBottom: 10,
+        flexDirection: 'row'
+    },
+    backgroundImageShare: {
+        marginTop: 1,
+        width: 40,
+        height: 30,
+        marginRight: 50,
+        alignItems: 'flex-end'
+    },
+    backgroundImageMap: {
+        marginTop: 1,
+        width: 40,
+        height: 30,
+        marginRight: 100,
+        alignItems: 'flex-end'
+    },
+    backgroundImageDelete: {
+        marginTop: 1,
+        width: 40,
+        height: 30,
+        marginRight: 140,
+        alignItems: 'flex-end'
+    },
+    spinner: {
+        marginBottom: 50
+    },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 AppRegistry.registerComponent('FavouriteLocations', () => FavouriteLocations);

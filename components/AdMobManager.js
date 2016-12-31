@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { AdMobInterstitial, AdMobBanner } from 'react-native-admob';
 
-class adMobManager extends Component {
+export default class AdMobManager extends Component {
 
  constructor(props) {
     super(props);
@@ -76,5 +76,3 @@ class adMobManager extends Component {
     );
   }
 }
-
-module.exports = adMobManager
