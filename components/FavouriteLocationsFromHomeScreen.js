@@ -8,6 +8,8 @@ import {
   Navigator,
   NavigatorIOS,
   Image,
+  ListView,
+  TouchableOpacity,
   Alert,
 } from 'react-native';
 
@@ -25,7 +27,7 @@ import Second from './First.js';
 import CreateAccountScreen from './CreateAccountScreen.js';
 
 
-class FavouriteLocationsFromHomeScreen extends React.Component{
+export default class FavouriteLocationsFromHomeScreen extends React.Component{
 
   constructor(props) {
     super(props)
@@ -337,16 +339,118 @@ _navigate(name, type='Normal') {
 };
 
 const styles = StyleSheet.create({
-  container_Second_2: {
-      flex: 1,
-      flexDirection: 'column'
-  },
-  halfHeight_Second_2: {
-      flex: .07,
-      backgroundColor: '#FF3366'
-  },
-  quarterHeight1_Second_2: {
-      flex: .52,
-      backgroundColor: '#fffaf0'
-  }
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        marginTop: 10,
+        fontWeight: "bold",
+        color: 'white',
+        backgroundColor: '#FF3366'
+    },
+    button: {
+        flex: 1,
+        textAlign: 'center',
+        color: '#008b8b',
+        marginTop: 20,
+        height: 60,
+        fontSize: 30,
+        backgroundColor: '#f08080',
+    },
+    bullsWelcome: {
+        textAlign: 'center',
+        color: '#333333',
+        fontWeight: "bold",
+        marginTop: 3,
+    },
+    HelpScreen: {
+        textAlign: 'left',
+        color: '#333333',
+        marginTop: 3,
+        marginLeft: 3
+    },
+    _secondScreen_topbar: {
+        flex: 1,
+        backgroundColor: '#FF3366'
+    },
+    container_Second_2: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+    halfHeight_Second_2: {
+        flex: .07,
+        backgroundColor: '#FF3366'
+    },
+    quarterHeight1_Second_2: {
+        flex: .52,
+        backgroundColor: '#fffaf0'
+    },
+    quarterHeight2_Second_2: {
+        flex: .41,
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+    },
+    quarterHeight1_Second_3: {
+        flex: .93,
+        backgroundColor: '#fffaf0'
+    },
+    forgotScreenLabels: {
+        textAlign: 'center',
+        marginTop: 15,
+        fontWeight: "bold",
+        color: 'white',
+        backgroundColor: '#FF3366'
+    },
+    selectedDate: {
+        backgroundColor: 'rgba(0,0,0,0)',
+        color: '#000',
+    },
+    separator: {
+        flex: 1,
+        height: 4,
+        backgroundColor: '#8E8E8E',
+        marginTop: 10,
+    },
+    instructionsShare: {
+        marginTop: 10,
+        marginBottom: 10,
+        flexDirection: 'row'
+    },
+    backgroundImageShare: {
+        marginTop: 1,
+        width: 40,
+        height: 30,
+        marginRight: 50,
+        alignItems: 'flex-end'
+    },
+    backgroundImageMap: {
+        marginTop: 1,
+        width: 40,
+        height: 30,
+        marginRight: 100,
+        alignItems: 'flex-end'
+    },
+    backgroundImageDelete: {
+        marginTop: 1,
+        width: 40,
+        height: 30,
+        marginRight: 140,
+        alignItems: 'flex-end'
+    },
+    spinner: {
+        marginBottom: 50
+    },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
