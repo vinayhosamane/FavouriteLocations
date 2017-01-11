@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   Navigator,
 } from 'react-native';
 
@@ -40,13 +41,14 @@ _navigate(name, type = 'Normal') {
           <View style={styles.container_Second_2}>
 
              <View style={styles.halfHeight_Second_2}>
-                <Button style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
+                <Button style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:12,color:'white',position:'absolute',left:2}}
                         onPress={this._handleLogoutPress.bind(this)}>
                         ◀️ Back
                 </Button>
              </View>
 
              <View style={styles.quarterHeight1_Second_3}>
+             <ScrollView>
                 <Text style={styles.HelpScreen}>
                       This App is written using React-Native provided by Facebook.{"\n"}
                 </Text>
@@ -77,8 +79,9 @@ _navigate(name, type = 'Normal') {
                 <Text style={{color:'red',textAlign:'center'}}>
                   NOTE -- *You will find many bugs in this app please bear with them till the next release .If possible please drop a mail to me on that issue so that i can make a note of it and also i can mention your name for helping me in making this app better for the users.
                 </Text>
+                     </ScrollView>
              </View>
-
+        
              <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
           </View>
         );
@@ -91,11 +94,11 @@ const styles = StyleSheet.create({
       flexDirection: 'column'
   },
   halfHeight_Second_2: {
-      flex: .07,
+      flex: .09,
       backgroundColor: '#FF3366'
   },
   quarterHeight1_Second_3: {
-      flex: .93,
+      flex: .91,
       backgroundColor: '#fffaf0'
   },
   HelpScreen: {

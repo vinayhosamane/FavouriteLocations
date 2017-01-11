@@ -123,7 +123,7 @@ componentWillMount() {
              Welcome to React-Native Favourite Locations
            </Text>
            <TextInput ref="usr"
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
+                    style={{height: 35, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3,justifyContent: 'space-around'}}
                     placeholder= "Enter username"
                     placeholderTextColor = '#a52a2a'
                     returnKeyType = {"next"}
@@ -140,7 +140,7 @@ componentWillMount() {
             />
             <TextInput
                     ref="psw"
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5}}
+                    style={{height: 35, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5,marginBottom:3}}
                     placeholder= "Enter password"
                     placeholderTextColor = '#a52a2a'
                     autoCapitalize = "none"
@@ -164,7 +164,9 @@ componentWillMount() {
             <Button style={{borderWidth: 0, borderColor: 'white', marginTop:20}} onPress={this._handleCreateAccount.bind(this)}>
                     Create Account!
             </Button>
-            <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
+         </View>
+         <View style={styles.quarterHeight3}>
+         <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
          </View>
       </View>
     );
@@ -177,7 +179,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     halfHeight: {
-        flex: .5,
+        flex: .45,
         backgroundColor: '#FF3366'
     },
     backgroundImageToolBar: {
@@ -199,7 +201,12 @@ const styles = StyleSheet.create({
         marginTop: 3,
     },
     quarterHeight2: {
-        flex: .31,
+        flex: .27,
         backgroundColor: '#fffaf0'
+    },
+    quarterHeight3:{
+      flex: 0.09,
+      alignItems: 'center',
+      backgroundColor: '#fffaf0'
     }
 });

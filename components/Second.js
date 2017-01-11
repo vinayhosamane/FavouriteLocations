@@ -39,6 +39,7 @@ var config = {
 };
 const firebaseApp = firebase.initializeApp(config);
 const itemsRef = firebase.database();
+  var newArray = [];
 
 export default class Second extends React.Component{
   constructor(props) {
@@ -133,6 +134,28 @@ export default class Second extends React.Component{
        )
   }
 
+  componentWillMount()
+  {
+    const userData = firebase.auth().currentUser;
+    var userid = userData.uid;
+
+    var itemsRef = firebase.database().ref('testing/'+userid);
+    itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
+          console.log(snapshot.val());
+          this.setState({isLoading: false});
+
+          var data = snapshot.val()
+          newArray.push(data)
+
+          console.log(data.Description);
+          console.log(data.latitude);
+          console.log(data.longitude);
+    }, (errorObject) => {
+          console.log("The read failed: " + errorObject.code);
+          this.setState({isLoading: false});
+    });
+  }
+
   _handleHowToUseAction(event) {
     this._navigate('How_To_Use_clicked');
   }
@@ -148,8 +171,8 @@ export default class Second extends React.Component{
       if(name == 'Favourite_Locations_Clicked') {
           const userData = firebase.auth().currentUser;
           var userid = userData.uid;
-          var newArray = []
-          var itemsRef = firebaseApp.database().ref('testing/'+userid);
+
+          var itemsRef = firebase.database().ref('testing/'+userid);
           itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
                 console.log(snapshot.val());
                 this.setState({isLoading: false});
@@ -164,6 +187,7 @@ export default class Second extends React.Component{
                 console.log("The read failed: " + errorObject.code);
                 this.setState({isLoading: false});
           });
+
 
           if(newArray.length !=0) {
               this.props.navigator.push({
@@ -184,7 +208,7 @@ export default class Second extends React.Component{
             <Spinner visible={this.state.isLoading} size="large" color="white"/>
 
              <View style={styles.halfHeight_Second_2}>
-                <Button   style={{borderWidth: 0, borderColor: 'white',textAlign:'right',marginTop:17,color:'white',fontSize: 20,position: 'absolute',right:2}}
+                <Button   style={{borderWidth: 0, borderColor: 'white',color:'white',position: 'absolute',right:2,justifyContent: 'space-around',alignItems:'center',marginTop:12}}
                           onPress={this._handleLogoutPress.bind(this)}>
                           Logout 🔐
                 </Button>
@@ -204,7 +228,7 @@ export default class Second extends React.Component{
 
              <View style={styles.quarterHeight2_Second_2}>
                 <TextInput ref="description"
-                           style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
+                           style={{height: 35, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5}}
                            placeholder= "Please describe location EX.My Home,Best Gobi Manchuri"
                            placeholderTextColor = 'black'
                            returnKeyType = {"next"}
@@ -220,7 +244,7 @@ export default class Second extends React.Component{
                            }}
                 />
                 <TextInput ref="placemark"
-                          style={{height: 40, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3}}
+                          style={{height: 35, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5}}
                           placeholder= "Please give Placemark Ex.Near Vijaya Bank,Behind Bus Stand"
                           placeholderTextColor = 'black'
                           returnKeyType = {"done"}
@@ -234,17 +258,23 @@ export default class Second extends React.Component{
                           onSubmitEditing={(event) => {
                           }}
                 />
-                <Button onPress={this._handleCaptureLocationAction.bind(this)}>
-                        {"\n"}
+                <Button
+                style={{fontSize: 20}}
+                onPress={this._handleCaptureLocationAction.bind(this)}>
+
                         Capture Location
                 </Button>
-                <Button onPress={this._handleFavouriteLocationsAction.bind(this)}>
-                        {"\n"}
-                        Favourite Locations
+                <Button
+                style={{fontSize: 20}}
+                onPress={this._handleFavouriteLocationsAction.bind(this)}>
+
+                          Favourite Locations
                 </Button>
-                <Button onPress={this._handleHowToUseAction.bind(this)}>
-                        {"\n"}
-                        About App
+                <Button
+                style={{fontSize: 20, marginBottom:6}}
+                onPress={this._handleHowToUseAction.bind(this)}>
+
+                          About App
                 </Button>
                 <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
             </View>
@@ -260,15 +290,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     halfHeight_Second_2: {
-        flex: .07,
+        flex: .09,
         backgroundColor: '#FF3366'
     },
     quarterHeight1_Second_2: {
-        flex: .52,
+        flex: .46,
         backgroundColor: '#fffaf0'
     },
     quarterHeight2_Second_2: {
-        flex: .41,
+        flex: .45,
+        justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: '#CCC',
     }
