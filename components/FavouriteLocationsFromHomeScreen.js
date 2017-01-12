@@ -142,62 +142,62 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
  renderRow = (rowData) => {
     return (
       <View>
-                                                     <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{rowData.Description}</Text>
-                                                     <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Placemark : {rowData.Placemark}</Text>
-                                                     <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {rowData.latitude}</Text>
-                                                     <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {rowData.longitude}</Text>
-                                                     <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {rowData.Address}</Text>
-                                                     <View style={{flex: 1,flexDirection: 'row', justifyContent: 'space-between'}}>
-                                                       <TouchableOpacity onPress={()=> {
-                                                                                   var msg = "Description:\n"+rowData.Description+"\nPlacemark:\n"+rowData.Placemark+"\nLatitude:\n"+rowData.latitude+"\nLongitude:\n"+rowData.longitude+"\nAddress:\n"+rowData.Address;
-                                                                                   var mapString = 'http://maps.google.com/maps?z=12&t=m&q=loc:';
-                                                                                   var a = rowData.latitude;
-                                                                                   var c = '+';
-                                                                                   var b = rowData.longitude;
-                                                                                   var mapurl = mapString + a + c + b;
-                                                                                   let shareOptions = {
-                                                                                     title: "Favourite Locations",
-                                                                                     message: msg,
-                                                                                     url: mapurl,
-                                                                                     subject: "Share Favourite Location" //  for email
-                                                                                   };
-                                                                                   Share.open(shareOptions);
-                                                                                 }}>
-                                                           <View style={{width: 50, height: 30}}>
-                                                               <Image source={require('../images/share-icon.png')}  style={styles.backgroundImageShare}></Image>
-                                                           </View>
-                                                         </TouchableOpacity>
-                                                         <TouchableOpacity onPress={()=>{
-                                                                                     //Share.open(shareOptions);
-                                                                                     var mystring = 'http://maps.google.com/maps?z=12&t=m&q=loc:';
-                                                                                     //  var mystring= 'http://maps.apple.com/?l1=';
-                                                                                     console.log(rowData);
-                                                                                     var a = rowData.latitude;
-                                                                                     var c = '+';
-                                                                                     var b = rowData.longitude;
-                                                                                     var url = mystring + a + c + b;
-                                                                                     Linking.canOpenURL(url).then(supported => {
-                                                                                       if (supported) {
-                                                                                         Linking.openURL(url);
-                                                                                       } else {
-                                                                                         console.log('Don\'t know how to go');
-                                                                                       }
-                                                                                     }).catch(err => console.error('An error occurred', err));
-                                                                                   }}>
-                                                             <View style={{width: 50, height: 30}}>
-                                                                 <Image source={require('../images/mapMe.png')}  style={styles.backgroundImageMap}></Image>
-                                                             </View>
-                                                           </TouchableOpacity>
-                                                           <TouchableOpacity onPress={()=>{
-                                                                                     //Share.open(shareOptions);
-                                                                                     this.onDeleteClick(rowData);
-                                                                                   }}>
-                                                            <View style={{width: 50, height: 30}}>
-                                                               <Image source={require('../images/deleteMe.png')}  style={styles.backgroundImageDelete}></Image>
-                                                             </View>
-                                                           </TouchableOpacity>
-                                                    </View>
-                                            </View>
+           <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'blue',fontWeight: "bold"}}>{rowData.Description}</Text>
+           <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Placemark : {rowData.Placemark}</Text>
+           <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Latitude : {rowData.latitude}</Text>
+           <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Longitude : {rowData.longitude}</Text>
+           <Text style={{textAlign: 'center', marginTop:10, fontSize:20,color:'black'}}>Address : {rowData.Address}</Text>
+           <View style={{flex: 1,flexDirection: 'row', justifyContent: 'space-between'}}>
+               <TouchableOpacity onPress={()=> {
+                                                 var msg = "Description:\n"+rowData.Description+"\nPlacemark:\n"+rowData.Placemark+"\nLatitude:\n"+rowData.latitude+"\nLongitude:\n"+rowData.longitude+"\nAddress:\n"+rowData.Address;
+                                                 var mapString = 'http://maps.google.com/maps?z=12&t=m&q=loc:';
+                                                 var a = rowData.latitude;
+                                                 var c = '+';
+                                                 var b = rowData.longitude;
+                                                 var mapurl = mapString + a + c + b;
+                                                 let shareOptions = {
+                                                                     title: "Favourite Locations",
+                                                                    message: msg,
+                                                                    url: mapurl,
+                                                                    subject: "Share Favourite Location" //  for email
+                                                                    };
+                                                        Share.open(shareOptions);
+                                                  }}>
+              <View style={{width: 50, height: 30}}>
+                    <Image source={require('../images/share-icon.png')}  style={styles.backgroundImageShare}></Image>
+               </View>
+               </TouchableOpacity>
+               <TouchableOpacity onPress={()=>{
+                               //Share.open(shareOptions);
+                        var mystring = 'http://maps.google.com/maps?z=12&t=m&q=loc:';
+                             //  var mystring= 'http://maps.apple.com/?l1=';
+                       console.log(rowData);
+                       var a = rowData.latitude;
+                       var c = '+';
+                       var b = rowData.longitude;
+                       var url = mystring + a + c + b;
+                       Linking.canOpenURL(url).then(supported => {
+                                               if (supported) {
+                                               Linking.openURL(url);
+                                               } else {
+                                                 console.log('Don\'t know how to go');
+                                               }
+                               }).catch(err => console.error('An error occurred', err));
+                       }}>
+                      <View style={{width: 50, height: 30}}>
+                   <Image source={require('../images/mapMe.png')}  style={styles.backgroundImageMap}></Image>
+                      </View>
+                     </TouchableOpacity>
+                     <TouchableOpacity onPress={()=>{
+                           //Share.open(shareOptions);
+                           this.onDeleteClick(rowData);
+                           }}>
+                  <View style={{width: 50, height: 30}}>
+                     <Image source={require('../images/deleteMe.png')}  style={styles.backgroundImageDelete}></Image>
+                 </View>
+                 </TouchableOpacity>
+                </View>
+            </View>
     )
   }
 

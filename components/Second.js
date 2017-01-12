@@ -49,6 +49,10 @@ const itemsRef = firebase.database();
  }
 ];
 
+function randomColor() {
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+}
+
 export default class Second extends React.Component{
   constructor(props) {
       super(props)
@@ -234,11 +238,12 @@ export default class Second extends React.Component{
                          >
 
         {newArray.map(marker => (
-            <MapView.Marker
+            <MapView.Marker.Animated
               coordinate={{latitude:marker.latitude,
                 longitude:marker.longitude}}
               title={marker.Description}
              description={marker.Address}
+            pinColor={randomColor()}
             />
           ))}
 

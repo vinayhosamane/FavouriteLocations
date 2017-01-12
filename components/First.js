@@ -206,7 +206,6 @@ const styles = StyleSheet.create({
     },
     quarterHeight3:{
       flex: 0.09,
-      alignItems: 'center',
       backgroundColor: '#fffaf0'
     }
 });
