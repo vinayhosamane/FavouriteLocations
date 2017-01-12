@@ -62,7 +62,7 @@ export default class CreateAccountScreen extends Component{
           <View style={styles.container_Second_2}>
 
             <View style={styles.halfHeight_Second_2}>
-              <Button style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:17 ,color:'white',fontSize: 20,marginLeft:10,position: 'absolute',left:2}}
+              <Button style={{borderWidth: 0, borderColor: 'white',textAlign:'left',color:'white',marginLeft:10,position:'absolute',left:2,top:10}}
                       onPress={this._handleLogoutPress.bind(this)}>
                       ◀️ Back
               </Button>

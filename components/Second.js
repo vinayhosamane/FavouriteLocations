@@ -40,6 +40,14 @@ var config = {
 const firebaseApp = firebase.initializeApp(config);
 const itemsRef = firebase.database();
   var newArray = [];
+  var markers = [
+ {
+   latitude: 37.323,
+   longitude:  -122.0527,
+   title: 'Apple Head Quarters',
+   subtitle: 'Cupertino'
+ }
+];
 
 export default class Second extends React.Component{
   constructor(props) {
@@ -222,7 +230,18 @@ export default class Second extends React.Component{
                          region={{latitude: this.state.position.coords.latitude, latitudeDelta: 0.009, longitude: this.state.position.coords.longitude, longitudeDelta: 0.009}}
                          zoomEnabled={true}
                          scrollEnabled={true}
-                         showsScale={true}>
+                         showsScale={true}
+                         >
+
+        {newArray.map(marker => (
+            <MapView.Marker
+              coordinate={{latitude:marker.latitude,
+                longitude:marker.longitude}}
+              title={marker.Description}
+             description={marker.Address}
+            />
+          ))}
+
                 </MapView>
              </View>
 

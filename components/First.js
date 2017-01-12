@@ -123,7 +123,7 @@ componentWillMount() {
              Welcome to React-Native Favourite Locations
            </Text>
            <TextInput ref="usr"
-                    style={{height: 35, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5 , marginBottom:3,justifyContent: 'space-around'}}
+                    style={{height: 35, borderColor: 'gray', borderWidth: 1, marginLeft : 5 , marginRight : 5 ,justifyContent: 'space-around'}}
                     placeholder= "Enter username"
                     placeholderTextColor = '#a52a2a'
                     returnKeyType = {"next"}
@@ -140,7 +140,7 @@ componentWillMount() {
             />
             <TextInput
                     ref="psw"
-                    style={{height: 35, borderColor: 'gray', borderWidth: 1 , marginTop: 6,marginLeft : 5 ,padding : 10 , marginRight : 5,marginBottom:3}}
+                    style={{height: 35, borderColor: 'gray', borderWidth: 1,marginLeft : 5 , marginRight : 5}}
                     placeholder= "Enter password"
                     placeholderTextColor = '#a52a2a'
                     autoCapitalize = "none"
