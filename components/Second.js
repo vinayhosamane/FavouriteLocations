@@ -181,35 +181,34 @@ export default class Second extends React.Component{
           })
       } //end of if 'How_To_Use_clicked'
       if(name == 'Favourite_Locations_Clicked') {
-          const userData = firebase.auth().currentUser;
-          var userid = userData.uid;
-
-          var itemsRef = firebase.database().ref('testing/'+userid);
-          itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
-                console.log(snapshot.val());
-                this.setState({isLoading: false});
-
-                var data = snapshot.val()
-                newArray.push(data)
-
-                console.log(data.Description);
-                console.log(data.latitude);
-                console.log(data.longitude);
-          }, (errorObject) => {
-                console.log("The read failed: " + errorObject.code);
-                this.setState({isLoading: false});
-          });
-
 
           if(newArray.length !=0) {
+            this.setState({isLoading: false});
               this.props.navigator.push({
                   component:FavouriteLocationsFromHomeScreen ,
                   passProps: {name: newArray},
                   type: type
               })
           } else {
-             this.setState({isLoading: false});
-             Alert.alert('Alert!', 'Please wait untill the connection with your cloud databsase is made. Try Again!', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
+            const userData = firebase.auth().currentUser;
+            var userid = userData.uid;
+
+            var itemsRef = firebase.database().ref('testing/'+userid);
+            itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
+                  console.log(snapshot.val());
+                  this.setState({isLoading: false});
+
+                  var data = snapshot.val()
+                  newArray.push(data)
+
+                  console.log(data.Description);
+                  console.log(data.latitude);
+                  console.log(data.longitude);
+            }, (errorObject) => {
+                  console.log("The read failed: " + errorObject.code);
+                  this.setState({isLoading: false});
+                  Alert.alert('Alert!', 'Please wait untill the connection with your cloud databsase is made. Try Again!', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
+            });
           }
         } //eof if 'Favourite_Locations_Clicked'
    }
@@ -238,12 +237,11 @@ export default class Second extends React.Component{
                          >
 
         {newArray.map(marker => (
-            <MapView.Marker.Animated
+            <MapView.Marker
               coordinate={{latitude:marker.latitude,
                 longitude:marker.longitude}}
               title={marker.Description}
              description={marker.Address}
-            pinColor={randomColor()}
             />
           ))}
 
