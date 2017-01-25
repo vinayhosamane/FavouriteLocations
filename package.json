@@ -12,6 +12,7 @@
     "react-native-admob": "^1.1.5",
     "react-native-button": "^1.7.1",
     "react-native-calendar-picker": "^3.0.0",
+    "react-native-dismiss-keyboard": "^1.0.0",
     "react-native-geocoder": "^0.4.5",
     "react-native-geocoding": "^0.1.0",
     "react-native-loading-spinner-overlay": "^0.4.1",
