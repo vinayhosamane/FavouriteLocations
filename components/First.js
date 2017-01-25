@@ -9,12 +9,14 @@ import {
   NavigatorIOS,
   Image,
   Alert,
-  StatusBar
+  StatusBar,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons';
 import Spinner from './Spinner.js';
+import DismissKeyBoard from 'react-native-dismiss-keyboard'
 
 import AdMobManager from './AdMobManager';
 var bannerSize="smartBannerPortrait"
@@ -113,6 +115,7 @@ componentWillMount() {
 
   render() {
     return (
+      <TouchableWithoutFeedback onPress={() => DismissKeyBoard()}>
       <View style={styles.container1}>
           <Spinner visible={this.state.isLoading} size="large" color="white"/>
           <StatusBar backgroundColor="rgb(55,55,55)" barStyle="light-content"/>
@@ -171,6 +174,7 @@ componentWillMount() {
          <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
          </View>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
