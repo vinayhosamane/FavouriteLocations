@@ -7,7 +7,8 @@ import {
   View,
   TextInput,
   Navigator,
-  Alert
+  Alert,
+  StatusBar
 } from 'react-native';
 
 import Button from 'react-native-button';
@@ -68,14 +69,13 @@ export default class ForgotPasswordScreen extends Component {
  render() {
    return (
           <View style={styles.container_Second_2}>
-
+            <StatusBar backgroundColor="rgb(55,55,55)" barStyle="light-content"/>
              <View style={styles.halfHeight_Second_2}>
-             <Button
-               style={{borderWidth: 0, borderColor: 'white',textAlign:'left',color:'white',marginLeft:10,position: 'absolute',left:2,top:10}}
-               //onPress={this._handleLoginPress.bind(this)}>
-               onPress={this._handleLogoutPress.bind(this)}>
-              ◀️ Back
-             </Button>
+               <Button
+                 style={styles.backButtonStyle}
+                 onPress={this._handleLogoutPress.bind(this)}>
+                 ◀️ Back
+               </Button>
              </View>
              <View style={styles.quarterHeight1_Second_2}>
 
@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
     },
     halfHeight_Second_2: {
         flex: .07,
-        backgroundColor: '#FF3366'
+        backgroundColor: '#FF3366',
+        justifyContent: 'center'
     },
     quarterHeight1_Second_2: {
         flex: .52,
@@ -143,5 +144,10 @@ const styles = StyleSheet.create({
         flex: .41,
         alignItems: 'center',
         backgroundColor: '#CCC',
-    }
+    },
+    backButtonStyle: {
+      borderColor: 'white',
+      color: 'white',
+      alignSelf: 'flex-start'
+    },
 });

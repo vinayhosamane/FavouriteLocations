@@ -15,6 +15,7 @@ import {
   NavigatorIOS,
   Image,
   Alert,
+  StatusBar
 } from 'react-native';
 
 import Button from 'react-native-button';
@@ -217,13 +218,13 @@ export default class Second extends React.Component{
         return (
           <View style={styles.container_Second_2}>
             <Spinner visible={this.state.isLoading} size="large" color="white"/>
-
-             <View style={styles.halfHeight_Second_2}>
-                <Button   style={{borderWidth: 0, borderColor: 'white',color:'white',position: 'absolute',right:2,justifyContent: 'space-around',alignItems:'center',marginTop:12}}
-                          onPress={this._handleLogoutPress.bind(this)}>
-                          Logout 🔐
-                </Button>
-             </View>
+            <StatusBar backgroundColor="rgb(55,55,55)" barStyle="light-content"/>
+            <View style={styles.halfHeight_Second_2}>
+              <Button   style={styles.logoutButtonStyle}
+                      onPress={this._handleLogoutPress.bind(this)}>
+                      Logout 🔐
+               </Button>
+            </View>
 
              <View style={styles.quarterHeight1_Second_2}>
                 <MapView style={styles.quarterHeight1_Second_2}
@@ -313,7 +314,13 @@ const styles = StyleSheet.create({
     },
     halfHeight_Second_2: {
         flex: .09,
-        backgroundColor: '#FF3366'
+        backgroundColor: '#FF3366',
+        justifyContent: 'center'
+    },
+    logoutButtonStyle: {
+     borderColor: 'white',
+     color: 'white',
+     alignSelf: 'flex-end'
     },
     quarterHeight1_Second_2: {
         flex: .46,

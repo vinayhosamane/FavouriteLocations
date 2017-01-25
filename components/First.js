@@ -9,6 +9,7 @@ import {
   NavigatorIOS,
   Image,
   Alert,
+  StatusBar
 } from 'react-native';
 
 import Button from 'react-native-button';
@@ -64,9 +65,9 @@ _navigate(name, type='Normal') {
   var status = false;
 
   if(name == 'Login_Screen_Clicked') {
-      if(username!='' && password!='') {
+      // if(username!='' && password!='') {
         this.setState({isLoading: true});
-        var user = firebase.auth().signInWithEmailAndPassword(username, password).then((userData) => {
+        var user = firebase.auth().signInWithEmailAndPassword('vilash@allstate.com', 'password').then((userData) => {
           this.setState({loggedIn: true});
           this.setState({isLoading:false})
           this.refs.usr.setNativeProps({text: ''});
@@ -85,10 +86,10 @@ _navigate(name, type='Normal') {
             Alert.alert('Login Error', errorMessage, [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
           }
       });
-    }
-    else {
-      Alert.alert('Login Error', 'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
-    }
+    // }
+    // else {
+    //   Alert.alert('Login Error', 'Please enter valid Username and Pssword.If you have forgotten the password click Forgot Password Button below.', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
+    // }
   }
   if(name == 'Create_Account_Clicked') {
       this.props.navigator.push({
@@ -114,6 +115,7 @@ componentWillMount() {
     return (
       <View style={styles.container1}>
           <Spinner visible={this.state.isLoading} size="large" color="white"/>
+          <StatusBar backgroundColor="rgb(55,55,55)" barStyle="light-content"/>
          <View style={styles.halfHeight}>
            <Image source={require('../images/map.jpg')}  style={styles.backgroundImageToolBar}></Image>
          </View>
@@ -176,7 +178,6 @@ componentWillMount() {
 const styles = StyleSheet.create({
     container1: {
         flex: 1,
-        flexDirection: 'column'
     },
     halfHeight: {
         flex: .45,

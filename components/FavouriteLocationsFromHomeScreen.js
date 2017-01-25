@@ -9,6 +9,7 @@ import {
   Alert,
   Linking,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 
 import Button from 'react-native-button';
@@ -204,9 +205,9 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
  render() {
     return (
           <View style={styles.container_Second_2}>
-
+            <StatusBar backgroundColor="rgb(55,55,55)" barStyle="light-content"/>
              <View style={styles.halfHeight_Second_2}>
-               <Button style={{borderWidth: 0, borderColor: 'white',textAlign:'left',marginTop:12,color:'white',marginLeft:10,position: 'absolute',left:2}}
+               <Button style={styles.backButtonStyle}
                        onPress={this._handleLogoutPress.bind(this)}>
                        ◀️ Back
                </Button>
@@ -216,7 +217,7 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
                <ListView dataSource={this.state.dataSource}
                          renderRow= {this.renderRow}
                          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />} />
-                                   <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
+                         <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
               </View>
         </View>
       );
@@ -265,7 +266,7 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
     },
     _secondScreen_topbar: {
         flex: 1,
-        backgroundColor: '#FF3366'
+        backgroundColor: 'blue'
     },
     container_Second_2: {
         flex: 1,
@@ -273,7 +274,13 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
     },
     halfHeight_Second_2: {
         flex: .09,
+        justifyContent: 'center',
         backgroundColor: '#FF3366'
+    },
+    backButtonStyle: {
+      borderColor: 'white',
+      color: 'white',
+      alignSelf: 'flex-start'
     },
     quarterHeight1_Second_2: {
         flex: .50,
