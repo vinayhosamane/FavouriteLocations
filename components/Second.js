@@ -66,6 +66,7 @@ export default class Second extends React.Component{
               coords: {}
           }
       };
+      console.disableYellowbox = true;
   }
 
   // this function will execute after rendering on the client occurs
@@ -250,6 +251,7 @@ export default class Second extends React.Component{
              </View>
 
              <View style={styles.quarterHeight2_Second_2}>
+               <View style={{flex: 0.80, justifyContent: 'space-around', alignItems: 'center'}}>
                 <TextInput ref="description"
                            style={{height: 35, borderColor: 'gray', borderWidth: 1 , marginTop: 6 , padding : 10 , marginLeft : 5 , marginRight : 5}}
                            placeholder= "Please describe location EX.My Home,Best Gobi Manchuri"
@@ -284,22 +286,22 @@ export default class Second extends React.Component{
                 <Button
                 style={{fontSize: 20}}
                 onPress={this._handleCaptureLocationAction.bind(this)}>
-
                         Capture Location
                 </Button>
                 <Button
                 style={{fontSize: 20}}
                 onPress={this._handleFavouriteLocationsAction.bind(this)}>
-
                           Favourite Locations
                 </Button>
                 <Button
-                style={{fontSize: 20, marginBottom:6}}
+                style={{fontSize: 20}}
                 onPress={this._handleHowToUseAction.bind(this)}>
-
                           About App
                 </Button>
-                <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
+              </View>
+                <View style={styles.adStyle}>
+                  <AdMobManager  bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
+                </View>
             </View>
 
           </View>
@@ -318,9 +320,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     logoutButtonStyle: {
-     borderColor: 'white',
-     color: 'white',
-     alignSelf: 'flex-end'
+        borderColor: 'white',
+        color: 'white',
+        alignSelf: 'flex-end'
     },
     quarterHeight1_Second_2: {
         flex: .46,
@@ -328,8 +330,11 @@ const styles = StyleSheet.create({
     },
     quarterHeight2_Second_2: {
         flex: .45,
-        justifyContent: 'space-around',
-        alignItems: 'center',
         backgroundColor: '#CCC',
+    },
+    adStyle: {
+        flex: 0.20,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
     }
 });

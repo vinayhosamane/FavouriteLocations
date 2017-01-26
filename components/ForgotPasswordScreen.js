@@ -142,8 +142,9 @@ const styles = StyleSheet.create({
     },
     quarterHeight2_Second_2: {
         flex: .41,
-        alignItems: 'center',
-        backgroundColor: '#CCC',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        backgroundColor: '#fffaf0',
     },
     backButtonStyle: {
       borderColor: 'white',
