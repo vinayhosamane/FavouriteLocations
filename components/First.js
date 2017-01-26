@@ -128,7 +128,7 @@ componentWillMount() {
              Welcome to React-Native Favourite Locations
            </Text>
            <TextInput ref="usr"
-                    style={{height: 35, borderColor: 'gray', borderWidth: 1, marginLeft : 5 , marginRight : 5 ,justifyContent: 'space-around'}}
+                    style={styles.usernameFieldStyle}
                     placeholder= "Enter username"
                     placeholderTextColor = '#a52a2a'
                     returnKeyType = {"next"}
@@ -145,7 +145,7 @@ componentWillMount() {
             />
             <TextInput
                     ref="psw"
-                    style={{height: 35, borderColor: 'gray', borderWidth: 1,marginLeft : 5 , marginRight : 5}}
+                    style={styles.passwordFieldStyle}
                     placeholder= "Enter password"
                     placeholderTextColor = '#a52a2a'
                     autoCapitalize = "none"
@@ -159,7 +159,7 @@ componentWillMount() {
             />
          </View>
 
-         <View style={[styles.quarterHeight2, {backgroundColor: '#fffaf0', alignItems: 'center'}]}>
+         <View style={styles.quarterHeight2}>
            <Button style={{borderWidth: 0, borderColor: 'blue' }} onPress={this._handleLoginPress.bind(this)}>
                    Login
             </Button>
@@ -185,7 +185,22 @@ const styles = StyleSheet.create({
     },
     halfHeight: {
         flex: .45,
-        backgroundColor: '#FF3366'
+    },
+    quarterHeight1: {
+        flex: .19,
+        justifyContent: 'center',
+        backgroundColor: '#fffaf0'
+    },
+    quarterHeight2: {
+        flex: .27,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fffaf0'
+    },
+    quarterHeight3: {
+        flex: 0.09,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
     },
     backgroundImageToolBar: {
         flex: 1,
@@ -195,22 +210,27 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         alignItems: 'center'
     },
-    quarterHeight1: {
-        flex: .19,
-        backgroundColor: '#fffaf0'
-    },
     bullsWelcome: {
         textAlign: 'center',
         color: '#333333',
         fontWeight: "bold",
-        marginTop: 3,
+        marginBottom: 10
     },
-    quarterHeight2: {
-        flex: .27,
-        backgroundColor: '#fffaf0'
+    usernameFieldStyle: {
+        height: 35,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 10,
+        paddingLeft: 5
     },
-    quarterHeight3:{
-      flex: 0.09,
-      backgroundColor: '#fffaf0'
+    passwordFieldStyle: {
+        height: 35,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginLeft: 5,
+        marginRight: 5,
+        paddingLeft: 5
     }
 });
