@@ -69,7 +69,7 @@ _navigate(name, type='Normal') {
   if(name == 'Login_Screen_Clicked') {
       // if(username!='' && password!='') {
         this.setState({isLoading: true});
-        var user = firebase.auth().signInWithEmailAndPassword('vilash@allstate.com', 'password').then((userData) => {
+        var user = firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).then((userData) => {
           this.setState({loggedIn: true});
           this.setState({isLoading:false})
           this.refs.usr.setNativeProps({text: ''});
