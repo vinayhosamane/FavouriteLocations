@@ -15,7 +15,8 @@ import {
   NavigatorIOS,
   Image,
   Alert,
-  StatusBar
+  StatusBar,
+  TouchableOpacity
 } from 'react-native';
 
 import Button from 'react-native-button';
@@ -97,12 +98,10 @@ export default class Second extends React.Component{
   }
 
   _handleLogoutPress(event) {
-    this.setState({isLoading: true});
+
     firebase.auth().signOut().then(function() {
-       this.setState({isLoading: false});
         console.log("successfully logged out");
     }, function(error) {
-       this.setState({isLoading: false});
         console.log(error);
     });
     this.props.navigator.pop();
@@ -199,6 +198,16 @@ export default class Second extends React.Component{
     this._navigate('How_To_Use_clicked');
   }
 
+  
+  onLocateClick()
+  {
+     navigator.geolocation.getCurrentPosition(
+       (position) => this.setState({position}),
+       (error) => alert(error.message),
+       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+   }
+  
   _navigate(name, type='Normal') {
       if(name == 'How_To_Use_clicked') {
           this.props.navigator.push({
@@ -267,8 +276,16 @@ export default class Second extends React.Component{
                          scrollEnabled={true}
                          showsScale={true}
                          >  
-                 
+
                 </MapView>
+                <TouchableOpacity onPress={()=>{
+                           //Share.open(shareOptions);
+                           this.onLocateClick();
+                           }}>
+                  <View style={{width: 30, height: 30}}>
+                     <Image source={require('../images/LocateIcon.png')}  style={styles.backgroundImageShare}></Image>
+                 </View>
+                 </TouchableOpacity>
                
              </View>
 
@@ -348,7 +365,8 @@ const styles = StyleSheet.create({
     },
     quarterHeight1_Second_2: {
         flex: .46,
-        backgroundColor: '#fffaf0'
+        //backgroundColor: '#fffaf0'
+      backgroundColor: '#CCC',
     },
     quarterHeight2_Second_2: {
         flex: .45,
@@ -358,5 +376,12 @@ const styles = StyleSheet.create({
         flex: 0.20,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-    }
+    },
+   backgroundImageShare: {
+        marginTop: 1,
+        width: 40,
+        height: 30,
+        marginRight: 50,
+        alignItems: 'flex-end'
+    },
 });
