@@ -30,26 +30,39 @@ export default class ForgotPasswordScreen extends Component {
       this.state = {
           name: 'MaxTech Login-->',
           emailAddress: '',
+         isLoading: false
       }
   }
 
   _handleLogoutPress(event) {
+     this.setState({isLoading: false});
     this.props.navigator.pop();
   }
 
   _handleProfileValidate(event) {
       var email = this.state.emailAddress
-      this.setState({isLoading: false});
+      
+      if(email)
+        {
+           this.setState({isLoading: true});
       firebase.auth().sendPasswordResetEmail(email).then(()=> {
         // Email sent.
         this.setState({isLoading: false});
-        Alert.alert('Password Reset Alert', 'Password Reset mail sent to '+email, [{text: 'OK', onPress: () => console.log('OK Pressed!')/*this.props.navigator.pop()*/}])
+        Alert.alert('Password Reset Alert', 'Password Reset mail sent to '+email, [{text: 'OK', onPress: () => this.props.navigator.pop()}])
       }, (error) => {
         this.setState({isLoading: false});
         var errorCode = error.code;
         var errorMessage = error.message;
         Alert.alert('Password Reset Error', errorMessage, [{text: 'OK', onPress: () => console.log('Password reset error')}])
       });
+        }
+    
+    else
+      {
+         this.setState({isLoading: false});
+          Alert.alert('Validation Error', 'Please enter valid email address in input field.', [{text: 'OK', onPress: () => console.log('Password reset error')}])
+      }
+     
     }
 
   _navigate(name, type = 'Normal') {
@@ -69,6 +82,7 @@ export default class ForgotPasswordScreen extends Component {
  render() {
    return (
           <View style={styles.container_Second_2}>
+         <Spinner visible={this.state.isLoading} size="large" color="white"/>
             <StatusBar backgroundColor="rgb(55,55,55)" barStyle="light-content"/>
              <View style={styles.halfHeight_Second_2}>
                <Button

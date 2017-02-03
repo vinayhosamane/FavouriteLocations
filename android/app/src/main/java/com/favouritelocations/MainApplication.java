@@ -34,7 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSharePackage(),
             new RNGeocoderPackage(),
             new RNAdMobPackage(),
-            new VectorIconsPackage(),
+            new VectorIconsPackage()
             new MapsPackage()
       );
     }

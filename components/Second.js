@@ -241,8 +241,10 @@ export default class Second extends React.Component{
                          zoomEnabled={true}
                          scrollEnabled={true}
                          showsScale={true}
-                         >
+                         >  
+                 
                 </MapView>
+               
              </View>
 
              <View style={styles.quarterHeight2_Second_2}>

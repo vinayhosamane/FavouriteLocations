@@ -27,18 +27,25 @@ export default class CreateAccountScreen extends Component{
           name: 'MaxTech Login-->',
           newUsername: '',
           newPassword: '',
+          confirmPassword: '',
+          isLoading: false,
       }
   }
 
   _handleLogoutPress(event) {
+     this.setState({isLoading: false});
       this.props.navigator.pop();
   }
 
   _handleCreateAccountButtonAction(event) {
-      this.setState({isLoading: false});
+      this.setState({isLoading: true});
       username = this.state.newUsername;
       password = this.state.newPassword;
-      firebase.auth().createUserWithEmailAndPassword(username, password).then((userData) => {
+      confirmPasswordText = this.state.confirmPassword;
+    
+    if(password == confirmPasswordText)
+      {
+         firebase.auth().createUserWithEmailAndPassword(username, password).then((userData) => {
             this.setState({isLoading: false});
             Alert.alert('Signup Alert', 'Your account created successfully.', [{text: 'OK', onPress: () => this.props.navigator.pop()}])
       }).catch((error) => {
@@ -47,6 +54,14 @@ export default class CreateAccountScreen extends Component{
             this.setState({isLoading: false});
             Alert.alert('Signup Error', errorMessage, [{text: 'OK', onPress: () => console.log('Enter valid password')}])
       });
+      }
+    
+    else
+      {
+        this.setState({isLoading: false});
+         Alert.alert('Signup Error', 'Texts in Password and Confirm-Password Fields are not same!', [{text: 'OK', onPress: () => console.log('Enter valid password in both the fields')}])
+      }
+     
   }
 
  _navigate(name, type='Normal') {
@@ -60,7 +75,7 @@ export default class CreateAccountScreen extends Component{
  render() {
    return (
           <View style={styles.container_Second_2}>
-
+       <Spinner visible={this.state.isLoading} size="large" color="white"/>
             <View style={styles.halfHeight_Second_2}>
               <Button style={{borderWidth: 0, borderColor: 'white',textAlign:'left',color:'white',marginLeft:10,position:'absolute',left:2,top:10}}
                       onPress={this._handleLogoutPress.bind(this)}>
@@ -114,7 +129,7 @@ export default class CreateAccountScreen extends Component{
                              secureTextEntry = {true}
                              clearButtonMode = 'while-editing'
                              onChangeText={(text) => {
-                                this.setState({newPassword:text});
+                                this.setState({confirmPassword:text});
                              }}
                    />
                    <Button style={{borderWidth: 0, borderColor: 'white'}}
@@ -126,7 +141,7 @@ export default class CreateAccountScreen extends Component{
              </View>
 
              <View style={styles.quarterHeight2_Second_2}>
-               <Spinner visible={this.state.isLoading} size="large" color="white"/>
+              
              </View>
 
               <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
