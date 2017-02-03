@@ -65,7 +65,8 @@ export default class Second extends React.Component{
           usr_placemark: '',
           position: {
               coords: {}
-          }
+          },
+          isLoading: false
       };
       console.disableYellowbox = true;
   }
@@ -96,9 +97,12 @@ export default class Second extends React.Component{
   }
 
   _handleLogoutPress(event) {
+    this.setState({isLoading: true});
     firebase.auth().signOut().then(function() {
+       this.setState({isLoading: false});
         console.log("successfully logged out");
     }, function(error) {
+       this.setState({isLoading: false});
         console.log(error);
     });
     this.props.navigator.pop();
@@ -113,7 +117,13 @@ export default class Second extends React.Component{
   _handleCaptureLocationAction(event) {
     var username = this.state.username;
     var password = this.state.password;
-    Alert.alert('Add My Location', 'Are you sure you want to add this to your Favourite locations list?.',
+    
+    var description_Text = this.state.usr_descrption;
+    var placemark_Text = this.state.usr_placemark;
+    
+    if(description_Text!='' || placemark_Text!='')
+      {
+         Alert.alert('Add My Location', 'Are you sure you want to add this to your Favourite locations list?.',
          [{text: 'No', onPress: () => console.log('Cancel Pressed!')},
           {text: 'Yes', onPress: () => {
             this.setState({isLoading: true});
@@ -142,11 +152,25 @@ export default class Second extends React.Component{
                           console.log("dbRef "+dbRef)
                           console.log('savedbRef '+ savedbRef)
                           this.setState({isLoading: false});
+                          
+                       this.refs.description.setNativeProps({text: ''});
+                       this.refs.placemark.setNativeProps({text: ''});
+               
+                       this.setState({usr_descrption:''});
+                       this.setState({usr_placemark:''});
                           Alert.alert('Alert', 'Your Location saved successfully.', [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
              })
            }
          }]
        )
+      }
+    
+    else
+      {
+        this.setState({isLoading: false});
+          Alert.alert('Alert', 'Please enter Description or Placemark for the location to improve accuracy.', [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
+      }
+   
   }
 
   componentWillMount()
@@ -188,6 +212,7 @@ export default class Second extends React.Component{
         const userData = firebase.auth().currentUser;
         var userid = userData.uid;
         newArray = [];
+         this.setState({isLoading: true});
         var itemsRef = firebase.database().ref('testing/'+userid);
         itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
               console.log(snapshot.val());

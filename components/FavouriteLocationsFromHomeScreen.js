@@ -16,6 +16,10 @@ import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons';
 import * as firebase from 'firebase';
 
+//import {RefresherListView,LoadingBarIndicator} from 'react-native-refresher';
+
+import Spinner from './Spinner.js';
+
 import Share from 'react-native-share';
 import First from './First.js';
 import AdMobManager from './AdMobManager';
@@ -34,9 +38,10 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
       });
       this.state = {
           name: 'MaxTech Login-->',
-          dataArray: [],
+          dataArray: this.props.name,
           visible: false,
-          dataSource: ds.cloneWithRows(this.props.name)
+          dataSource: ds.cloneWithRows(this.props.name),
+        isLoading: false
       };
   }
 
@@ -90,6 +95,37 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
    onMapClick() {
 
    }
+  
+   onRefresh() 
+   {
+    // You can either return a promise or a callback
+     
+     const userData = firebase.auth().currentUser;
+   var userid = userData.uid;
+   var newUpdatedArray = []
+   var itemsRef = firebase.database().ref('testing/'+userid);
+   itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
+         console.log(snapshot.val());
+         //this.setState({isLoading: false});
+ 
+         var data = snapshot.val()
+         newUpdatedArray.push(data)
+ 
+         console.log(data.Description);
+         console.log(data.latitude);
+         console.log(data.longitude);
+   }, (errorObject) => {
+         console.log("The read failed: " + errorObject.code);
+         //this.setState({isLoading: false});
+   });
+  
+     if(newUpdatedArray)
+       {
+           this.setState({dataSource:this.state.dataSource.cloneWithRows(newUpdatedArray)});
+         this.forceUpdate();
+     }
+  
+  }
 
  onDeleteClick(rowData) {
   console.log(rowData);
@@ -100,6 +136,7 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
             {text: 'No', onPress: () => console.log('Cancel Pressed!')},
             {text: 'Yes', onPress: () => {
                   console.log('OK Pressed!')
+                  this.setState({isLoading:true});
                   const userData = firebase.auth().currentUser;
                   var userid = userData.uid;
                   var itemsRef = firebase.database().ref('testing/'+userid);
@@ -114,22 +151,37 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
 
                                   if(snapshot.val().Description == rowData.Description && snapshot.val().Placemark == rowData.Placemark && snapshot.val().latitude == rowData.latitude && snapshot.val().longitude == rowData.longitude && snapshot.val().Address == rowData.Address) {
                                         snapshot.ref.remove();
+                                        newArray.pop(data);
                                         Alert.alert('Alert', 'Your Location deleted successfully.Now you can add new locations to your list.',
                                         [
                                           {text: 'OK', onPress: () => {
                                                console.log('OK Pressed!')
-                                               this.props.navigator.pop();
+                                                 this.setState({isLoading:false});
+                                           // this.setState({dataSource:this.state.dataSource.cloneWithRows(newArray)});
+//                                            this.setState({
+//                                                    dataSource: this.state.dataSource.cloneWithRows(this.props.name),
+//                                                     dataArray: this.props.name,
+//                                                 });
+                                                // this.forceUpdate();
+                                            //firebase.database().ref('testing').off();
+                                              // this.props.navigator.pop();
+                                            
+                                              this.onRefresh();
                                                return;
                                              }
                                            }
                                          ]
+                        
                                        )
                                   } else {
                                     index++;
                                   }
                                 }, (errorObject) => {
+                                      this.setState({isLoading:false});
                                       console.log("The read failed: " + errorObject.code);
                                 });
+                             
+                                 this.setState({isLoading:false});
                    }
                 }
            ]
@@ -139,6 +191,8 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
  onShareClick() {
 
  }
+  
+  
 
  renderRow = (rowData) => {
     return (
@@ -205,6 +259,7 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
  render() {
     return (
           <View style={styles.container_Second_2}>
+         <Spinner visible={this.state.isLoading} size="large" color="white"/>
             <StatusBar backgroundColor="rgb(55,55,55)" barStyle="light-content"/>
              <View style={styles.halfHeight_Second_2}>
                <Button style={styles.backButtonStyle}
