@@ -99,12 +99,19 @@ export default class Second extends React.Component{
 
   _handleLogoutPress(event) {
 
-    firebase.auth().signOut().then(function() {
-        console.log("successfully logged out");
-    }, function(error) {
-        console.log(error);
-    });
-    this.props.navigator.pop();
+     Alert.alert('Logout Alert', 'Are you sure you want to logout?',
+         [{text: 'No', onPress: () => console.log('Cancel Pressed!')},
+          {text: 'Yes', onPress: () => {
+             firebase.auth().signOut().then(function() {
+                    console.log("successfully logged out");
+                
+                }, function(error) {
+                 console.log(error);
+               });
+            this.props.navigator.pop();
+          }
+          }]);
+   
   }
 
   _handleFavouriteLocationsAction(event) {
@@ -158,7 +165,12 @@ export default class Second extends React.Component{
                        this.setState({usr_descrption:''});
                        this.setState({usr_placemark:''});
                           Alert.alert('Alert', 'Your Location saved successfully.', [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
-             })
+             }).catch((err) => 
+                      {
+               console.log(err);
+               this.setState(isLoading:false);
+                Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
+             });
            }
          }]
        )
@@ -276,7 +288,7 @@ export default class Second extends React.Component{
                          scrollEnabled={true}
                          showsScale={true}
                          >  
-
+            
                 </MapView>
                 <TouchableOpacity onPress={()=>{
                            //Share.open(shareOptions);
