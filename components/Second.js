@@ -42,6 +42,7 @@ var config = {
 const firebaseApp = firebase.initializeApp(config);
 const itemsRef = firebase.database();
 
+var count = 0;
   var newArray = [];
   var markers = [
  {
@@ -67,7 +68,8 @@ export default class Second extends React.Component{
           position: {
               coords: {}
           },
-          isLoading: false
+          isLoading: false,
+         numberOfLocations : 0,
       };
       console.disableYellowbox = true;
   }
@@ -193,10 +195,12 @@ export default class Second extends React.Component{
     itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
           console.log(snapshot.val());
           this.setState({isLoading: false});
-
+          var number = snapshot.numChildren();
           var data = snapshot.val()
           newArray.push(data)
-
+          this.setState({numberOfLocations: number});
+         count++; 
+      
           console.log(data.Description);
           console.log(data.latitude);
           console.log(data.longitude);
@@ -233,13 +237,17 @@ export default class Second extends React.Component{
         const userData = firebase.auth().currentUser;
         var userid = userData.uid;
         newArray = [];
+        count = 0;
          this.setState({isLoading: true});
         var itemsRef = firebase.database().ref('testing/'+userid);
         itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
               console.log(snapshot.val());
               this.setState({isLoading: false});
- 
+              var number = snapshot.numChildren();
               var data = snapshot.val()
+              this.setState({numberOfLocations:number});
+              count++;
+              console.log(number)
               newArray.push(data)
 
               console.log(data.Description);
@@ -283,7 +291,7 @@ export default class Second extends React.Component{
                          showsUserLocation={true}
                          followUserLocation={true}
                          mapType='standard'
-                         region={{latitude: this.state.position.coords.latitude, latitudeDelta: 0.009, longitude: this.state.position.coords.longitude, longitudeDelta: 0.009}}
+                         region={{latitude: this.state.position.coords.latitude, latitudeDelta: 0.010, longitude: this.state.position.coords.longitude, longitudeDelta: 0.009}}
                          zoomEnabled={true}
                          scrollEnabled={true}
                          showsScale={true}
@@ -344,11 +352,10 @@ export default class Second extends React.Component{
                 onPress={this._handleFavouriteLocationsAction.bind(this)}>
                           Favourite Locations
                 </Button>
-                <Button
-                style={{fontSize: 20}}
-                onPress={this._handleHowToUseAction.bind(this)}>
-                          About App
-                </Button>
+      
+               <Text style={styles.bullsWelcome}>
+               You have saved {count} Favourite Locations 
+               </Text>
               </View>
                 <View style={styles.adStyle}>
                   <AdMobManager  bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
@@ -395,5 +402,11 @@ const styles = StyleSheet.create({
         height: 30,
         marginRight: 50,
         alignItems: 'flex-end'
+    },
+  bullsWelcome: {
+        textAlign: 'center',
+        color: '#333333',
+        fontWeight: "bold",
+        marginBottom: 10
     },
 });

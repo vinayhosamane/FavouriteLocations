@@ -28,6 +28,15 @@ import Second from './Second.js';
 import ForgotPasswordScreen from './ForgotPasswordScreen.js'
 import CreateAccountScreen from './CreateAccountScreen.js';
 
+// var config = {
+//     apiKey: "AIzaSyAFT0VK-KEMRiaqzlP2m1qpFodP1DNqm-8",
+//     authDomain: "my-favourite-locations.firebaseapp.com",
+//     databaseURL: "https://my-favourite-locations.firebaseio.com",
+//     storageBucket: "my-favourite-locations.appspot.com",
+// };
+// const firebaseApp = firebase.initializeApp(config);
+// const itemsRef = firebase.database();
+
 export default class First extends React.Component{
   constructor(props) {
     super(props);
@@ -125,7 +134,7 @@ componentWillMount() {
 
          <View style={styles.quarterHeight1}>
            <Text style={styles.bullsWelcome}>
-             Welcome to React-Native Favourite Locations
+             Welcome to Favourite Locations 
            </Text>
            <TextInput ref="usr"
                     style={styles.usernameFieldStyle}

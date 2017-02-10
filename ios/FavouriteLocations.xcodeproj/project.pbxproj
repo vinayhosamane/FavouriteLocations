@@ -41,6 +41,7 @@
 		D40AD32B1DE75BA000E96E79 /* react.native.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D40AD32A1DE75BA000E96E79 /* react.native.jpg */; };
 		D40AD32D1DE75FB400E96E79 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = D40AD32C1DE75FB400E96E79 /* AppIcon.appiconset */; };
 		D472CD121E15131900016C80 /* places_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D472CD111E15131900016C80 /* places_icon.jpg */; };
+		D480A2BC1E4A02A7002B13AE /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = D480A2BB1E4A02A7002B13AE /* GoogleService-Info-2.plist */; };
 		D4BE89EB1D89949300EDD643 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE89EA1D89904100EDD643 /* libRNGeocoder.a */; };
 		D4BE8A191D8C210F00EDD643 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A171D8C20F800EDD643 /* libRNShare.a */; };
 		D4BE8A1B1D8C214300EDD643 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BE8A1A1D8C214300EDD643 /* Social.framework */; };
@@ -150,20 +151,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNShare;
 		};
-		D4EADB531D73479600397E1D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 13B07F961A680F5B00A75B9A;
-			remoteInfo = CalendarPicker2;
-		};
-		D4EADB551D73479600397E1D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 00E356EE1AD99517003FC87E;
-			remoteInfo = CalendarPicker2Tests;
-		};
 		D4EADB641D73479600397E1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B76DC4F1627A40E0A44A3D55 /* AirMaps.xcodeproj */;
@@ -232,11 +219,11 @@
 		B3820A7AB2874711A542208D /* RNShare.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		B76DC4F1627A40E0A44A3D55 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		C4260D68BB464579941EA2D5 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
-		C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CalendarPicker2.xcodeproj; path = "../node_modules/react-native-calendar-picker/ios/CalendarPicker2.xcodeproj"; sourceTree = "<group>"; };
 		D40AD3171DE7432700E96E79 /* react-native.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "react-native.png"; sourceTree = "<group>"; };
 		D40AD32A1DE75BA000E96E79 /* react.native.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = react.native.jpg; sourceTree = "<group>"; };
 		D40AD32C1DE75FB400E96E79 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
 		D472CD111E15131900016C80 /* places_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = places_icon.jpg; sourceTree = "<group>"; };
+		D480A2BB1E4A02A7002B13AE /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
 		D4BE89E51D89904100EDD643 /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
 		D4BE8A041D8C20F800EDD643 /* RNShare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		D4BE8A1A1D8C214300EDD643 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -425,6 +412,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D480A2BB1E4A02A7002B13AE /* GoogleService-Info-2.plist */,
 				D4BE89E51D89904100EDD643 /* RNGeocoder.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -436,7 +424,6 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */,
 				B76DC4F1627A40E0A44A3D55 /* AirMaps.xcodeproj */,
 				75D61BC6971B445BBB6CD269 /* RNVectorIcons.xcodeproj */,
 				3036A101AB1D4B489D361332 /* RNSpinkit.xcodeproj */,
@@ -517,15 +504,6 @@
 			isa = PBXGroup;
 			children = (
 				D4BE8A171D8C20F800EDD643 /* libRNShare.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D4EADB4F1D73479600397E1D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D4EADB541D73479600397E1D /* CalendarPicker2.app */,
-				D4EADB561D73479600397E1D /* CalendarPicker2Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -640,10 +618,6 @@
 				{
 					ProductGroup = D4EADB611D73479600397E1D /* Products */;
 					ProjectRef = B76DC4F1627A40E0A44A3D55 /* AirMaps.xcodeproj */;
-				},
-				{
-					ProductGroup = D4EADB4F1D73479600397E1D /* Products */;
-					ProjectRef = C877891C02AF4BF7BDB76490 /* CalendarPicker2.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -810,20 +784,6 @@
 			remoteRef = D4BE8A161D8C20F800EDD643 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D4EADB541D73479600397E1D /* CalendarPicker2.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = CalendarPicker2.app;
-			remoteRef = D4EADB531D73479600397E1D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D4EADB561D73479600397E1D /* CalendarPicker2Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CalendarPicker2Tests.xctest;
-			remoteRef = D4EADB551D73479600397E1D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D4EADB651D73479600397E1D /* libAirMaps.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -876,6 +836,7 @@
 				E96DA4D5A469476CB91367E6 /* Foundation.ttf in Resources */,
 				1777F914E4394BA8B947B961 /* Ionicons.ttf in Resources */,
 				B374B74BF4A24A7A9BA9DEC5 /* MaterialIcons.ttf in Resources */,
+				D480A2BC1E4A02A7002B13AE /* GoogleService-Info-2.plist in Resources */,
 				D4FEDD361D759635004629E9 /* main.jsbundle in Resources */,
 				C99C5B3E13004DA3842C5FE3 /* Octicons.ttf in Resources */,
 				D40AD32B1DE75BA000E96E79 /* react.native.jpg in Resources */,
