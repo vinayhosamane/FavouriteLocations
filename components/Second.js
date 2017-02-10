@@ -150,6 +150,7 @@ export default class Second extends React.Component{
                             console.log('I am inside callback');
                           });
                           var dbRef = firebase.database().ref('testing/')
+                          var tempCount = count;
                           var savedbRef = dbRef.child(userid).push({
                                                 Description : this.state.usr_descrption,
                                                 Placemark : this.state.usr_placemark,
@@ -159,6 +160,7 @@ export default class Second extends React.Component{
                                            })
                           console.log("dbRef "+dbRef)
                           console.log('savedbRef '+ savedbRef)
+                          count = tempCount +1;
                           this.setState({isLoading: false});
                           
                        this.refs.description.setNativeProps({text: ''});
@@ -190,6 +192,8 @@ export default class Second extends React.Component{
   {
     const userData = firebase.auth().currentUser;
     var userid = userData.uid;
+    
+    count = 0;
 
     var itemsRef = firebase.database().ref('testing/'+userid);
     itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
@@ -199,7 +203,7 @@ export default class Second extends React.Component{
           var data = snapshot.val()
           newArray.push(data)
           this.setState({numberOfLocations: number});
-         count++; 
+          count++; 
       
           console.log(data.Description);
           console.log(data.latitude);
@@ -256,6 +260,7 @@ export default class Second extends React.Component{
         }, (errorObject) => {
               console.log("The read failed: " + errorObject.code);
               this.setState({isLoading: false});
+           Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
              // Alert.alert('Alert!', 'Please wait untill the connection with your cloud databsase is made. Try Again!', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
         });
 
@@ -269,7 +274,7 @@ export default class Second extends React.Component{
           }
           else {
             this.setState({isLoading: false});
-              Alert.alert('Alert!', 'Please wait untill the connection with your cloud databsase is made. Try Again!', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
+              Alert.alert('Alert!', 'Seems like you dont have any saved location in database. Try Again!', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
           }
         } //eof if 'Favourite_Locations_Clicked'
    }
