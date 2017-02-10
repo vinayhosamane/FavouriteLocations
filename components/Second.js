@@ -173,7 +173,7 @@ export default class Second extends React.Component{
                       {
                console.log(err);
                this.setState(isLoading:false);
-                Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
+                //Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
              });
            }
          }]
@@ -194,7 +194,7 @@ export default class Second extends React.Component{
     var userid = userData.uid;
     
     count = 0;
-
+   
     var itemsRef = firebase.database().ref('testing/'+userid);
     itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
           console.log(snapshot.val());
@@ -203,7 +203,8 @@ export default class Second extends React.Component{
           var data = snapshot.val()
           newArray.push(data)
           this.setState({numberOfLocations: number});
-          count++; 
+         //SavedLocationCounter.count ++;
+         count++; 
       
           console.log(data.Description);
           console.log(data.latitude);
@@ -242,6 +243,7 @@ export default class Second extends React.Component{
         var userid = userData.uid;
         newArray = [];
         count = 0;
+       
          this.setState({isLoading: true});
         var itemsRef = firebase.database().ref('testing/'+userid);
         itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
@@ -251,6 +253,7 @@ export default class Second extends React.Component{
               var data = snapshot.val()
               this.setState({numberOfLocations:number});
               count++;
+         
               console.log(number)
               newArray.push(data)
 
@@ -301,7 +304,14 @@ export default class Second extends React.Component{
                          scrollEnabled={true}
                          showsScale={true}
                          >  
-            
+              {newArray.map(marker => (
+                   <MapView.Marker
+                  coordinate={{latitude:marker.latitude,
+                  longitude:marker.longitude}}
+                  title={marker.Description}
+                  description={marker.Address}
+                   />
+                ))}
                 </MapView>
                 <TouchableOpacity onPress={()=>{
                            //Share.open(shareOptions);
