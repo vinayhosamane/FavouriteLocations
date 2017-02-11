@@ -84,9 +84,10 @@ _navigate(name, type='Normal') {
           this.refs.usr.setNativeProps({text: ''});
           this.refs.psw.setNativeProps({text: ''});
           this.setState({username: '', password: ''});
+          var showWelcomeAlert = true;
           this.props.navigator.push({
               component: Second,
-              passProps: {name: name},
+              passProps: {name: name , showWelcome:showWelcomeAlert},
               type: type
           })
        }).catch((error)=> {

@@ -16,7 +16,8 @@ import {
   Image,
   Alert,
   StatusBar,
-  TouchableOpacity
+  TouchableOpacity,
+  NetInfo
 } from 'react-native';
 
 import Button from 'react-native-button';
@@ -60,6 +61,7 @@ function randomColor() {
 export default class Second extends React.Component{
   constructor(props) {
       super(props)
+      console.log(props);
       this.state = {
           name: 'MaxTech Login-->',
           MyAddress: 'Bangalore',
@@ -70,6 +72,7 @@ export default class Second extends React.Component{
           },
           isLoading: false,
          numberOfLocations : 0,
+        isConnected : null,
       };
       console.disableYellowbox = true;
   }
@@ -97,8 +100,32 @@ export default class Second extends React.Component{
    navigator.geolocation.watchPosition((position) => {
        this.setState({position});
     });
+    
+    if(this.props.showWelcome)
+      {
+         Alert.alert('Welcome', '*This app needs internet connection to store your location in cloud database.\n*This app is built using React-Native.\n*Thank you for using the app,for any suggestions please feel free to drop a mail at vinayhosamane07@gmail.com', [{text: 'Thank you and Pleasure having you.', onPress: () => console.log('OK Pressed!')}])
+      }
   }
-
+  
+   handleConnectivityChange(change) {
+   this.setState({isConnected:change});
+    console.log("I have changed!" + change)
+    
+    if(change == false)
+      {
+        this.setState({isLoading:false});
+           Alert.alert('No Interet Alert!', 'No internet connection , please check your network.', [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
+      }
+   }
+  
+  componentWillUnmount()
+  {
+     NetInfo.isConnected.removeEventListener(
+      'change',
+      this.handleConnectivityChange.bind(this)
+    );
+  }
+  
   _handleLogoutPress(event) {
 
      Alert.alert('Logout Alert', 'Are you sure you want to logout?',
@@ -110,6 +137,7 @@ export default class Second extends React.Component{
                 }, function(error) {
                  console.log(error);
                });
+            newArray = [];
             this.props.navigator.pop();
           }
           }]);
@@ -131,7 +159,8 @@ export default class Second extends React.Component{
     
     if(description_Text!='' || placemark_Text!='')
       {
-         Alert.alert('Add My Location', 'Are you sure you want to add this to your Favourite locations list?.',
+        
+       Alert.alert('Add My Location', 'Are you sure you want to add this to your Favourite locations list?.',
          [{text: 'No', onPress: () => console.log('Cancel Pressed!')},
           {text: 'Yes', onPress: () => {
             this.setState({isLoading: true});
@@ -173,11 +202,12 @@ export default class Second extends React.Component{
                       {
                console.log(err);
                this.setState(isLoading:false);
-                //Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
+                Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
              });
            }
          }]
        )
+         
       }
     
     else
@@ -204,7 +234,7 @@ export default class Second extends React.Component{
           newArray.push(data)
           this.setState({numberOfLocations: number});
          //SavedLocationCounter.count ++;
-         count++; 
+         ++count; 
       
           console.log(data.Description);
           console.log(data.latitude);
@@ -213,6 +243,14 @@ export default class Second extends React.Component{
           console.log("The read failed: " + errorObject.code);
           this.setState({isLoading: false});
     });
+    
+    NetInfo.isConnected.addEventListener('change', this.handleConnectivityChange.bind(this))
+    NetInfo.isConnected.fetch().done((data) => {
+      console.log(this.state.isConnected);
+      this.setState({
+        isConnected: data
+      })
+    })
   }
 
   _handleHowToUseAction(event) {
@@ -252,7 +290,7 @@ export default class Second extends React.Component{
               var number = snapshot.numChildren();
               var data = snapshot.val()
               this.setState({numberOfLocations:number});
-              count++;
+              ++count;
          
               console.log(number)
               newArray.push(data)
@@ -263,7 +301,7 @@ export default class Second extends React.Component{
         }, (errorObject) => {
               console.log("The read failed: " + errorObject.code);
               this.setState({isLoading: false});
-           Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
+           //Alert.alert('Alert', err, [{text: 'Thank you', onPress: () => console.log('OK Pressed!')}])
              // Alert.alert('Alert!', 'Please wait untill the connection with your cloud databsase is made. Try Again!', [{text: 'Thank you!', onPress: () => console.log('OK Pressed!')}])
         });
 
