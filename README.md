@@ -28,3 +28,14 @@
     "reactfire": "^1.0.0"
   }
   }
+
+##Portrait
+
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/Login.PNG)
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/ForgotPassword.PNG)
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/CreateAccount.PNG)
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/MapScreen.PNG)
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/ListScreen.PNG)
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/CaptureLocation.PNG)
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/DeleteLocation.PNG)
+![Demo](https://github.com/vinayhosamane/FavouriteLocations/blob/master/Screenshots/ShareLocation.PNG)
