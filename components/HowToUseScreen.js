@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 
 import First from './First.js';
-import AdMobManager from './AdMobManager';
+//import AdMobManager from './AdMobManager';
 import Button from 'react-native-button';
-var bannerSize="smartBannerPortrait"
-var testDeviceID="EMULATOR"
-var adUnitID="ca-app-pub-3940256099942544/2934735716"
+// var bannerSize="smartBannerPortrait"
+// var testDeviceID="EMULATOR"
+// var adUnitID="ca-app-pub-3940256099942544/2934735716"
 
 export default class HowToUseScreen extends Component {
   constructor(props) {
@@ -82,7 +82,7 @@ _navigate(name, type = 'Normal') {
                      </ScrollView>
              </View>
         
-             <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
+             
           </View>
         );
     }

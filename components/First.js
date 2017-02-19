@@ -20,8 +20,18 @@ import DismissKeyBoard from 'react-native-dismiss-keyboard'
 
 import AdMobManager from './AdMobManager';
 var bannerSize="smartBannerPortrait"
-var testDeviceID="EMULATOR"
-var adUnitID="ca-app-pub-3940256099942544/2934735716"
+
+
+if(__DEV__)
+  {
+    var testDeviceID="EMULATOR"
+var adUnitID="ca-app-pub-6988619974528181/2050848152"
+  }
+else
+  {
+    var testDeviceID=""
+var adUnitID="ca-app-pub-6988619974528181/2050848152"
+}
 
 import * as firebase from 'firebase';
 import Second from './Second.js';
@@ -210,7 +220,8 @@ const styles = StyleSheet.create({
     quarterHeight3: {
         flex: 0.09,
         justifyContent: 'flex-end',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+       backgroundColor: '#fffaf0'
     },
     backgroundImageToolBar: {
         flex: 1,

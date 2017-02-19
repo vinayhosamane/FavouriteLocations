@@ -19,8 +19,17 @@ import Spinner from './Spinner.js';
 
 import AdMobManager from './AdMobManager';
 var bannerSize="smartBannerPortrait"
-var testDeviceID="EMULATOR"
-var adUnitID="ca-app-pub-3940256099942544/2934735716"
+
+if(__DEV__)
+  {
+    var testDeviceID="EMULATOR"
+var adUnitID="ca-app-pub-6988619974528181/2050848152"
+  }
+else
+  {
+    var testDeviceID=""
+var adUnitID="ca-app-pub-6988619974528181/2050848152"
+}
 
 export default class ForgotPasswordScreen extends Component {
 
@@ -122,11 +131,7 @@ export default class ForgotPasswordScreen extends Component {
 
              </View>
              <View style={styles.quarterHeight2_Second_2}>
-              <AdMobManager
-                 bannerSize = {bannerSize}
-                 testDeviceID = {testDeviceID}
-                 adUnitID = {adUnitID}
-               />
+               <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
                <Spinner visible={this.state.isLoading} size="large" color="red"/>
               </View>
           </View>

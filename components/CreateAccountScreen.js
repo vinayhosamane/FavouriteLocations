@@ -15,8 +15,17 @@ import First from './First.js';
 import Spinner from './Spinner.js';
 import AdMobManager from './AdMobManager';
 var bannerSize="smartBannerPortrait"
-var testDeviceID="EMULATOR"
-var adUnitID="ca-app-pub-3940256099942544/2934735716"
+
+if(__DEV__)
+  {
+    var testDeviceID="EMULATOR"
+var adUnitID="ca-app-pub-6988619974528181/2050848152"
+  }
+else
+  {
+    var testDeviceID=""
+var adUnitID="ca-app-pub-6988619974528181/2050848152"
+}
 
 export default class CreateAccountScreen extends Component{
 
@@ -144,7 +153,7 @@ export default class CreateAccountScreen extends Component{
               
              </View>
 
-              <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
+               <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
         </View>
       );
     }
@@ -172,6 +181,6 @@ const styles = StyleSheet.create({
       quarterHeight2_Second_2: {
           flex: .41,
           alignItems: 'center',
-          backgroundColor: '#CCC',
+         backgroundColor: '#fffaf0'
       }
 });

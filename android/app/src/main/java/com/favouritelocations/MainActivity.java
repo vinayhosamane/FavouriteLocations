@@ -1,6 +1,7 @@
 package com.favouritelocations;
 
 import com.facebook.react.ReactActivity;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 
 public class MainActivity extends ReactActivity {
