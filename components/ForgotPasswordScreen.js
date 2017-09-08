@@ -131,7 +131,7 @@ export default class ForgotPasswordScreen extends Component {
 
              </View>
              <View style={styles.quarterHeight2_Second_2}>
-               <AdMobManager bannerSize = {bannerSize} testDeviceID = {testDeviceID} adUnitID = {adUnitID}/>
+               
                <Spinner visible={this.state.isLoading} size="large" color="red"/>
               </View>
           </View>

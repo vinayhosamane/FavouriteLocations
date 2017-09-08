@@ -9,11 +9,12 @@ import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.sbugert.rnadmob.RNAdMobPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-//import com.airbnb.android.react.maps.MapsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,8 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSharePackage(),
             new RNGeocoderPackage(),
             new RNAdMobPackage(),
-            new VectorIconsPackage()
-           // new MapsPackage()
+            new VectorIconsPackage(),
+            new MapsPackage()
       );
     }
   };

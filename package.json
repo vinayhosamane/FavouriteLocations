@@ -10,6 +10,7 @@
     "react": "15.2.1",
     "react-native": "0.31.0",
     "react-native-admob": "^1.1.5",
+    "react-native-app-store-review": "0.0.3",
     "react-native-button": "^1.7.1",
     "react-native-dismiss-keyboard": "^1.0.0",
     "react-native-geocoder": "^0.4.5",

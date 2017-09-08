@@ -45,7 +45,8 @@ import CreateAccountScreen from './CreateAccountScreen.js';
 //     storageBucket: "my-favourite-locations.appspot.com",
 // };
 // const firebaseApp = firebase.initializeApp(config);
-// const itemsRef = firebase.database();
+//  const itemsRef = firebase.database();
+//import itemsRef from './firebase.js';
 
 export default class First extends React.Component{
   constructor(props) {

@@ -69,29 +69,6 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
   this.setState({dataSource: this.state.dataSource.cloneWithRows(this.props.name)});
  }
 
- // componentWillMount()
- // {
- //   const userData = firebase.auth().currentUser;
- //   var userid = userData.uid;
- //   var newArray = []
- //   var itemsRef = firebase.database().ref('testing/'+userid);
- //   itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
- //         console.log(snapshot.val());
- //         //this.setState({isLoading: false});
- //
- //         var data = snapshot.val()
- //         newArray.push(data)
- //
- //         console.log(data.Description);
- //         console.log(data.latitude);
- //         console.log(data.longitude);
- //   }, (errorObject) => {
- //         console.log("The read failed: " + errorObject.code);
- //         //this.setState({isLoading: false});
- //   });
- //
- // }
-
   onCancel() {
      this.setState({visible:false});
    }
@@ -103,11 +80,11 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
    onMapClick() {
 
    }
-  
-   onRefresh() 
+
+   onRefresh()
    {
     // You can either return a promise or a callback
-     
+
      const userData = firebase.auth().currentUser;
    var userid = userData.uid;
    var newUpdatedArray = []
@@ -115,10 +92,10 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
    itemsRef.orderByChild(userid).on("child_added", (snapshot) => {
          console.log(snapshot.val());
          //this.setState({isLoading: false});
- 
+
          var data = snapshot.val()
          newUpdatedArray.push(data)
- 
+
          console.log(data.Description);
          console.log(data.latitude);
          console.log(data.longitude);
@@ -126,13 +103,13 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
          console.log("The read failed: " + errorObject.code);
          //this.setState({isLoading: false});
    });
-  
+
      if(newUpdatedArray)
        {
            this.setState({dataSource:this.state.dataSource.cloneWithRows(newUpdatedArray)});
          this.forceUpdate();
      }
-  
+
   }
 
  onDeleteClick(rowData) {
@@ -165,21 +142,13 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
                                           {text: 'OK', onPress: () => {
                                                console.log('OK Pressed!')
                                                  this.setState({isLoading:false});
-                                           // this.setState({dataSource:this.state.dataSource.cloneWithRows(newArray)});
-//                                            this.setState({
-//                                                    dataSource: this.state.dataSource.cloneWithRows(this.props.name),
-//                                                     dataArray: this.props.name,
-//                                                 });
-                                                // this.forceUpdate();
-                                            //firebase.database().ref('testing').off();
-                                              // this.props.navigator.pop();
-                                            
+
                                               this.onRefresh();
                                                return;
                                              }
                                            }
                                          ]
-                        
+
                                        )
                                   } else {
                                     index++;
@@ -188,7 +157,7 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
                                       this.setState({isLoading:false});
                                       console.log("The read failed: " + errorObject.code);
                                 });
-                             
+
                                  this.setState({isLoading:false});
                    }
                 }
@@ -199,8 +168,8 @@ export default class FavouriteLocationsFromHomeScreen extends Component {
  onShareClick() {
 
  }
-  
-  
+
+
 
  renderRow = (rowData) => {
     return (
