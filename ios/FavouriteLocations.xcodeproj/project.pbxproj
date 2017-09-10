@@ -616,6 +616,8 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = MNXM2Q46S4;
+						ProvisioningStyle = Manual;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -1030,7 +1032,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 82AD2509D26CF450E96564F7 /* Pods-FavouriteLocations-FavouriteLocationsTests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
+				DEVELOPMENT_TEAM = MNXM2Q46S4;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1050,6 +1054,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FavouriteLocations.app/FavouriteLocations";
 			};
 			name = Debug;
@@ -1058,8 +1064,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B0B795C8B6445E14C928A528 /* Pods-FavouriteLocations-FavouriteLocationsTests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = MNXM2Q46S4;
 				INFOPLIST_FILE = FavouriteLocationsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1075,6 +1083,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FavouriteLocations.app/FavouriteLocations";
 			};
 			name = Release;
@@ -1087,6 +1097,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = MNXM2Q46S4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1115,7 +1126,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.happycoders.FavouriteLocations;
 				PRODUCT_NAME = FavouriteLocations;
 				PROVISIONING_PROFILE = "d16c6caa-898b-4ff5-b573-da3102b9a7de";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = FavouriteLocations;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1128,6 +1139,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = MNXM2Q46S4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1156,7 +1168,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.happycoders.FavouriteLocations;
 				PRODUCT_NAME = FavouriteLocations;
 				PROVISIONING_PROFILE = "d16c6caa-898b-4ff5-b573-da3102b9a7de";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = FavouriteLocations;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1181,6 +1193,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = MNXM2Q46S4;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1238,6 +1251,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: vinay hosamane (MNXM2Q46S4)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = MNXM2Q46S4;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

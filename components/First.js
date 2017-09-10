@@ -17,6 +17,7 @@ import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons';
 import Spinner from './Spinner.js';
 import DismissKeyBoard from 'react-native-dismiss-keyboard'
+import fetchNotes from "../AsyncManager/AsyncManager.js";
 
 import AdMobManager from './AdMobManager';
 var bannerSize="smartBannerPortrait"
@@ -86,12 +87,22 @@ _navigate(name, type='Normal') {
   var password = this.state.password;
   var status = false;
 
+
   if(name == 'Login_Screen_Clicked') {
       // if(username!='' && password!='') {
         this.setState({isLoading: true});
         var user = firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).then((userData) => {
           this.setState({loggedIn: true});
-          this.setState({isLoading:false})
+          this.setState({isLoading:false});
+
+          fetchNotes.createNote({key:"userEmail",value:this.state.username},function(response){
+            console.log("added the userEmail for persistant Login");
+          });
+
+          fetchNotes.createNote({key:"userPassword",value:this.state.password},function(response){
+            console.log("added the userPassword for persistant Login");
+          });
+
           this.refs.usr.setNativeProps({text: ''});
           this.refs.psw.setNativeProps({text: ''});
           this.setState({username: '', password: ''});
@@ -146,7 +157,7 @@ componentWillMount() {
 
          <View style={styles.quarterHeight1}>
            <Text style={styles.bullsWelcome}>
-             Welcome to Favourite Locations 
+             Welcome to Favourite Locations
            </Text>
            <TextInput ref="usr"
                     style={styles.usernameFieldStyle}
